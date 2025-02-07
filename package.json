@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "npx eslint .",
     "lint:style": "npx stylelint src/**/*.scss",
     "preview": "vite preview",
-    "type-check": "npx tsc --noEmit"
+    "type-check": "npx tsc --noEmit",
+    "format:check": "npx prettier src/**/*.{js,jsx,ts,tsx} --check",
+    "format": "npx prettier src/**/*.{js,jsx,ts,tsx} --write"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
