@@ -1,0 +1,9 @@
+{
+  "plugins": ["stylelint-scss", "stylelint-selector-bem-pattern"],
+  "extends": ["stylelint-config-recommended-scss"],
+  "rules": {
+    "plugin/selector-bem-pattern": {
+      "preset": "bem"
+    }
+  }
+}
