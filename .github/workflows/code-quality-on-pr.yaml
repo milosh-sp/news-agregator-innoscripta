@@ -1,0 +1,45 @@
+name: Code Quality Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    name: Lint, Typecheck & Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm' # Caches npm cache directory
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: ESLint (Linting)
+        run: npm run lint
+
+      - name: Type Check
+        run: npm run type-check
+
+      - name: Prettier (Formatting)
+        run: npm run format:check
