@@ -105,8 +105,6 @@ export class AggregatorService implements IAggregatorService {
         {} as AggregatedArticles
       )
 
-      console.log(aggregatedArticles)
-
       return aggregatedArticles
     } catch (error) {
       console.error('Error fetching articles:', error)
