@@ -1,16 +1,10 @@
-import { NewsService } from './NewsService.interface'
+import { IAggregatorService } from './interfaces/AggregatorService.interface'
 import { endpoints } from './endpoints'
-import { GetParams, HttpClient } from './http-interface.interface'
+import { GetParams, HttpClient } from './interfaces/HttpInterface'
 
-/**
- * Provides a unified interface for fetching articles from multiple sources
- */
-export class AggregatorService implements NewsService {
+export class AggregatorService implements IAggregatorService {
   constructor(private httpClient: HttpClient) {}
 
-  /**
-   * Fetches articles from a source with given query params
-   */
   async getArticlesFromSource<T>({ url, config }: GetParams) {
     try {
       const data = await this.httpClient.get<T>({
@@ -24,8 +18,9 @@ export class AggregatorService implements NewsService {
     }
   }
 
-  //FIXME: Add T
-  async getArticlesFromSources(sources: Array<GetParams>) {
+  async getArticlesFromSources<T>(
+    sources: Array<GetParams>
+  ): Promise<PromiseSettledResult<T | unknown>[]> {
     try {
       const articles = await Promise.allSettled(
         sources.map(({ url, config }) =>
@@ -39,11 +34,8 @@ export class AggregatorService implements NewsService {
     }
   }
 
-  //TODO: Need to make params for the following TODO: Take in unified query
-  //sources, categories, and authors.8 to search for articles by keyword and
-  //filter the results by date, category, and source.8
   async getArticlesFromAllSources() {
-    // Pass each param from the method, to it's own config
+    //TODO: Pass each param from the method, to it's own config
     return this.getArticlesFromSources([
       {
         url: endpoints.newsOrg,

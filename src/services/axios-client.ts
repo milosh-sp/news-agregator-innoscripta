@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { HttpClient, RequestConfig } from './http-interface.interface'
+import { HttpClient, RequestConfig } from './interfaces/HttpInterface'
 
 export class AxiosHttpClient implements HttpClient {
   async get<T = unknown>({
