@@ -46,26 +46,32 @@ export class AggregatorService implements IAggregatorService {
     searchWord,
     date,
   }: Omit<ArticleQuery, 'apiKey'>) {
-    const request = Object.entries(endpoints).map(([key, value]) => {
-      const unifiedParams = unifyQuery({
-        category,
-        author,
-        searchWord,
-        date,
-        apiKey: value?.apiKey,
-      })?.[key as keyof UnifiedQuery]
+    try {
+      const request = Object.entries(endpoints).map(([key, value]) => {
+        const unifiedParams = unifyQuery({
+          category,
+          author,
+          searchWord,
+          date,
+          apiKey: value?.apiKey,
+        })?.[key as keyof UnifiedQuery]
 
-      return {
-        url: value?.url,
-        config: {
-          params: unifiedParams,
-        },
-      }
-    })
+        return {
+          url: value?.url,
+          config: {
+            params: unifiedParams,
+          },
+        }
+      })
 
-    const articles = await this.getArticlesFromSources(request)
+      //TODO: sort by publish date
+      const articles = await this.getArticlesFromSources(request)
 
-    //FIXME: Not a good way to do this
-    return articles as unknown as AggregatedArticles
+      //FIXME: Not a good way to do this
+      return articles as unknown as AggregatedArticles
+    } catch (error) {
+      console.error('Error fetching articles:', error)
+      return {} as AggregatedArticles
+    }
   }
 }
