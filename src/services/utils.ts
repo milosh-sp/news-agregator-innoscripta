@@ -11,8 +11,7 @@ import {
   NewsOrgQuery,
   NyTimesQuery,
 } from './types/Query.types'
-
-//TODO: Add error handling
+import { SearchResult } from './types/Utils'
 
 /**
  * Filters out undefined values and returns a new object
@@ -36,6 +35,7 @@ const filterAndAssign = <T extends Record<string, unknown>>(
 
 /**
  * Creates a specific query param used for the `NewsOrg` API
+ * https://newsapi.org/docs
  */
 function queryToNewsOrgParams({
   author,
@@ -54,7 +54,8 @@ function queryToNewsOrgParams({
     }
 
     const paramsMap = {
-      q: searchWord,
+      //FIXME: This might not be okay to do, study the API better
+      q: searchWord ?? category ?? author,
       section: category,
       'from-date': date,
       'q=author': author,
@@ -69,6 +70,7 @@ function queryToNewsOrgParams({
 
 /**
  * Creates a specific query param used for the `TheGuardian` API
+ * https://open-platform.theguardian.com/documentation/
  */
 function queryToGuardianParams({
   author,
@@ -101,6 +103,7 @@ function queryToGuardianParams({
 }
 /**
  * Creates a specific query param used for the `NyTimes` API
+ * https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get
  */
 function queryToNyTimesParams({
   author,
@@ -169,16 +172,13 @@ function unifyQuery({
   }
 }
 
-interface SearchResult<T> {
-  found: boolean
-  value?: T
-  path?: string[]
-}
-
 function findDeepValue<T>(obj: unknown, key: string): SearchResult<T> {
   const MAX_DEPTH = 10
 
-  function search(currentObj: unknown, currentPath: string[]): SearchResult<T> {
+  function search(
+    currentObj: unknown,
+    currentPath: Array<string>
+  ): SearchResult<T> {
     if (currentPath.length > MAX_DEPTH) {
       return { found: false }
     }

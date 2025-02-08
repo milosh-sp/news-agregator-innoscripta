@@ -6,7 +6,7 @@ function App() {
     <button
       onClick={() => {
         aggregatorService.getArticlesFromAllSources({
-          searchWord: 'bitcoin',
+          searchWord: 'bitcoin finance',
         })
       }}
     >
