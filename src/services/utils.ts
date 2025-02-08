@@ -1,12 +1,17 @@
-import { UnifiedQuery } from './models/AggregatedArticles.model'
+import {
+  AggregatedArticle,
+  UnifiedQuery,
+} from './models/AggregatedArticles.model'
+import { NewsOrgArticle } from './models/NewsOrg.model'
+import { NyTimesArticle } from './models/NyTimes.model'
+import { GuardianArticle } from './models/TheGuardian.model'
 import {
   ArticleQuery,
   GuardianQuery,
   NewsOrgQuery,
   NyTimesQuery,
 } from './types/Query.types'
-
-//TODO: Add error handling
+import { SearchResult } from './types/Utils'
 
 /**
  * Filters out undefined values and returns a new object
@@ -30,6 +35,7 @@ const filterAndAssign = <T extends Record<string, unknown>>(
 
 /**
  * Creates a specific query param used for the `NewsOrg` API
+ * https://newsapi.org/docs
  */
 function queryToNewsOrgParams({
   author,
@@ -48,7 +54,8 @@ function queryToNewsOrgParams({
     }
 
     const paramsMap = {
-      q: searchWord,
+      //FIXME: This might not be okay to do, study the API better
+      q: searchWord ?? category ?? author,
       section: category,
       'from-date': date,
       'q=author': author,
@@ -63,6 +70,7 @@ function queryToNewsOrgParams({
 
 /**
  * Creates a specific query param used for the `TheGuardian` API
+ * https://open-platform.theguardian.com/documentation/
  */
 function queryToGuardianParams({
   author,
@@ -95,6 +103,7 @@ function queryToGuardianParams({
 }
 /**
  * Creates a specific query param used for the `NyTimes` API
+ * https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get
  */
 function queryToNyTimesParams({
   author,
@@ -163,4 +172,135 @@ function unifyQuery({
   }
 }
 
-export { unifyQuery }
+/**
+ * Returns the value of a deeply nested object, the max depth is 10, preset in
+ * the function itself
+ *
+ * @note It only takes in a key, not a path. Does not handle nesting, returns
+ * the first ever found value to the first key
+ */
+function findDeepValue<T>(obj: unknown, key: string): SearchResult<T> {
+  const MAX_DEPTH = 10
+
+  function search(
+    currentObj: unknown,
+    currentPath: Array<string>
+  ): SearchResult<T> {
+    if (currentPath.length > MAX_DEPTH) {
+      return { found: false }
+    }
+
+    if (currentObj === null || typeof currentObj !== 'object') {
+      return { found: false }
+    }
+
+    const typedObj = currentObj as Record<string, unknown>
+
+    if (key in typedObj && typedObj[key] !== undefined) {
+      return {
+        found: true,
+        value: typedObj[key] as T,
+        path: [...currentPath, key],
+      }
+    }
+
+    for (const k in typedObj) {
+      if (typeof typedObj[k] === 'object' && typedObj[k] !== null) {
+        const result = search(typedObj[k], [...currentPath, k])
+        if (result.found) {
+          return result
+        }
+      }
+    }
+
+    return { found: false }
+  }
+
+  return search(obj, [])
+}
+
+/**
+ * Returns a nested value for a passed in object and the path
+ */
+function getNestedValue<T>(obj: T, path: string): unknown {
+  // First check for direct property access (including keys with dots)
+  if (Object.prototype.hasOwnProperty.call(obj, path)) {
+    return (obj as Record<string, unknown>)[path]
+  }
+
+  // Then try nested access
+  return path.split('.').reduce(
+    (
+      acc: Record<string, unknown> | undefined,
+      part: string
+    ): Record<string, unknown> | undefined => {
+      if (acc === undefined || acc === null) {
+        return undefined
+      }
+      return acc[part] as Record<string, unknown> | undefined
+    },
+    obj as Record<string, unknown>
+  )
+}
+
+/**
+ * Unifies objects by mapping fields from one object to another and returns a
+ * new object with unified properties using the passed in `fieldMap`
+ */
+function unifyObjects<T>(
+  objects: Array<T>,
+  fieldMap: Record<keyof T, Array<string>>
+): T[] {
+  return objects.map((sourceObj) => {
+    const unified = {} as Record<keyof T, unknown>
+
+    ;(Object.entries(fieldMap) as [keyof T, Array<string>][]).forEach(
+      ([targetKey, sourceKeys]) => {
+        let value: unknown
+
+        // Check source keys in priority order
+        for (const sourceKey of sourceKeys) {
+          value = getNestedValue(sourceObj, sourceKey)
+          if (value !== undefined) break
+        }
+
+        unified[targetKey] = value
+      }
+    )
+
+    return unified as T
+  })
+}
+
+/**
+ * Takes in an array of multiple articles from different sources and maps them
+ * to a single object with the same keys
+ */
+function processArticlesAndAggregate(
+  arrayOfArticles: Array<NyTimesArticle | GuardianArticle | NewsOrgArticle>
+) {
+  //TODO: Might want to put this as a config
+  const propertyMap = {
+    id: ['id', '_id', 'source.id'],
+    title: ['title', 'webTitle', 'headline.main'],
+    description: ['abstract', 'lead_paragraph'],
+    url: ['webUrl', 'web_url', 'url'],
+    imageUrl: ['urlToImage'],
+    publishedAt: ['publishedAt', 'webPublicationDate', 'pub_date'],
+    category: ['sectionId', 'section_name'],
+    author: ['author', 'byline.original'],
+    content: ['content'],
+    source: ['source.name', 'source'],
+  }
+
+  const unified = unifyObjects(arrayOfArticles, propertyMap)
+
+  return [...unified] as unknown as Array<AggregatedArticle>
+}
+
+export {
+  unifyQuery,
+  findDeepValue,
+  processArticlesAndAggregate,
+  getNestedValue,
+}

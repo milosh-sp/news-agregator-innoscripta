@@ -39,6 +39,8 @@ interface ArticlesResponse {
 }
 
 interface NyTimesArticle {
+  _id: string
+  abstract: string
   web_url: string
   snippet: string
   lead_paragraph: string
@@ -55,9 +57,19 @@ interface NyTimesArticle {
   keywords: Array<Keyword>
 }
 
+type NyTimesResponse = {
+  copyright: string
+  response: {
+    docs: Array<NyTimesArticle>
+    meta: { hits: number; offset: number; time: number }
+  }
+  status: string
+}
+
 export type {
   ArticlesResponse,
   NyTimesArticle,
+  NyTimesResponse,
   Multimedia,
   Headline,
   Byline,

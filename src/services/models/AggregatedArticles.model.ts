@@ -10,6 +10,7 @@ interface AggregatedArticle {
 }
 
 interface AggregatedArticles {
+  [key: string]: Array<AggregatedArticle>
   nyTimes: Array<AggregatedArticle>
   newsOrg: Array<AggregatedArticle>
   guardian: Array<AggregatedArticle>
