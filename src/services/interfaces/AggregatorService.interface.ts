@@ -23,7 +23,9 @@ export abstract class IAggregatorService {
   ): Promise<PromiseSettledResult<T | unknown>[]>
 
   /**
-   * Use all the queries to fetch articles from all sources
+   * Maps query params to each source and fetches articles from all sources,
+   * using `Promise.allSettled`, the response is an JSON with a key for each
+   * source, with array of flat JSON articles
    */
   abstract getArticlesFromAllSources({
     category,

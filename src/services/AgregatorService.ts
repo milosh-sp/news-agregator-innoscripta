@@ -105,9 +105,13 @@ export class AggregatorService implements IAggregatorService {
         {} as AggregatedArticles
       )
 
+      console.log(aggregatedArticles)
+
       return aggregatedArticles
     } catch (error) {
       console.error('Error fetching articles:', error)
+      //TODO: This might not be such a good idea to do, because if this
+      // function fails, it will return an empty object which cannot be accessed
       return {} as AggregatedArticles
     }
   }

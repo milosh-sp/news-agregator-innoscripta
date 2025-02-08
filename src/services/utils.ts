@@ -212,44 +212,82 @@ function findDeepValue<T>(obj: unknown, key: string): SearchResult<T> {
   return search(obj, [])
 }
 
+/**
+ * Returns a nested value for a passed in object
+ */
+function getNestedValue<T>(obj: T, path: string): unknown {
+  // First check for direct property access (including keys with dots)
+  if (Object.prototype.hasOwnProperty.call(obj, path)) {
+    return (obj as Record<string, unknown>)[path]
+  }
+
+  // Then try nested access
+  return path.split('.').reduce(
+    (
+      acc: Record<string, unknown> | undefined,
+      part: string
+    ): Record<string, unknown> | undefined => {
+      if (acc === undefined || acc === null) {
+        return undefined
+      }
+      return acc[part] as Record<string, unknown> | undefined
+    },
+    obj as Record<string, unknown>
+  )
+}
+/**
+ * Unifies objects by mapping fields from one object to another and returns a
+ * new object with unified properties using the passed in `fieldMap`
+ */
+function unifyObjects<T>(
+  objects: Array<T>,
+  fieldMap: Record<keyof T, Array<string>>
+): T[] {
+  return objects.map((sourceObj) => {
+    const unified = {} as Record<keyof T, unknown>
+
+    ;(Object.entries(fieldMap) as [keyof T, Array<string>][]).forEach(
+      ([targetKey, sourceKeys]) => {
+        let value: unknown
+
+        // Check source keys in priority order
+        for (const sourceKey of sourceKeys) {
+          value = getNestedValue(sourceObj, sourceKey)
+          if (value !== undefined) break
+        }
+
+        unified[targetKey] = value
+      }
+    )
+
+    return unified as T
+  })
+}
+
+/**
+ * Takes in an array of multiple articles from different sources and
+ * maps them to a single object with the same keys
+ */
 function processArticlesAndAggregate(
   arrayOfArticles: Array<NyTimesArticle | GuardianArticle | NewsOrgArticle>
 ) {
-  const mapKey = {
-    id: ['id', '_id'],
+  //TODO: Might want to put this as a config
+  const propertyMap = {
+    id: ['id', '_id', 'source.id'],
     title: ['title', 'webTitle', 'headline.main'],
     description: ['abstract', 'lead_paragraph'],
-    url: ['webUrl', 'web_url'],
-    imageUrl: ['urlToImage', 'multimedia.url'],
+    url: ['webUrl', 'web_url', 'url'],
+    imageUrl: ['urlToImage'],
     publishedAt: ['publishedAt', 'webPublicationDate', 'pub_date'],
     category: ['sectionId', 'section_name'],
-    author: ['author', 'original'],
+    author: ['author', 'byline.original'],
+    content: ['content'],
+    source: ['source.name', 'source'],
   }
 
-  let responseNewValue = {} as AggregatedArticle
-  let arrayPer: Array<AggregatedArticle> = []
+  const unified = unifyObjects(arrayOfArticles, propertyMap)
 
-  // Take each response value which is an array of articles and map the
-  // articles
-  arrayOfArticles.forEach((article) => {
-    // use the map key to find the json keys and values
-    Object.entries(mapKey).forEach(([key, rawArticleKeys]) => {
-      // construct if there if a value for that field a nice article
-      rawArticleKeys.forEach((articleKey) => {
-        const foundValue = findDeepValue(article, articleKey).value
-        if (foundValue) {
-          responseNewValue = {
-            ...responseNewValue,
-            [key]: foundValue,
-          }
-
-          arrayPer = [...arrayPer, responseNewValue]
-        }
-      })
-    })
-  })
-
-  return [...arrayPer]
+  return [...unified] as unknown as Array<AggregatedArticle>
 }
 
 export { unifyQuery, findDeepValue, processArticlesAndAggregate }
