@@ -1,12 +1,15 @@
-import { IAggregatorService } from './interfaces/AggregatorService.interface'
 import { endpoints } from './endpoints'
+import { IAggregatorService } from './interfaces/AggregatorService.interface'
 import { GetParams, HttpClient } from './interfaces/HttpInterface'
 import {
   AggregatedArticles,
   UnifiedQuery,
 } from './models/AggregatedArticles.model'
+import { NewsOrgArticle, NewsOrgResponse } from './models/NewsOrg.model'
+import { NyTimesArticle, NyTimesResponse } from './models/NyTimes.model'
+import { GuardianArticle, GuardianResponse } from './models/TheGuardian.model'
 import { ArticleQuery } from './types/Query.types'
-import { unifyQuery } from './utils'
+import { findDeepValue, processArticlesAndAggregate, unifyQuery } from './utils'
 
 export class AggregatorService implements IAggregatorService {
   constructor(private httpClient: HttpClient) {}
@@ -47,7 +50,9 @@ export class AggregatorService implements IAggregatorService {
     date,
   }: Omit<ArticleQuery, 'apiKey'>) {
     try {
-      const request = Object.entries(endpoints).map(([key, value]) => {
+      const endpointEntries = Object.entries(endpoints)
+
+      const requests = endpointEntries.map(([key, value]) => {
         const unifiedParams = unifyQuery({
           category,
           author,
@@ -57,18 +62,50 @@ export class AggregatorService implements IAggregatorService {
         })?.[key as keyof UnifiedQuery]
 
         return {
+          key,
           url: value?.url,
           config: {
             params: unifiedParams,
           },
+          responseKey: value?.responseKey,
         }
       })
 
-      //TODO: sort by publish date
-      const articles = await this.getArticlesFromSources(request)
+      const responses = (await Promise.allSettled(
+        requests.map(({ url, config }) =>
+          this.getArticlesFromSource({ url, config })
+        )
+      )) as Array<
+        PromiseSettledResult<
+          NewsOrgResponse | GuardianResponse | NyTimesResponse
+        >
+      >
 
-      //FIXME: Not a good way to do this
-      return articles as unknown as AggregatedArticles
+      // Process the response
+      const aggregatedArticles = requests.reduce(
+        (acc, { key, responseKey }, index) => {
+          const response = responses[index]
+
+          if (response.status === 'fulfilled') {
+            // Find the JSON keys that match the responseKey, which is tge actual
+            // articles
+            const arrayOfArticles = findDeepValue(response.value, responseKey)
+              .value as Array<NyTimesArticle | GuardianArticle | NewsOrgArticle>
+
+            if (!arrayOfArticles) {
+              return {} as AggregatedArticles
+            }
+
+            // Processed article data is assigned
+            acc[key] = processArticlesAndAggregate(arrayOfArticles)
+          }
+
+          return acc
+        },
+        {} as AggregatedArticles
+      )
+
+      return aggregatedArticles
     } catch (error) {
       console.error('Error fetching articles:', error)
       return {} as AggregatedArticles
