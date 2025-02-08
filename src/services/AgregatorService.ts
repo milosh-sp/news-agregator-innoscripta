@@ -65,8 +65,7 @@ export class AggregatorService implements IAggregatorService {
 
     const articles = await this.getArticlesFromSources(request)
 
-    console.log(articles)
-
-    return {} as unknown as AggregatedArticles
+    //FIXME: Not a good way to do this
+    return articles as unknown as AggregatedArticles
   }
 }
