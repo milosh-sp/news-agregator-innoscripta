@@ -1,32 +1,4 @@
-interface ArticlesResponse {
-  status: string
-  copyright: string
-  responseTime: number
-  numResults: number
-  articles: Article[]
-}
-
-interface Article {
-  '@context': string
-  '@type': string
-  web_url: string
-  snippet: string
-  lead_paragraph: string
-  pub_date: string
-  document_type: string
-  news_desk: string
-  section_name: string
-  subsection_name: string
-  geo_facet: string
-  multimedia: Multimedia[]
-  headline: Headline
-  byline: Byline[]
-  source: string
-  keywords: Keyword[]
-}
-
 interface Multimedia {
-  '@type': string
   url: string
   format: string
   height: number
@@ -37,7 +9,6 @@ interface Multimedia {
 }
 
 interface Headline {
-  '@type': string
   main: string
   print_headline: string
   name: string
@@ -46,26 +17,47 @@ interface Headline {
 }
 
 interface Byline {
-  '@type': string
   original: string
   organization: string
   person: Person
 }
 
 interface Person {
-  '@type': string
   name: string
 }
 
 interface Keyword {
-  '@type': string
   name: string
   rank: number
+}
+interface ArticlesResponse {
+  status: string
+  copyright: string
+  responseTime: number
+  numResults: number
+  articles: Array<NyTimesArticle>
+}
+
+interface NyTimesArticle {
+  web_url: string
+  snippet: string
+  lead_paragraph: string
+  pub_date: string
+  document_type: string
+  news_desk: string
+  section_name: string
+  subsection_name: string
+  geo_facet: string
+  multimedia: Array<Multimedia>
+  headline: Headline
+  byline: Array<Byline>
+  source: string
+  keywords: Array<Keyword>
 }
 
 export type {
   ArticlesResponse,
-  Article,
+  NyTimesArticle,
   Multimedia,
   Headline,
   Byline,

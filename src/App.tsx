@@ -1,7 +1,18 @@
 import './style/_normalize.scss'
+import { aggregatorService } from './services/services'
 
 function App() {
-  return <>Empty app</>
+  return (
+    <button
+      onClick={() => {
+        aggregatorService.getArticlesFromAllSources({
+          searchWord: 'bitcoin',
+        })
+      }}
+    >
+      test
+    </button>
+  )
 }
 
 export default App

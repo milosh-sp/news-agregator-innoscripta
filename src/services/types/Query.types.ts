@@ -3,27 +3,29 @@
  * params to each API source
  */
 type ArticleQuery = {
-  category: string
-  author: string
-  searchWord: string
-  date: string
+  category?: string
+  author?: string
+  searchWord?: string
+  date?: string
+  apiKey: string
 }
 
 type NewsOrgQuery = {
-  q: string
-
-  section: string
-  'from-date': string
-  'to-date': string
-
-  'q=author': string
+  q?: string
+  section?: string
+  'from-date'?: string
+  'to-date'?: string
+  'q=author'?: string
+  apiKey: string
 }
+
 type GuardianQuery = {
-  section: string
-  reference: `author/${string}`
-  q: string
-  from: string
-  to: string
+  section?: string
+  reference?: `author/${string}`
+  q?: string
+  from?: string
+  to?: string
+  'api-key': string
 }
 
 type NyTimesFacetFields =
@@ -49,6 +51,7 @@ type NyTimesQuery = {
   page?: number
   q?: string
   sort?: 'newest' | 'oldest' | 'relevance'
+  'api-key': string
 }
 
 export type { ArticleQuery, NewsOrgQuery, GuardianQuery, NyTimesQuery }

@@ -1,3 +1,4 @@
+import { AggregatedArticles } from '../models/AggregatedArticles.model'
 import { ArticleQuery } from '../types/Query.types'
 import { GetParams } from './HttpInterface'
 
@@ -29,5 +30,5 @@ export abstract class IAggregatorService {
     author,
     searchWord,
     date,
-  }: ArticleQuery): Promise<Array<unknown>>
+  }: ArticleQuery): Promise<AggregatedArticles>
 }

@@ -1,6 +1,12 @@
 import { IAggregatorService } from './interfaces/AggregatorService.interface'
 import { endpoints } from './endpoints'
 import { GetParams, HttpClient } from './interfaces/HttpInterface'
+import {
+  AggregatedArticles,
+  UnifiedQuery,
+} from './models/AggregatedArticles.model'
+import { ArticleQuery } from './types/Query.types'
+import { unifyQuery } from './utils'
 
 export class AggregatorService implements IAggregatorService {
   constructor(private httpClient: HttpClient) {}
@@ -34,27 +40,33 @@ export class AggregatorService implements IAggregatorService {
     }
   }
 
-  async getArticlesFromAllSources() {
-    //TODO: Pass each param from the method, to it's own config
-    return this.getArticlesFromSources([
-      {
-        url: endpoints.newsOrg,
+  async getArticlesFromAllSources({
+    category,
+    author,
+    searchWord,
+    date,
+  }: Omit<ArticleQuery, 'apiKey'>) {
+    const request = Object.entries(endpoints).map(([key, value]) => {
+      const unifiedParams = unifyQuery({
+        category,
+        author,
+        searchWord,
+        date,
+        apiKey: value?.apiKey,
+      })?.[key as keyof UnifiedQuery]
+
+      return {
+        url: value?.url,
         config: {
-          params: {
-            //TODO: Use env
-            apiKey: 'KEY',
-          },
+          params: unifiedParams,
         },
-      },
-      {
-        url: endpoints.guardian,
-        config: {
-          params: {
-            //TODO: Use env
-            'api-key': 'KEY',
-          },
-        },
-      },
-    ])
+      }
+    })
+
+    const articles = await this.getArticlesFromSources(request)
+
+    console.log(articles)
+
+    return {} as unknown as AggregatedArticles
   }
 }
