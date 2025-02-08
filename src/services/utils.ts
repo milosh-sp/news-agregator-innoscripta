@@ -172,6 +172,13 @@ function unifyQuery({
   }
 }
 
+/**
+ * Returns the value of a deeply nested object, the max depth is 10, preset in
+ * the function itself
+ *
+ * @note It only takes in a key, not a path. Does not handle nesting, returns
+ * the first ever found value to the first key
+ */
 function findDeepValue<T>(obj: unknown, key: string): SearchResult<T> {
   const MAX_DEPTH = 10
 
@@ -213,7 +220,7 @@ function findDeepValue<T>(obj: unknown, key: string): SearchResult<T> {
 }
 
 /**
- * Returns a nested value for a passed in object
+ * Returns a nested value for a passed in object and the path
  */
 function getNestedValue<T>(obj: T, path: string): unknown {
   // First check for direct property access (including keys with dots)
@@ -235,6 +242,7 @@ function getNestedValue<T>(obj: T, path: string): unknown {
     obj as Record<string, unknown>
   )
 }
+
 /**
  * Unifies objects by mapping fields from one object to another and returns a
  * new object with unified properties using the passed in `fieldMap`
@@ -265,8 +273,8 @@ function unifyObjects<T>(
 }
 
 /**
- * Takes in an array of multiple articles from different sources and
- * maps them to a single object with the same keys
+ * Takes in an array of multiple articles from different sources and maps them
+ * to a single object with the same keys
  */
 function processArticlesAndAggregate(
   arrayOfArticles: Array<NyTimesArticle | GuardianArticle | NewsOrgArticle>
@@ -290,4 +298,9 @@ function processArticlesAndAggregate(
   return [...unified] as unknown as Array<AggregatedArticle>
 }
 
-export { unifyQuery, findDeepValue, processArticlesAndAggregate }
+export {
+  unifyQuery,
+  findDeepValue,
+  processArticlesAndAggregate,
+  getNestedValue,
+}
