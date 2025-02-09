@@ -1,6 +1,7 @@
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
+import { SearchInput } from './common/components/SearchInput'
 
 function App() {
   const {
@@ -17,20 +18,20 @@ function App() {
   return (
     <main>
       <button
-        onClick={() => {
-          setQuery({
-            searchWord: 'AI in medicine',
-          })
-        }}
-      >
-        test
-      </button>
-
-      <button
         onClick={() => filterArticlesBy({ key: 'category', value: 'health' })}
       >
         FILTER BY
       </button>
+
+      <SearchInput
+        placeholder="todays"
+        debounceDelay={2_000}
+        onChange={(value) => {
+          if (value.target.value) {
+            setQuery({ searchWord: value.target.value })
+          }
+        }}
+      />
 
       <button onClick={() => filterArticlesBy()}>Reset filter</button>
 
