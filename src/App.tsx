@@ -1,5 +1,6 @@
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
+import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
 
 function App() {
   const {
@@ -10,6 +11,8 @@ function App() {
     setQuery,
     filterArticlesBy,
   } = useNewsArticles()
+
+  const { preference, setPersonalPreference } = usePersonalFeed()
 
   return (
     <main>
@@ -30,6 +33,40 @@ function App() {
       </button>
 
       <button onClick={() => filterArticlesBy()}>Reset filter</button>
+
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            prefKey: 'categories',
+            prefValue: 'anime',
+            action: 'add',
+          })
+        }
+      >
+        Add health author
+      </button>
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            prefKey: 'categories',
+            prefValue: 'anime',
+            action: 'remove',
+          })
+        }
+      >
+        Remove health author
+      </button>
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            action: 'reset',
+          })
+        }
+      >
+        Reset health author
+      </button>
+
+      <section>User prefs:{JSON.stringify(preference, null, 2)}</section>
 
       <div>
         found categories:

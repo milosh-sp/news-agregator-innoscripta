@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { newsArticlesReducer } from '../features/newsArticles/newsArticlesSlice'
+import { personalFeedReducer } from '../features/personalFeed/personalFeedSlice'
 
 export const store = configureStore({
   reducer: {
     newsArticles: newsArticlesReducer,
+    personalFeed: personalFeedReducer,
   },
 })
 

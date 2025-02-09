@@ -28,9 +28,9 @@ const initialState = {
   error: unknown
   query: Omit<ArticleQuery, 'apiKey'>
   articlesMetaFilters: {
-    category: Array<keyof AggregatedArticle>
-    source: Array<keyof AggregatedArticle>
-    author: Array<keyof AggregatedArticle>
+    category: Array<string>
+    source: Array<string>
+    author: Array<string>
   }
 }
 
@@ -99,4 +99,5 @@ const newsArticlesSlice = createSlice({
 
 const newsArticlesReducer = newsArticlesSlice.reducer
 const { filterBy } = newsArticlesSlice.actions
+
 export { articleFetchData, filterBy, newsArticlesReducer }
