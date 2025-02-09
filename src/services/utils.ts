@@ -16,10 +16,10 @@ import { SearchResult } from './types/Utils'
 /**
  * Filters out undefined values and returns a new object
  */
-const filterAndAssign = <T extends Record<string, unknown>>(
+function filterAndAssign<T extends Record<string, unknown>>(
   obj: T,
   entries: Iterable<[string, unknown]>
-): T => {
+): T {
   if (!entries || !obj) {
     console.warn('No entries or object provided, returning empty object')
     return {} as T
@@ -140,6 +140,10 @@ function queryToNyTimesParams({
   }
 }
 
+/**
+ * Unifies a generic query params and creates an object that has a property for
+ * each API, and the property is an object params modified to fit each news API
+ */
 function unifyQuery({
   author,
   category,

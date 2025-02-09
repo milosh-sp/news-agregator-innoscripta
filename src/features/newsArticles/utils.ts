@@ -23,6 +23,9 @@ function normalizeDataFromApi<T>(data: T) {
   }, [])
 }
 
+/**
+ * Extracts values from passed in keys
+ */
 function extractMetaFilters({
   elements,
   keys,
@@ -36,7 +39,7 @@ function extractMetaFilters({
     keys.forEach((key) => {
       const value = article[key]?.toLowerCase()
 
-      if (value !== undefined && value !== null) {
+      if (value) {
         metaFilters = {
           ...metaFilters,
           [key]: Array.from(new Set([...(metaFilters?.[key] ?? []), value])),
