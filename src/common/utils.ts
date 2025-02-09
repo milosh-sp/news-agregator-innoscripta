@@ -54,14 +54,23 @@ class LocalStorage {
 
 /**
  * Loads preferences from `localStorage` if found otherwise returns passed in
- * argument
+ * argument, if no default value is passed in empty object is returned
  */
 function loadUserPreferences<T>(defaultValue: T) {
-  if (LocalStorage.getItem(CONSTS.personalFeedKey)) {
-    return LocalStorage.getItem(CONSTS.personalFeedKey) as T
-  }
+  try {
+    if (!defaultValue) {
+      throw new TypeError('Required param not provided, needs default value')
+    }
 
-  return defaultValue
+    if (LocalStorage.getItem(CONSTS.personalFeedKey)) {
+      return LocalStorage.getItem(CONSTS.personalFeedKey) as T
+    }
+
+    return defaultValue
+  } catch (error) {
+    console.error(error)
+    return {}
+  }
 }
 
 export { loadUserPreferences }
