@@ -8,6 +8,8 @@ interface AggregatedArticle {
   imageUrl: string | null
   publishedAt: string
   author: string
+  category: string
+  source: string
 }
 
 interface AggregatedArticles {

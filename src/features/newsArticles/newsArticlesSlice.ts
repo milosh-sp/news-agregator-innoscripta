@@ -40,10 +40,15 @@ const newsArticlesSlice = createSlice({
             throw new Error(
               'Fatal error, did not get any payload from services'
             )
-
-          state.articles = normalizeDataFromApi(
+          const normalizedData = normalizeDataFromApi(
             action.payload
           ) as unknown as Array<AggregatedArticle>
+
+          state.articles = normalizedData.sort(
+            (a, b) =>
+              new Date(b.publishedAt).getTime() -
+              new Date(a.publishedAt).getTime()
+          )
 
           state.status = 'succeeded'
         } catch (error) {
