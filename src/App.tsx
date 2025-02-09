@@ -71,20 +71,20 @@ function App() {
 
       <div>
         found categories:
-        {articleMetaFilters?.category.map((cat) => ` ${cat} *`)}
+        {articleMetaFilters?.category?.map((cat) => ` ${cat} *`)}
       </div>
 
       <br />
 
       <div>
         found authors:
-        {articleMetaFilters?.author.map((cat) => ` ${cat} *`)}
+        {articleMetaFilters?.author?.map((cat) => ` ${cat} *`)}
       </div>
 
       <br />
       <div>
         found sources:
-        {articleMetaFilters?.source.map((cat) => ` ${cat} *`)}
+        {articleMetaFilters?.source?.map((cat) => ` ${cat} *`)}
       </div>
 
       <h1>{error ? 'Error occurred' : ''}</h1>

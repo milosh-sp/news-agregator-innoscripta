@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, Ref, forwardRef } from 'react'
+import { Label } from './Label'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -11,10 +12,7 @@ function InputComponent(
 ) {
   return (
     <div>
-      <label htmlFor={id}>
-        {label}
-        {props.required && label && <span aria-hidden="true">*</span>}
-      </label>
+      <Label label={label} required={props.required} id={id} />
 
       <input
         {...props}
