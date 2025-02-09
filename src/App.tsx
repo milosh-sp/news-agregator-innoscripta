@@ -2,7 +2,14 @@ import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
 
 function App() {
-  const { articles, error, isLoading, setQuery } = useNewsArticles()
+  const {
+    articles,
+    error,
+    isLoading,
+    articleMetaFilters,
+    setQuery,
+    filterArticlesBy,
+  } = useNewsArticles()
 
   return (
     <main>
@@ -15,6 +22,32 @@ function App() {
       >
         test
       </button>
+
+      <button
+        onClick={() => filterArticlesBy({ key: 'category', value: 'health' })}
+      >
+        FILTER BY
+      </button>
+
+      <button onClick={() => filterArticlesBy()}>Reset filter</button>
+
+      <div>
+        found categories:
+        {articleMetaFilters?.category.map((cat) => ` ${cat} *`)}
+      </div>
+
+      <br />
+
+      <div>
+        found authors:
+        {articleMetaFilters?.author.map((cat) => ` ${cat} *`)}
+      </div>
+
+      <br />
+      <div>
+        found sources:
+        {articleMetaFilters?.source.map((cat) => ` ${cat} *`)}
+      </div>
 
       <h1>{error ? 'Error occurred' : ''}</h1>
 
