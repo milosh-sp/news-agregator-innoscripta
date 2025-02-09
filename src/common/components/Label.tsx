@@ -1,9 +1,4 @@
-import { LabelHTMLAttributes } from 'react'
-
-interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  label?: string
-  required?: boolean
-}
+import { LabelProps } from '../types/Label.type'
 
 function Label({ label, required, id, ...props }: LabelProps) {
   return (

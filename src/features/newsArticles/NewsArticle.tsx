@@ -1,4 +1,5 @@
-import { Card, CardBaseProps } from '../../common/components/Card'
+import { Card } from '../../common/components/Card'
+import { CardBaseProps } from '../../common/types/Card.type'
 
 interface ArticleCardProps extends CardBaseProps {
   title: string

@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { useDebounce } from '../hooks/useDebounce'
-import { Input, InputProps } from './Input' // Adjust import path
-
-interface SearchInputProps extends InputProps {
-  debounceDelay?: number
-  initialValue?: string
-}
+import { Input } from './Input'
+import { SearchInputProps } from '../types/SearchInput.type'
 
 /**
  * Debounced search input, the default delay is 500ms

@@ -1,12 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react'
-
-export interface CardBaseProps extends HTMLAttributes<HTMLElement> {
-  children: ReactNode
-  header?: ReactNode
-  footer?: ReactNode
-  headerClassName?: string
-  footerClassName?: string
-}
+import { CardBaseProps } from '../types/Card.type'
 
 /**
  * Base card component used in other cards, can be used as standalone component
