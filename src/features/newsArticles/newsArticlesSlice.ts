@@ -1,13 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { articleFetchData } from './newsArticleThunks'
-import { ArticleQuery } from '../../services/types/Query.types'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
-import { normalizeDataFromApi } from './utils'
+import { ArticleQuery } from '../../services/types/Query.types'
+import { filterByCategoryOrSource } from './newsArticlesReducers'
+import { articleFetchData } from './newsArticleThunks'
+import { extractMetaFilters, normalizeDataFromApi } from './utils'
 
 const initialState = {
   status: 'idle',
   articles: [],
+  initialArticles: [],
   error: null,
+  articlesMetaFilters: {
+    category: [],
+    source: [],
+    author: [],
+  },
   query: {
     category: '',
     author: '',
@@ -17,8 +24,14 @@ const initialState = {
 } as {
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   articles: Array<AggregatedArticle>
+  initialArticles: Array<AggregatedArticle>
   error: unknown
   query: Omit<ArticleQuery, 'apiKey'>
+  articlesMetaFilters: {
+    category: Array<string>
+    source: Array<string>
+    author: Array<string>
+  }
 }
 
 /**
@@ -28,7 +41,20 @@ const initialState = {
 const newsArticlesSlice = createSlice({
   name: 'newsArticles',
   initialState,
-  reducers: {},
+  reducers: {
+    filterBy: (
+      state,
+      action: { payload: { key?: 'category' | 'source'; value?: string } }
+    ) => {
+      if (!action.payload.value || !action.payload.key) {
+        state.articles = state.initialArticles
+        return
+      }
+
+      state.articles = filterByCategoryOrSource(state.articles, action.payload)
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(articleFetchData.pending, (state) => {
@@ -44,11 +70,18 @@ const newsArticlesSlice = createSlice({
             action.payload
           ) as unknown as Array<AggregatedArticle>
 
-          state.articles = normalizedData.sort(
+          state.initialArticles = state.articles = normalizedData.sort(
             (a, b) =>
               new Date(b.publishedAt).getTime() -
               new Date(a.publishedAt).getTime()
           )
+
+          state.articlesMetaFilters = extractMetaFilters({
+            elements: normalizedData,
+            keys: Object.keys(initialState.articlesMetaFilters) as Array<
+              keyof AggregatedArticle
+            >,
+          }) as typeof state.articlesMetaFilters
 
           state.status = 'succeeded'
         } catch (error) {
@@ -65,4 +98,6 @@ const newsArticlesSlice = createSlice({
 })
 
 const newsArticlesReducer = newsArticlesSlice.reducer
-export { newsArticlesReducer, articleFetchData }
+const { filterBy } = newsArticlesSlice.actions
+
+export { articleFetchData, filterBy, newsArticlesReducer }

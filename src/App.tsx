@@ -1,8 +1,18 @@
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
+import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
 
 function App() {
-  const { articles, error, isLoading, setQuery } = useNewsArticles()
+  const {
+    articles,
+    error,
+    isLoading,
+    articleMetaFilters,
+    setQuery,
+    filterArticlesBy,
+  } = useNewsArticles()
+
+  const { preference, setPersonalPreference } = usePersonalFeed()
 
   return (
     <main>
@@ -15,6 +25,66 @@ function App() {
       >
         test
       </button>
+
+      <button
+        onClick={() => filterArticlesBy({ key: 'category', value: 'health' })}
+      >
+        FILTER BY
+      </button>
+
+      <button onClick={() => filterArticlesBy()}>Reset filter</button>
+
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            prefKey: 'categories',
+            prefValue: 'business',
+            action: 'add',
+          })
+        }
+      >
+        ADD BUSINESS PREFERENCE
+      </button>
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            prefKey: 'categories',
+            prefValue: 'business',
+            action: 'remove',
+          })
+        }
+      >
+        REMOVE BUSINESS PREFERENCE
+      </button>
+      <button
+        onClick={() =>
+          setPersonalPreference({
+            action: 'reset',
+          })
+        }
+      >
+        RESET PREFERENCES
+      </button>
+
+      <section>User prefs:{JSON.stringify(preference, null, 2)}</section>
+
+      <div>
+        found categories:
+        {articleMetaFilters?.category.map((cat) => ` ${cat} *`)}
+      </div>
+
+      <br />
+
+      <div>
+        found authors:
+        {articleMetaFilters?.author.map((cat) => ` ${cat} *`)}
+      </div>
+
+      <br />
+      <div>
+        found sources:
+        {articleMetaFilters?.source.map((cat) => ` ${cat} *`)}
+      </div>
 
       <h1>{error ? 'Error occurred' : ''}</h1>
 
