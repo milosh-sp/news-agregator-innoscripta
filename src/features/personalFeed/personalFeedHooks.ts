@@ -30,8 +30,8 @@ export function usePersonalFeed() {
     if (prefKey && prefValue) {
       dispatch(
         action === 'remove'
-          ? removePreference({ prefKey, prefValue })
-          : setPreference({ prefKey, prefValue })
+          ? removePreference({ prefKey, prefValue: prefValue.toLowerCase() })
+          : setPreference({ prefKey, prefValue: prefValue.toLowerCase() })
       )
       return
     }

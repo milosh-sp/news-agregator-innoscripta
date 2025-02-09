@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Preference, PrefKeys } from './types/PersonalFeed.types'
+import { loadUserPreferences, LocalStorage } from '../../common/utils'
+import { CONSTS } from '../../common/consts'
 
 const MAX_PREFERENCE_ENTRIES = 20
 
@@ -8,12 +10,14 @@ type Payload = {
   prefValue: string
 }
 
+const initialPreferences: Preference = {
+  categories: [],
+  authors: [],
+  sources: [],
+}
+
 const initialState = {
-  preference: {
-    categories: [],
-    authors: [],
-    sources: [],
-  },
+  preference: loadUserPreferences(initialPreferences),
 } as {
   preference: Preference
 }
@@ -45,6 +49,9 @@ const personalFeedSlice = createSlice({
             ...preference,
             action.payload.prefValue,
           ]
+
+          // persist the updated state
+          LocalStorage.setItem(CONSTS.personalFeedKey, state.preference)
         }
       }
     },
@@ -55,10 +62,14 @@ const personalFeedSlice = createSlice({
         state.preference[action.payload.prefKey] = prefArray.filter(
           (item) => item !== action.payload.prefValue
         )
+        // update local storage
+        LocalStorage.setItem(CONSTS.personalFeedKey, state.preference)
       }
     },
     resetPresences: (state) => {
-      state.preference = initialState.preference
+      // set to empty initial references
+      state.preference = initialPreferences
+      LocalStorage.removeItem(CONSTS.personalFeedKey)
     },
   },
 })

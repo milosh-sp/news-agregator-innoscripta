@@ -38,23 +38,23 @@ function App() {
         onClick={() =>
           setPersonalPreference({
             prefKey: 'categories',
-            prefValue: 'anime',
+            prefValue: 'business',
             action: 'add',
           })
         }
       >
-        Add health author
+        ADD BUSINESS PREFERENCE
       </button>
       <button
         onClick={() =>
           setPersonalPreference({
             prefKey: 'categories',
-            prefValue: 'anime',
+            prefValue: 'business',
             action: 'remove',
           })
         }
       >
-        Remove health author
+        REMOVE BUSINESS PREFERENCE
       </button>
       <button
         onClick={() =>
@@ -63,7 +63,7 @@ function App() {
           })
         }
       >
-        Reset health author
+        RESET PREFERENCES
       </button>
 
       <section>User prefs:{JSON.stringify(preference, null, 2)}</section>
