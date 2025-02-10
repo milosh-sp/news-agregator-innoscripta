@@ -4,8 +4,9 @@ import { DebouncedInput } from './common/components/DebouncedInput'
 import { SearchableDropdown } from './common/components/SearchableDropdown'
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
-import NewsArticles from './features/newsArticles/NewsArticles'
+import { NewsArticles } from './features/newsArticles/NewsArticles'
 import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
+import { MultiselectDropdown } from './common/components/MultiselectDropdown'
 
 function App() {
   const {
@@ -18,9 +19,11 @@ function App() {
   } = useNewsArticles()
 
   const [date, setDate] = useState<Date | null>(null)
+  const [items, setItems] = useState([])
 
   const { preference, setPersonalPreference } = usePersonalFeed()
 
+  console.log(items)
   return (
     <main>
       <button
@@ -52,6 +55,24 @@ function App() {
         onChange={setDate}
         minYear={2000}
         maxYear={2030}
+      />
+      <MultiselectDropdown
+        options={[
+          {
+            value: '1',
+            label: '1',
+          },
+          {
+            value: '2',
+            label: '2',
+          },
+          {
+            value: '3',
+            label: '3',
+          },
+        ]}
+        onSelect={(item) => setItems(item)}
+        selectedValues={items}
       />
       <button onClick={() => filterArticlesBy()}>Reset filter</button>
       <button

@@ -1,10 +1,7 @@
 import { List } from '../../common/components/List'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { NewsArticle } from './NewsArticle'
-
-type NewsArticlesProps = {
-  articles: Array<AggregatedArticle>
-}
+import { NewsArticlesProps } from './types/NewsArticles.type'
 
 function NewsArticles({ articles }: NewsArticlesProps) {
   return (
@@ -12,12 +9,13 @@ function NewsArticles({ articles }: NewsArticlesProps) {
       <List
         id="news-articles"
         items={articles}
-        renderItem={(item: AggregatedArticle) => {
-          return <NewsArticle {...item} />
+        renderItem={(item) => {
+          const article = item as AggregatedArticle
+          return <NewsArticle {...article} />
         }}
       />
     </section>
   )
 }
 
-export default NewsArticles
+export { NewsArticles }

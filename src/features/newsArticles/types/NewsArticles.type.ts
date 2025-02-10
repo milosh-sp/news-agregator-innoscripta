@@ -1,4 +1,5 @@
 import { CardBaseProps } from '../../../common/types/Card.type'
+import { AggregatedArticle } from '../../../services/models/AggregatedArticles.model'
 
 interface NewsArticleProps extends CardBaseProps {
   title?: string
@@ -13,4 +14,8 @@ interface NewsArticleProps extends CardBaseProps {
 
 type NewsArticles = Array<NewsArticleProps>
 
-export type { NewsArticleProps, NewsArticles }
+type NewsArticlesProps = {
+  articles: Array<AggregatedArticle>
+}
+
+export type { NewsArticleProps, NewsArticles, NewsArticlesProps }

@@ -1,4 +1,4 @@
-type DateDropdownProps = {
+interface DateDropdownProps {
   value: Date | null
   onChange?: (date: Date | null) => void
   minYear?: number
