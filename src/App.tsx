@@ -1,7 +1,8 @@
+import { DebouncedInput } from './common/components/DebouncedInput'
+import { SearchableDropdown } from './common/components/Dropdown'
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
-import { SearchInput } from './common/components/SearchInput'
 
 function App() {
   const {
@@ -23,13 +24,24 @@ function App() {
         FILTER BY
       </button>
 
-      <SearchInput
+      <DebouncedInput
         placeholder="todays"
         debounceDelay={2_000}
         onChange={(value) => {
           if (value.target.value) {
             setQuery({ searchWord: value.target.value })
           }
+        }}
+      />
+
+      <SearchableDropdown
+        placeholder="mips"
+        options={articleMetaFilters?.category?.map((cat, index) => ({
+          value: String(index),
+          label: cat,
+        }))}
+        onChange={(value) => {
+          console.log(value)
         }}
       />
 

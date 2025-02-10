@@ -1,8 +1,8 @@
 import { InputProps } from './Input.type'
 
-interface SearchInputProps extends InputProps {
+interface DebouncedInputProps extends InputProps {
   debounceDelay?: number
   initialValue?: string
 }
 
-export type { SearchInputProps }
+export type { DebouncedInputProps }

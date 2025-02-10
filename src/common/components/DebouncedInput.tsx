@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useDebounce } from '../hooks/useDebounce'
 import { Input } from './Input'
-import { SearchInputProps } from '../types/SearchInput.type'
+import { DebouncedInputProps } from '../types/SearchInput.type'
 
 /**
  * Debounced search input, the default delay is 500ms
  */
-function SearchInput({
+function DebouncedInput({
   onChange,
   debounceDelay,
   // empty string to avoid switching from uncontrolled to controlled component
   // error message
   initialValue = '',
   ...props
-}: SearchInputProps) {
+}: DebouncedInputProps) {
   const [inputValue, setInputValue] = useState(initialValue)
 
   const debouncedOnChange = useDebounce({
@@ -35,4 +35,4 @@ function SearchInput({
   )
 }
 
-export { SearchInput }
+export { DebouncedInput }
