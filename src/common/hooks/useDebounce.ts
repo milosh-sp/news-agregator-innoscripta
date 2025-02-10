@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 /**
- * Delays a function call, takes in a function and returns a debounced function
+ * Delays a function call, takes in a function and returns a debounced callback
  */
 export function useDebounce<T>({
   onChange,

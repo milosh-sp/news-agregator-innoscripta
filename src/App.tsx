@@ -1,5 +1,5 @@
 import { DebouncedInput } from './common/components/DebouncedInput'
-import { SearchableDropdown } from './common/components/Dropdown'
+import { SearchableDropdown } from './common/components/SearchableDropdown'
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
 import NewsArticles from './features/newsArticles/NewsArticles'

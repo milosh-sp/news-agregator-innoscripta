@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { DropdownOption } from '../types/Dropdown.type'
+import { DropdownOption } from '../types/SearchableDropdown.type'
 
 export function useDropdown<T extends string>(options: DropdownOption<T>[]) {
   const [isOpen, setIsOpen] = useState(false)

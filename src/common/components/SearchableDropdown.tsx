@@ -1,6 +1,6 @@
 import { Input } from './Input'
 import { useDropdown } from '../hooks/useDropdown'
-import { DropdownOption, DropdownProps } from '../types/Dropdown.type'
+import { DropdownOption, DropdownProps } from '../types/SearchableDropdown.type'
 import { List } from './List'
 
 /**
