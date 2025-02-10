@@ -1,0 +1,50 @@
+/* @define button */
+
+// Button variables
+$button-padding: 0.5rem 1rem;
+$button-border-radius: 4px;
+$primary-color: #216fa3;
+$secondary-color: #2ecc71;
+$disabled-color: #bdc3c7;
+$text-color: #ffffff;
+
+// Variant mixin
+@mixin button-variant($variant-name, $base-color, $text-color) {
+  &--#{$variant-name} {
+    background-color: $base-color;
+    color: $text-color;
+
+    &:hover:not(:disabled) {
+      background-color: $base-color;
+    }
+  }
+}
+
+// Base button styles
+.button {
+  max-width: 12.5rem;
+  padding: $button-padding;
+  border: none;
+  border-radius: $button-border-radius;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+
+  // Generate variants using mixin
+  @include button-variant('primary', $primary-color, $text-color);
+  @include button-variant('secondary', $secondary-color, $text-color);
+
+  &:disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  // Focus state
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.4);
+  }
+}

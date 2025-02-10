@@ -1,0 +1,15 @@
+@use '../../common/style/mixins';
+/* @define token-item */
+.token-item {
+  @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+  &__value {
+    width: 9.375rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include mixins.no-user-select;
+  }
+  &__delete {
+    cursor: pointer;
+  }
+}

@@ -20,8 +20,8 @@ function useNewsArticles() {
    * and value. If nothing is provided it will reset the filter to initial state
    */
   function filterArticlesBy(params?: {
-    key?: 'category' | 'source'
-    value?: string
+    key?: 'category' | 'source' | 'date'
+    value?: string | { from?: string; to?: string }
   }) {
     if (params) {
       const { key, value } = params
@@ -37,7 +37,11 @@ function useNewsArticles() {
     filterArticlesBy,
     isLoading: data.status === 'loading',
     error: data.error,
-    articleMetaFilters: data?.articlesMetaFilters,
+    articleMetaFilters: data?.articlesMetaFilters ?? {
+      category: [],
+      source: [],
+      author: [],
+    },
   }
 }
 

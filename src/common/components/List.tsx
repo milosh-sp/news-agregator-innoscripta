@@ -16,9 +16,23 @@ function ListComponent<T>(
   }
 
   return (
-    <ul {...containerProps} ref={ref} role="list">
+    <ul
+      {...containerProps}
+      ref={ref}
+      role="list"
+      style={{
+        margin: 0,
+        padding: 0,
+      }}
+    >
       {items.map((item, index) => (
-        <li key={getItemKey(item, index)} role="listitem">
+        <li
+          key={getItemKey(item, index)}
+          role="listitem"
+          style={{
+            listStyle: 'none',
+          }}
+        >
           {renderItem(item, index)}
         </li>
       ))}

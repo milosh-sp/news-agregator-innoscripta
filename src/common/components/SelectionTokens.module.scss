@@ -1,0 +1,9 @@
+@use '../../common/style/mixins';
+/* @define selection-tokens */
+.selection-tokens {
+  @include mixins.flex-layout(
+    $flex-direction: column,
+    $gap: 0.625rem,
+    $align-items: flex-start
+  );
+}

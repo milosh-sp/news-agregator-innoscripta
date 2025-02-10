@@ -55,10 +55,11 @@ function queryToNewsOrgParams({
 
     const paramsMap = {
       //FIXME: This might not be okay to do, study the API better
-      q: searchWord ?? category ?? author,
+      q: searchWord ?? '',
       section: category,
-      'from-date': date,
+      from: date,
       'q=author': author,
+      sortBy: 'publishedAt',
     }
 
     return filterAndAssign(params, Object.entries(paramsMap))

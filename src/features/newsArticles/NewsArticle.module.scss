@@ -1,0 +1,75 @@
+@use '../../common/style/mixins';
+@use '../../common/style/variables';
+@use '../../common/style/colors';
+
+/* @define news-article */
+.news-article {
+  max-width: 540px;
+  background-color: colors.$glass;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 0.9375rem;
+  cursor: pointer;
+
+  &__wrapper {
+    padding: 10px;
+    border-radius: 5px;
+    @include mixins.flex-layout(
+      $flex-direction: column,
+      $align-items: flex-start
+    );
+  }
+
+  &__img-title {
+    width: 100%;
+
+    @include mixins.flex-layout(
+      $flex-direction: row,
+      $justify-content: space-between,
+      $gap: 10px
+    );
+  }
+
+  &__header {
+    width: 100%;
+    @include mixins.flex-layout(
+      $flex-direction: column,
+      $justify-content: flex-start,
+      $align-items: flex-start
+    );
+  }
+
+  &__title {
+    margin: 0;
+    max-width: 22.5rem;
+    @include mixins.font-style(
+      $font-size: variables.$font-xl,
+      $font-weight: variables.$font-bold
+    );
+  }
+
+  &__image {
+    width: 100px;
+    height: 65px;
+    border-radius: 5px;
+  }
+  &__content {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  &__category {
+    text-transform: capitalize;
+  }
+  &__date {
+    margin-bottom: 0.625rem;
+  }
+
+  &__description {
+    margin: 0.3125rem 0;
+  }
+
+  &__source {
+    margin-top: 0.3125rem;
+  }
+}
