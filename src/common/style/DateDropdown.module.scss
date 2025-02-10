@@ -1,0 +1,6 @@
+@use '../../common/style/mixins';
+
+/* @define date-dropdown */
+.date-dropdown {
+  @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+}

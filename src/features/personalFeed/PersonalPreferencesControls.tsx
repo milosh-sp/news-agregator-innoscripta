@@ -2,12 +2,17 @@ import { Button } from '../../common/components/Button'
 import { MultiselectDropdown } from '../../common/components/MultiselectDropdown'
 import { useNewsArticles } from '../newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './personalFeedHooks'
+import style from './PersonalPreferencesControls.module.scss'
 
+/**
+ * Controls to add personal preferences to the news feed with dropdown UI
+ * elements. Each preference is saved on user's browser
+ */
 function PersonalPreferencesControls() {
   const { preference, setPersonalPreference } = usePersonalFeed()
   const { articleMetaFilters } = useNewsArticles()
   return (
-    <section>
+    <section className={style['personal-preferences']}>
       <MultiselectDropdown
         options={articleMetaFilters.author.map((a) => ({
           value: a,

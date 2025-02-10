@@ -1,0 +1,5 @@
+@use './mixins';
+/* @define personal-preferences **/
+.personal-preferences {
+  @include mixins.flex-layout($flex-direction: row);
+}

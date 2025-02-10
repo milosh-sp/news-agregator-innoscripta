@@ -1,6 +1,7 @@
 import { useDateDropdown } from '../hooks/useDateDropdown'
 import { DateDropdownProps } from '../types/DateDropdown.type'
 import { SearchableDropdown } from './SearchableDropdown'
+import style from '../style/DateDropdown.module.scss'
 
 /**
  * Renders date dropdown component in the date format DD/MM/YYYY,
@@ -26,7 +27,7 @@ function DateDropdown({
   } = useDateDropdown({ value, minYear, maxYear, onChange })
 
   return (
-    <section>
+    <section className={style['date-dropdown']}>
       <SearchableDropdown<string>
         options={dayOptions}
         value={day?.toString()}

@@ -1,0 +1,6 @@
+@use './mixins';
+/* @define page-layout */
+.page-layout {
+  @include mixins.flex-layout($flex-direction: column);
+  padding: 20px;
+}

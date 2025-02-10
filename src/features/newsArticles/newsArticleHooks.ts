@@ -37,7 +37,11 @@ function useNewsArticles() {
     filterArticlesBy,
     isLoading: data.status === 'loading',
     error: data.error,
-    articleMetaFilters: data?.articlesMetaFilters,
+    articleMetaFilters: data?.articlesMetaFilters ?? {
+      category: [],
+      source: [],
+      author: [],
+    },
   }
 }
 
