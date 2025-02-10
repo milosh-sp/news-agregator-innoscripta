@@ -3,7 +3,7 @@ import { Preference, PrefKeys } from './types/PersonalFeed.types'
 import { loadUserPreferences, LocalStorage } from '../../common/utils'
 import { CONSTS } from '../../common/consts'
 
-const MAX_PREFERENCE_ENTRIES = 20
+const MAX_PREFERENCE_ENTRIES = 5
 
 type Payload = {
   prefKey: PrefKeys
@@ -34,10 +34,12 @@ const personalFeedSlice = createSlice({
     ) => {
       if (action.payload?.prefKey && action.payload?.prefValue) {
         if (
-          state.preference[action.payload.prefKey].length >
+          state.preference[action.payload.prefKey].length >=
           MAX_PREFERENCE_ENTRIES
         ) {
-          console.warn('Maximum allowed preferences per type is 20')
+          console.warn(
+            `Maximum allowed preferences per type is ${MAX_PREFERENCE_ENTRIES}`
+          )
           return
         }
 

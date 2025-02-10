@@ -1,7 +1,10 @@
 @use '../../common//style/mixins';
 
-/* @define personal-preferences */
-.personal-preferences {
+/* @define personal-preferences-controls */
+.personal-preferences-controls {
   margin: 1.25rem 0;
-  @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+  @include mixins.flex-layout($flex-direction: column, $gap: 1.25rem);
+  &__filters {
+    @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+  }
 }

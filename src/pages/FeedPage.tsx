@@ -1,3 +1,4 @@
+import { ApiCount } from '../common/components/ApiCount'
 import { ErrorText } from '../common/components/ErrorText'
 import { PageLayout } from '../common/components/PageLayout'
 import { ScrollToTopButton } from '../common/components/ScrollToTopButton'
@@ -12,16 +13,19 @@ function FeedPage() {
   const { articles, isLoading, error } = useNewsArticles()
 
   return (
-    <PageLayout>
-      <PersonalPreferences />
-      <NewsArticleSearch />
-      {articles?.length > 0 && <NewsArticleFilters />}
-      {isLoading && <Spinner />}
-      {error ? <ErrorText /> : null}
+    <>
+      <ApiCount />
+      <PageLayout>
+        <PersonalPreferences />
+        <NewsArticleSearch />
+        {articles?.length > 0 && <NewsArticleFilters />}
+        {isLoading && <Spinner />}
+        {error ? <ErrorText /> : null}
 
-      {!isLoading && !error && <NewsArticles articles={articles} />}
-      <ScrollToTopButton />
-    </PageLayout>
+        {!isLoading && !error && <NewsArticles articles={articles} />}
+        <ScrollToTopButton />
+      </PageLayout>
+    </>
   )
 }
 

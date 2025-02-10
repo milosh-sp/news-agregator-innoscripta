@@ -55,6 +55,7 @@ const newsArticlesSlice = createSlice({
         state.articles = state.initialArticles
         return
       }
+      //TODO: Use user preferences to pre-filter here
 
       state.articles = filterByCategoryOrSource(state.articles, action.payload)
     },
