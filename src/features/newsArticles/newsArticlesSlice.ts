@@ -44,7 +44,12 @@ const newsArticlesSlice = createSlice({
   reducers: {
     filterBy: (
       state,
-      action: { payload: { key?: 'category' | 'source'; value?: string } }
+      action: {
+        payload: {
+          key?: 'category' | 'source' | 'date'
+          value?: string | { from?: string; to?: string }
+        }
+      }
     ) => {
       if (!action.payload.value || !action.payload.key) {
         state.articles = state.initialArticles
