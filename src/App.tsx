@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { DateDropdown } from './common/components/DateDropdown'
 import { DebouncedInput } from './common/components/DebouncedInput'
 import { SearchableDropdown } from './common/components/SearchableDropdown'
 import './common/style/_normalize.scss'
@@ -15,6 +17,8 @@ function App() {
     filterArticlesBy,
   } = useNewsArticles()
 
+  const [date, setDate] = useState<Date | null>(null)
+
   const { preference, setPersonalPreference } = usePersonalFeed()
 
   return (
@@ -24,7 +28,6 @@ function App() {
       >
         FILTER BY
       </button>
-
       <DebouncedInput
         placeholder="todays"
         debounceDelay={2_000}
@@ -34,7 +37,6 @@ function App() {
           }
         }}
       />
-
       <SearchableDropdown
         placeholder="mips"
         options={articleMetaFilters?.category?.map((cat, index) => ({
@@ -45,9 +47,13 @@ function App() {
           console.log(value)
         }}
       />
-
+      <DateDropdown
+        value={date}
+        onChange={setDate}
+        minYear={2000}
+        maxYear={2030}
+      />
       <button onClick={() => filterArticlesBy()}>Reset filter</button>
-
       <button
         onClick={() =>
           setPersonalPreference({
@@ -79,29 +85,22 @@ function App() {
       >
         RESET PREFERENCES
       </button>
-
       <section>User prefs:{JSON.stringify(preference, null, 2)}</section>
-
       <div>
         found categories:
         {articleMetaFilters?.category?.map((cat) => ` ${cat} *`)}
       </div>
-
       <br />
-
       <div>
         found authors:
         {articleMetaFilters?.author?.map((cat) => ` ${cat} *`)}
       </div>
-
       <br />
       <div>
         found sources:
         {articleMetaFilters?.source?.map((cat) => ` ${cat} *`)}
       </div>
-
       <h1>{error ? 'Error occurred' : ''}</h1>
-
       <h1>{isLoading ? 'Loading...' : ''}</h1>
       <section>
         <NewsArticles articles={articles} />
