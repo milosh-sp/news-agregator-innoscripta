@@ -1,5 +1,7 @@
 import { Card } from '../../common/components/Card'
 import { NewsArticleProps } from './types/NewsArticles.type'
+import style from './NewsArticle.module.scss'
+import { timeAgo } from './utils'
 
 function NewsArticle({
   title,
@@ -16,21 +18,34 @@ function NewsArticle({
     <Card
       {...rest}
       role="article"
+      className={style['news-article']}
       onClick={() => window.open(url, '_blank', 'noopener')}
     >
-      <header>
-        <h2>{title}</h2>
-        <img src={imageUrl} alt={title} />
-        <p>{source}</p>
-        <time dateTime={publishedAt}>{publishedAt}</time>
-      </header>
-      <article>
-        <p>{description}</p>
-        <p>{category}</p>
-      </article>
-      <footer>
-        <span>{author}</span>
-      </footer>
+      <div className={style['news-article__wrapper']}>
+        <header className={style['news-article__header']}>
+          <div className={style['news-article__img-title']}>
+            <h2 className={style['news-article__title']}>{title}</h2>
+            <img
+              src={imageUrl}
+              alt={title}
+              className={style['news-article__image']}
+            />
+          </div>
+          <p className={style['news-article__category']}>{category}</p>
+        </header>
+        <div className={style['news-article__content']}>
+          {description && (
+            <p className={style['news-article__description']}>{description}</p>
+          )}
+          <p className={style['news-article__source']}>{source}</p>
+          <time dateTime={publishedAt} className={style['news-article__date']}>
+            {publishedAt && timeAgo(new Date(publishedAt))}
+          </time>
+        </div>
+        <footer className={style['news-article__footer']}>
+          <span className={style['news-article__author']}>{author}</span>
+        </footer>
+      </div>
     </Card>
   )
 }

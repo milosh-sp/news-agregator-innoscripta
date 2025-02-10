@@ -9,11 +9,14 @@ function NewsArticleSearch() {
       <DebouncedInput
         debounceDelay={2_000}
         spellCheck
-        onChange={({ target: { value } }) =>
+        onChange={({ target: { value } }) => {
+          if (!value) {
+            return
+          }
           setQuery({
             searchWord: value,
           })
-        }
+        }}
       />
     </section>
   )

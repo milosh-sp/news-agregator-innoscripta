@@ -1,0 +1,9 @@
+/* @define news-articles */
+.news-articles {
+  height: 600px;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  overflow-x: hidden;
+}

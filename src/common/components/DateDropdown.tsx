@@ -52,7 +52,9 @@ function DateDropdown({
       />
 
       <SearchableDropdown<string>
-        options={yearOptions}
+        options={yearOptions.sort(
+          (a, b) => parseInt(b.value) - parseInt(a.value)
+        )}
         value={year?.toString()}
         onChange={(val) => {
           const newYear = parseInt(val, 10)
