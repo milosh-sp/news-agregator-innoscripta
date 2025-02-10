@@ -73,6 +73,39 @@ function loadUserPreferences<T>(defaultValue: T) {
   }
 }
 
-export { loadUserPreferences }
+/**
+ * Returns the number of days in a given month
+ */
+const getDaysInMonth = (month: number, year: number) => {
+  return new Date(year, month, 0).getDate()
+}
 
-export { LocalStorage }
+/**
+ * Given a day, month, and year, returns a valid Date object if they can form
+ * a valid date. Otherwise, returns null.
+ *
+ * If the given day is greater than the number of days in the given month,
+ * the day is adjusted to the last day of the month.
+ */
+function createValidDate({
+  day,
+  month,
+  year,
+}: {
+  day: number | undefined
+  month: number | undefined
+  year: number | undefined
+}): Date | null {
+  if (!day || !month || !year) return null
+
+  const daysInMonth = getDaysInMonth(month, year)
+  const adjustedDay = day > daysInMonth ? daysInMonth : day
+  try {
+    const date = new Date(year, month - 1, adjustedDay)
+    return date
+  } catch {
+    return null
+  }
+}
+
+export { LocalStorage, loadUserPreferences, createValidDate, getDaysInMonth }

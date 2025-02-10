@@ -26,4 +26,7 @@ function ListComponent<T>(
   )
 }
 
+/**
+ * Base component that renders list of items
+ */
 export const List = forwardRef(ListComponent)

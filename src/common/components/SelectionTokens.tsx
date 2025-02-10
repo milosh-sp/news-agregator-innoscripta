@@ -1,25 +1,24 @@
-import { HTMLAttributes } from 'react'
+import { SelectionTokensProps } from '../types/SelectionTokens.types'
+import { List } from './List'
+import { TokenItem } from './TokenItem'
 
-interface SelectionTokensProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  values?: Array<string>
-  onChange?: (value: string) => void
-}
-
+/**
+ * Renders a list of tokens that can be removed and added
+ */
 function SelectionTokens({
   values = [],
   onChange,
   ...props
 }: SelectionTokensProps) {
   return (
-    <div {...props}>
-      {values.map((value) => (
-        <>
-          <span key={value}>{value}</span>
-          <span onClick={() => onChange?.(value)}>X</span>
-        </>
-      ))}
-    </div>
+    <section {...props}>
+      <List
+        items={values}
+        renderItem={(value) => (
+          <TokenItem value={value as string} onChange={onChange} />
+        )}
+      />
+    </section>
   )
 }
 
