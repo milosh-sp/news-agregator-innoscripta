@@ -9,7 +9,7 @@
     "lint": "npx eslint .",
     "lint:style": "npx stylelint src/**/*.scss",
     "preview": "vite preview",
-    "type-check": "npx tsc --noEmit",
+    "type-check": "npx tsc -p tsconfig.app.json --noEmit",
     "format:check": "npx prettier src/**/*.{js,jsx,ts,tsx} --check",
     "format": "npx prettier src/**/*.{js,jsx,ts,tsx} --write"
   },
