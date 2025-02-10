@@ -35,6 +35,7 @@ function PersonalPreferencesControls() {
             })
           }}
           placeholder="Add author"
+          disabled={preference.authors.length === 0}
         />
         <MultiselectDropdown
           options={articleMetaFilters.category.map((category) => ({
@@ -57,6 +58,7 @@ function PersonalPreferencesControls() {
             })
           }}
           placeholder="Add categories"
+          disabled={preference.categories.length === 0}
         />
         <MultiselectDropdown
           options={articleMetaFilters.source.map((source) => ({
@@ -79,10 +81,14 @@ function PersonalPreferencesControls() {
             })
           }}
           placeholder="Add sources"
+          disabled={preference.sources.length === 0}
         />
       </section>
-      <Button onClick={() => setPersonalPreference({ action: 'reset' })}>
-        RESET PREFERENCE
+      <Button
+        variant="secondary"
+        onClick={() => setPersonalPreference({ action: 'reset' })}
+      >
+        RESET prefs
       </Button>
     </section>
   )

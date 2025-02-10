@@ -1,7 +1,6 @@
 import { ApiCount } from '../common/components/ApiCount'
 import { ErrorText } from '../common/components/ErrorText'
 import { PageLayout } from '../common/components/PageLayout'
-import { ScrollToTopButton } from '../common/components/ScrollToTopButton'
 import { Spinner } from '../common/components/Spinner'
 import { NewsArticleFilters } from '../features/newsArticles/NewsArticleFilters'
 import { useNewsArticles } from '../features/newsArticles/newsArticleHooks'
@@ -14,8 +13,8 @@ function FeedPage() {
 
   return (
     <>
-      <ApiCount />
       <PageLayout>
+        <ApiCount />
         <PersonalPreferences />
         <NewsArticleSearch />
         {articles?.length > 0 && <NewsArticleFilters />}
@@ -23,7 +22,6 @@ function FeedPage() {
         {error ? <ErrorText /> : null}
 
         {!isLoading && !error && <NewsArticles articles={articles} />}
-        <ScrollToTopButton />
       </PageLayout>
     </>
   )

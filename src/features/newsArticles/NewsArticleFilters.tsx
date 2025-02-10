@@ -58,7 +58,13 @@ function NewsArticleFilters() {
           }}
         />
       </section>
-      <Button onClick={() => filterArticlesBy()}>RESET FILTERS</Button>
+      <Button
+        type="button"
+        variant="primary"
+        onClick={() => filterArticlesBy()}
+      >
+        RESET FILTERS
+      </Button>
     </main>
   )
 }

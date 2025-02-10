@@ -41,6 +41,7 @@ function SearchableDropdown<T extends string>({
         disabled={disabled}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         aria-haspopup="listbox"
+        variant="primary"
       >
         {options.find((option) => option.value === value)?.label ?? placeholder}
       </Button>
