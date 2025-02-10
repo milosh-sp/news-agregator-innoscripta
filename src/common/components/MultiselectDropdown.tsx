@@ -9,28 +9,23 @@ import { SelectionTokens } from './SelectionTokens'
 function MultiselectDropdown<T extends string>({
   options,
   onChange,
+  onValueRemoved,
   selectedValues,
+  ...props
 }: MultiselectDropdownProps<T>) {
-  const handleSelect = (value: T) => {
-    if (selectedValues?.includes(value)) return
-    const newSelectedValues = [...(selectedValues ?? []), value]
-    onChange?.(newSelectedValues)
-  }
-
-  const handleDeselect = (value: T) => {
-    const newSelectedValues = selectedValues?.filter((v) => v !== value) ?? []
-    onChange?.(newSelectedValues)
-  }
-
-  console.log(selectedValues)
-
   return (
     <section>
       <SelectionTokens
         values={selectedValues}
-        onChange={(value: string) => handleDeselect(value as T)}
+        onChange={(value: string) => onValueRemoved?.(value as T)}
       />
-      <SearchableDropdown options={options} onChange={handleSelect} />
+      <SearchableDropdown
+        {...props}
+        options={options}
+        onChange={(value: T) => {
+          onChange?.(value)
+        }}
+      />
     </section>
   )
 }

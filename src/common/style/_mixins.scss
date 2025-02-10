@@ -1,0 +1,57 @@
+// Layouts
+@mixin flex-layout(
+  $flex-direction: row,
+  $justify-content: center,
+  $align-items: center,
+  $gap: 0
+) {
+  display: flex;
+  justify-content: $justify-content;
+  flex-direction: $flex-direction;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+@mixin no-user-select {
+  -webkit-touch-callout: none !important;
+  /* iOS Safari */
+  -webkit-user-select: none !important;
+  /* Safari */
+  -khtml-user-select: none !important;
+  /* Konqueror HTML */
+  -moz-user-select: none !important;
+  /* Old versions of Firefox */
+  -ms-user-select: none !important;
+  /* Internet Explorer/Edge */
+  user-select: none !important;
+}
+
+//Adds a blur filter to an element
+@mixin blur($blur-pixels: 5px) {
+  -webkit-filter: blur($blur-pixels);
+  -moz-filter: blur($blur-pixels);
+  -o-filter: blur($blur-pixels);
+  -ms-filter: blur($blur-pixels);
+  filter: blur($blur-pixels);
+  overflow: hidden;
+}
+
+@mixin appearance($appearance: none) {
+  -webkit-appearance: $appearance;
+  -moz-appearance: $appearance;
+  appearance: $appearance;
+}
+
+@mixin font-style(
+  $font-size: variables.$font-lg,
+  $font-weight: variables.$font-normal,
+  $color: white,
+  $line-height: normal,
+  $text-transform: none
+) {
+  font-size: calc($font-size + var(--font-modifier));
+  font-weight: $font-weight;
+  color: $color;
+  line-height: $line-height;
+  text-transform: $text-transform;
+}
