@@ -32,12 +32,12 @@ function useNewsArticles() {
   }
 
   return {
-    articles: data.articles,
+    articles: data?.articles,
     setQuery,
     filterArticlesBy,
     isLoading: data.status === 'loading',
     error: data.error,
-    articleMetaFilters: data.articlesMetaFilters,
+    articleMetaFilters: data?.articlesMetaFilters,
   }
 }
 
