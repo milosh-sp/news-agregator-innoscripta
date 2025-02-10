@@ -1,33 +1,32 @@
 import { Card } from '../../common/components/Card'
-import { CardBaseProps } from '../../common/types/Card.type'
+import { NewsArticleProps } from './types/NewsArticles.type'
 
-interface ArticleCardProps extends CardBaseProps {
-  title: string
-  content: string
-  author: string
-  description: string
-  date: string
-  url: string
-  urlImage: string
-  category: string
-  source: string
-}
-
-function ArticleCard({
+function NewsArticle({
   title,
-  content,
   author,
-  date,
+  description,
+  publishedAt,
+  url,
+  imageUrl,
+  category,
+  source,
   ...rest
-}: ArticleCardProps) {
+}: NewsArticleProps) {
   return (
-    <Card {...rest} role="article">
+    <Card
+      {...rest}
+      role="article"
+      onClick={() => window.open(url, '_blank', 'noopener')}
+    >
       <header>
         <h2>{title}</h2>
-        <time dateTime={date}>{''}</time>
+        <img src={imageUrl} alt={title} />
+        <p>{source}</p>
+        <time dateTime={publishedAt}>{publishedAt}</time>
       </header>
       <article>
-        <p>{content}</p>
+        <p>{description}</p>
+        <p>{category}</p>
       </article>
       <footer>
         <span>{author}</span>
@@ -36,4 +35,4 @@ function ArticleCard({
   )
 }
 
-export { ArticleCard }
+export { NewsArticle }

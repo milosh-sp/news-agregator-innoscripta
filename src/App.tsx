@@ -2,6 +2,7 @@ import { DebouncedInput } from './common/components/DebouncedInput'
 import { SearchableDropdown } from './common/components/Dropdown'
 import './common/style/_normalize.scss'
 import { useNewsArticles } from './features/newsArticles/newsArticleHooks'
+import NewsArticles from './features/newsArticles/NewsArticles'
 import { usePersonalFeed } from './features/personalFeed/personalFeedHooks'
 
 function App() {
@@ -103,25 +104,7 @@ function App() {
 
       <h1>{isLoading ? 'Loading...' : ''}</h1>
       <section>
-        {articles?.map((article) => (
-          <article key={article?.url}>
-            <h2>{article?.title}</h2>
-            <h3>Category: {article?.category}</h3>
-            <h4>Source: {article?.source}</h4>
-            <p>Published at:{article?.publishedAt}</p>
-            <p>Author: {article?.author}</p>
-            <p>Description: {article?.description}</p>
-            <p>Original url: {article?.url}</p>
-            <img
-              src={article?.imageUrl ?? undefined}
-              style={{
-                width: '100px',
-                height: '100px',
-              }}
-              alt={article?.title}
-            />
-          </article>
-        ))}
+        <NewsArticles articles={articles} />
       </section>
     </main>
   )

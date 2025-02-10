@@ -8,8 +8,8 @@ export function useDropdown<T extends string>(options: DropdownOption<T>[]) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   //TODO: Check this will cause performance issues
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredOptions = options?.filter((option) =>
+    option?.label?.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   useEffect(() => {

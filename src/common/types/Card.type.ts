@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from 'react'
 
 interface CardBaseProps extends HTMLAttributes<HTMLElement> {
-  children: ReactNode
+  children?: ReactNode
   header?: ReactNode
   footer?: ReactNode
   headerClassName?: string

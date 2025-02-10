@@ -3,6 +3,9 @@ import { useDropdown } from '../hooks/useDropdown'
 import { DropdownOption, DropdownProps } from '../types/Dropdown.type'
 import { List } from './List'
 
+/**
+ * Generic dropdown component with search functionality
+ */
 function SearchableDropdown<T extends string>({
   options,
   value,

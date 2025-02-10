@@ -5,7 +5,7 @@ interface AggregatedArticle {
   title: string
   description: string
   url: string
-  imageUrl: string | null
+  imageUrl?: string
   publishedAt: string
   author: string
   category: string
