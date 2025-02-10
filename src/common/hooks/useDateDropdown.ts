@@ -1,40 +1,23 @@
 import { useState, useEffect } from 'react'
 import { DropdownOption } from '../types/SearchableDropdown.type'
+import { DateDropdownProps } from '../types/DateDropdown.type'
+import { createValidDate, getDaysInMonth } from '../utils'
 
-const getDaysInMonth = (month: number, year: number) => {
-  return new Date(year, month, 0).getDate()
-}
-
-const createValidDate = (
-  day: number | undefined,
-  month: number | undefined,
-  year: number | undefined
-): Date | null => {
-  if (!day || !month || !year) return null
-
-  const daysInMonth = getDaysInMonth(month, year)
-  const adjustedDay = day > daysInMonth ? daysInMonth : day
-
-  try {
-    const date = new Date(year, month - 1, adjustedDay)
-    return date.getMonth() === month - 1
-      ? date
-      : new Date(year, month - 1, daysInMonth)
-  } catch {
-    return null
-  }
-}
-
-export const useDateDropdown = (
-  value: Date | null,
-  minYear: number,
-  maxYear: number,
-  onChange?: (date: Date | null) => void
-) => {
+/**
+ * Handles the logic  and state in the `DateDropdown` component. Built with JS
+ * native `Date` object
+ */
+export function useDateDropdown({
+  value,
+  minYear = 1900,
+  maxYear = 2000,
+  onChange,
+}: DateDropdownProps) {
   const [day, setDay] = useState<number>()
   const [month, setMonth] = useState<number>()
   const [year, setYear] = useState<number>()
 
+  //FIXME: This does not need to be awful useEffect
   useEffect(() => {
     if (value instanceof Date && !isNaN(value.getTime())) {
       setDay(value.getDate())
@@ -52,25 +35,26 @@ export const useDateDropdown = (
     newMonth?: number,
     newYear?: number
   ) => {
-    const date = createValidDate(
-      newDay ?? day,
-      newMonth ?? month,
-      newYear ?? year
-    )
+    const date = createValidDate({
+      day: newDay ?? day,
+      month: newMonth ?? month,
+      year: newYear ?? year,
+    })
     onChange?.(date)
   }
 
-  const monthOptions: DropdownOption<string>[] = Array.from(
+  const monthOptions: Array<DropdownOption<string>> = Array.from(
     { length: 12 },
     (_, i) => ({
       value: String(i + 1),
+      //TODO: Check if should be locale
       label: new Date(2000, i, 1).toLocaleString('default', {
         month: 'long',
       }),
     })
   )
 
-  const yearOptions: DropdownOption<string>[] = Array.from(
+  const yearOptions: Array<DropdownOption<string>> = Array.from(
     { length: maxYear - minYear + 1 },
     (_, i) => ({
       value: String(minYear + i),
@@ -79,7 +63,8 @@ export const useDateDropdown = (
   )
 
   const daysInMonth = month && year ? getDaysInMonth(month, year) : 31
-  const dayOptions: DropdownOption<string>[] = Array.from(
+
+  const dayOptions: Array<DropdownOption<string>> = Array.from(
     { length: daysInMonth },
     (_, i) => ({
       value: String(i + 1),

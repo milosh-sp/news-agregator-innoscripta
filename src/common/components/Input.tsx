@@ -7,7 +7,7 @@ function InputComponent(
   ref: Ref<HTMLInputElement>
 ) {
   return (
-    <div>
+    <section>
       <Label label={label} required={props.required} id={id} />
 
       <input
@@ -23,7 +23,7 @@ function InputComponent(
           {error}
         </p>
       )}
-    </div>
+    </section>
   )
 }
 

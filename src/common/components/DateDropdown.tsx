@@ -2,11 +2,15 @@ import { useDateDropdown } from '../hooks/useDateDropdown'
 import { DateDropdownProps } from '../types/DateDropdown.type'
 import { SearchableDropdown } from './SearchableDropdown'
 
+/**
+ * Renders date dropdown component in the date format DD/MM/YYYY,
+ * does not support localized formatting
+ */
 function DateDropdown({
   value,
   onChange,
-  minYear = 1900,
-  maxYear = new Date().getFullYear() + 10,
+  minYear,
+  maxYear,
 }: DateDropdownProps) {
   const {
     day,
@@ -19,7 +23,7 @@ function DateDropdown({
     dayOptions,
     monthOptions,
     yearOptions,
-  } = useDateDropdown(value, minYear, maxYear, onChange)
+  } = useDateDropdown({ value, minYear, maxYear, onChange })
 
   return (
     <section>

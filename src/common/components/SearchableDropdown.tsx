@@ -4,15 +4,18 @@ import { DropdownOption, DropdownProps } from '../types/SearchableDropdown.type'
 import { List } from './List'
 
 /**
- * Generic dropdown component with search functionality
+ * Generic dropdown component with search functionality, searchable
+ * functionality can be disabled by passing in `hideSearch`
  */
 function SearchableDropdown<T extends string>({
   options,
   value,
   onChange,
   placeholder,
-  disabled = false,
+  disabled,
   searchPlaceholder,
+  hideSearch,
+  ...rest
 }: DropdownProps<T>) {
   const {
     isOpen,
@@ -25,7 +28,7 @@ function SearchableDropdown<T extends string>({
   } = useDropdown(options)
 
   return (
-    <article ref={dropdownRef} className="dropdown-container">
+    <section {...rest} ref={dropdownRef}>
       <button
         type="button"
         disabled={disabled}
@@ -36,20 +39,22 @@ function SearchableDropdown<T extends string>({
       </button>
 
       {isOpen && (
-        <div className="dropdown-list">
-          <Input
-            type="text"
-            placeholder={searchPlaceholder}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            ref={inputRef}
-            aria-controls="dropdown-options"
-            aria-autocomplete="list"
-          />
+        <article>
+          {!hideSearch && (
+            <Input
+              type="text"
+              placeholder={searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              ref={inputRef}
+              aria-controls="dropdown-options"
+              aria-autocomplete="list"
+            />
+          )}
           <List
             id="dropdown-list"
             items={filteredOptions ?? []}
-            renderItem={(item: unknown) => {
+            renderItem={(item) => {
               const option = item as DropdownOption<T>
               return (
                 <article
@@ -68,9 +73,9 @@ function SearchableDropdown<T extends string>({
               )
             }}
           />
-        </div>
+        </article>
       )}
-    </article>
+    </section>
   )
 }
 
