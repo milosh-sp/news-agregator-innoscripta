@@ -49,6 +49,27 @@ refresh very fast because Vite is amazing.
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-4B3263?style=for-the-badge&logo=docker&logoColor=white)
 
+## Dev scripts
+
+For code linting run:
+`npm run lint`
+
+For styling linting SCSS run `npm run lint:style`
+Note: Make sure an SCSS module contains `@define .class` above the parent class,
+otherwise the check will be skipped
+
+Example:
+
+```scss
+/* @define my-component */
+.my-component {
+}
+```
+
+Code formatting: `npm run format`
+To fix code formatting use: `npm run format:fix`
+For type checking run `npm run type-check`
+
 ## Branches
 
 Each PR is checked for code quality using Github actions. Stable code is pushed
@@ -58,3 +79,5 @@ to `production` Main staging branch is `main`
 
 Each directory contains all the components, hooks, reducers, and utilities
 specific to that feature, with some minor modifications
+
+For styling SCSS with BEM pattern is used
