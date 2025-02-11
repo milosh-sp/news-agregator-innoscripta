@@ -4,6 +4,9 @@ import { SearchbarOptions } from './SearchbarOptions'
 import style from '../style/NewsArticleSearch.module.scss'
 import { getString } from '../../../common/utils'
 
+/**
+ * Renders a debounced search bar
+ */
 function NewsArticleSearch() {
   const { setQuery } = useNewsArticles()
 

@@ -11,5 +11,6 @@
   "SEARCH_ENTRY": "Search entry...",
   "DATE_FROM": "From",
   "DATE_TO": "To",
-  "FALLBACK_FOR_ARTICLES": "Unknown"
+  "FALLBACK_FOR_ARTICLES": "Unknown",
+  "MAX_PICKS": "Max 5"
 }

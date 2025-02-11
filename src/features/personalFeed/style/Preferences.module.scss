@@ -9,6 +9,21 @@
     $justify-content: flex-start,
     $align-items: flex-start
   );
+  &__picks {
+    @include mixins.font-style(
+      $font-size: variables.$font-sm,
+      $font-weight: variables.$font-medium
+    );
+    margin-bottom: 10px;
+  }
+
+  &__label {
+    @include mixins.font-style(
+      $font-size: variables.$font-sm,
+      $font-weight: variables.$font-bold
+    );
+  }
+
   &__container {
     @include mixins.font-style(
       $font-size: variables.$font-sm,
