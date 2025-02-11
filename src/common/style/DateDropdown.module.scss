@@ -2,5 +2,10 @@
 
 /* @define date-dropdown */
 .date-dropdown {
+  width: 100%;
   @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+
+  &__option {
+    width: 100%;
+  }
 }

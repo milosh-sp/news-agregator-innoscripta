@@ -1,5 +1,5 @@
 import { Button } from '../../common/components/Button'
-import { MultiselectDropdown } from '../../common/components/MultiselectDropdown'
+import { SearchableDropdown } from '../../common/components/SearchableDropdown'
 import { getString } from '../../common/utils'
 import { useNewsArticles } from '../newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './personalFeedHooks'
@@ -10,17 +10,17 @@ import style from './PersonalPreferencesControls.module.scss'
  * elements. Each preference is saved on user's browser
  */
 function PersonalPreferencesControls() {
-  const { preference, setPersonalPreference } = usePersonalFeed()
+  const { setPersonalPreference } = usePersonalFeed()
   const { articleMetaFilters, filterArticlesBy } = useNewsArticles()
+  const searchPlaceholder = getString('SEARCH_ENTRY')
   return (
     <section className={style['personal-preferences-controls']}>
       <section className={style['personal-preferences-controls__filters']}>
-        <MultiselectDropdown
+        <SearchableDropdown
           options={articleMetaFilters.author.map((a) => ({
             value: a,
             label: a,
           }))}
-          selectedValues={preference?.author}
           onChange={(value) => {
             setPersonalPreference({
               action: 'add',
@@ -29,21 +29,14 @@ function PersonalPreferencesControls() {
             })
             filterArticlesBy({ value: value as string, key: 'author' })
           }}
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'author',
-              prefValue: value as string,
-            })
-          }}
           placeholder={getString('ADD_AUTHOR_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
-        <MultiselectDropdown
+        <SearchableDropdown
           options={articleMetaFilters?.category.map((category) => ({
             value: category,
             label: category,
           }))}
-          selectedValues={preference?.category}
           onChange={(value) => {
             setPersonalPreference({
               action: 'add',
@@ -52,21 +45,14 @@ function PersonalPreferencesControls() {
             })
             filterArticlesBy({ value: value as string, key: 'category' })
           }}
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'category',
-              prefValue: value as string,
-            })
-          }}
           placeholder={getString('ADD_CAT_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
-        <MultiselectDropdown
+        <SearchableDropdown
           options={articleMetaFilters?.source.map((source) => ({
             value: source,
             label: source,
           }))}
-          selectedValues={preference?.source}
           onChange={(value) => {
             setPersonalPreference({
               action: 'add',
@@ -75,14 +61,8 @@ function PersonalPreferencesControls() {
             })
             filterArticlesBy({ value: value as string, key: 'source' })
           }}
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'source',
-              prefValue: value as string,
-            })
-          }}
           placeholder={getString('ADD_SOURCE_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
       </section>
       <Button

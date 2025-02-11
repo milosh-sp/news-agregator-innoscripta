@@ -11,6 +11,8 @@ import { getString } from '../../common/utils'
 function NewsArticleFilters() {
   const { filterArticlesBy, articleMetaFilters } = useNewsArticles()
 
+  const searchPlaceholder = getString('SEARCH_ENTRY')
+
   return (
     <main className={style['news-article-filters']}>
       <section className={style['news-article-filters__type-filters']}>
@@ -21,6 +23,7 @@ function NewsArticleFilters() {
             label: c,
           }))}
           onChange={(value) => filterArticlesBy({ value, key: 'category' })}
+          searchPlaceholder={searchPlaceholder}
         />
         <SearchableDropdown
           placeholder={getString('ADD_SOURCE_BUTTON')}
@@ -29,6 +32,7 @@ function NewsArticleFilters() {
             label: c,
           }))}
           onChange={(value) => filterArticlesBy({ value, key: 'source' })}
+          searchPlaceholder={searchPlaceholder}
         />
       </section>
       <section className={style['news-article-filters__date-filters']}>
@@ -46,7 +50,7 @@ function NewsArticleFilters() {
             }
           }}
         />
-        -
+
         <DateDropdown
           minYear={1900}
           maxYear={new Date().getFullYear()}

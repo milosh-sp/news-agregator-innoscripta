@@ -38,6 +38,7 @@ function DateDropdown({
         }}
         placeholder="Day"
         searchPlaceholder="Search day..."
+        className={style['date-dropdown__option']}
       />
       <SearchableDropdown<string>
         options={monthOptions}
@@ -49,6 +50,7 @@ function DateDropdown({
         }}
         placeholder="Month"
         searchPlaceholder="Search month..."
+        className={style['date-dropdown__option']}
       />
 
       <SearchableDropdown<string>
@@ -63,6 +65,7 @@ function DateDropdown({
         }}
         placeholder="Year"
         searchPlaceholder="Search year..."
+        className={style['date-dropdown__option']}
       />
     </section>
   )

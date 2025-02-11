@@ -10,12 +10,14 @@ function InputComponent(
 ) {
   return (
     <section className={style['input']}>
-      <Label
-        label={label}
-        required={props.required}
-        id={id}
-        className={style['input__label']}
-      />
+      {label && (
+        <Label
+          label={label}
+          required={props.required}
+          id={id}
+          className={style['input__label']}
+        />
+      )}
 
       <input
         {...props}
@@ -23,7 +25,7 @@ function InputComponent(
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={style['input__elem']}
+        className={`${style['input__elem']} ${props?.className ?? ''}`}
       />
 
       {error && <ErrorText errorText={error} />}
