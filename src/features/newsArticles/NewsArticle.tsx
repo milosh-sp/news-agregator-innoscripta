@@ -2,6 +2,7 @@ import { Card } from '../../common/components/Card'
 import { NewsArticleProps } from './types/NewsArticles.type'
 import style from './NewsArticle.module.scss'
 import { timeAgo } from './utils'
+import { IconAndElement } from '../../common/components/IconAndElement'
 
 function NewsArticle({
   title,
@@ -38,14 +39,20 @@ function NewsArticle({
             <p className={style['news-article__description']}>{description}</p>
           )}
           <footer className={style['news-article__footer']}>
-            <p className={style['news-article__source']}>{source}</p>
-            <time
-              dateTime={publishedAt}
-              className={style['news-article__date']}
-            >
-              {publishedAt && timeAgo(new Date(publishedAt))}
-            </time>
-            <p className={style['news-article__author']}>{author}</p>
+            <IconAndElement icon={'source'}>
+              <p className={style['news-article__source']}>{source}</p>
+            </IconAndElement>
+            <IconAndElement icon={'date'}>
+              <time
+                dateTime={publishedAt}
+                className={style['news-article__date']}
+              >
+                {publishedAt && timeAgo(new Date(publishedAt))}
+              </time>
+            </IconAndElement>
+            <IconAndElement icon={'author'}>
+              <p className={style['news-article__author']}>{author}</p>
+            </IconAndElement>
           </footer>
         </article>
       </div>

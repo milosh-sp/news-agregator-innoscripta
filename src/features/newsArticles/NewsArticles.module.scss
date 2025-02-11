@@ -3,9 +3,11 @@
 
 /* @define news-articles */
 .news-articles {
-  margin-top: 1.25rem;
+  margin: 20px;
+
   &__list {
     height: 80vh;
+
     overflow-y: scroll;
     overflow-x: hidden;
 
