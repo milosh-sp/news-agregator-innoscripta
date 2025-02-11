@@ -14,9 +14,10 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  // @include bg-img(
-  //   'https://images.unsplash.com/photo-1517790253044-a9968449de15'
-  // );
+  backdrop-filter: blur(20px) brightness(0.5);
+  background: url('https://images.unsplash.com/photo-1517790253044-a9968449de15')
+    no-repeat;
+  background-size: cover;
 }
 
 /* @define page-layout */
@@ -31,11 +32,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: url('https://images.unsplash.com/photo-1517790253044-a9968449de15')
-      no-repeat;
-    background-size: cover;
     z-index: -1;
-    filter: blur(20px) brightness(0.5);
   }
 
   &__container {

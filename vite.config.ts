@@ -19,4 +19,22 @@ export default defineConfig({
             `[local]`,
     },
   },
+
+  build: {
+    sourcemap: 'production' !== process.env.NODE_ENV,
+    rollupOptions: {
+      output: {
+        assetFileNames: '[hash:10].[ext]',
+        chunkFileNames: '[hash:10].js',
+        //independent chunk, for example `ibantools` is loaded independently
+        manualChunks: {
+          react: ['react'],
+          'react-dom': ['react-dom'],
+          'react-redux': ['react-redux'],
+          redux: ['redux', '@reduxjs/toolkit'],
+          axios: ['axios'],
+        },
+      },
+    },
+  },
 })
