@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { ArticleQuery } from '../../services/types/Query.types'
-import { filterByCategoryOrSource } from './newsArticlesReducers'
+import { filterArticles } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
 import { FilterPayload } from './types/NewsArticle.type'
 import {
@@ -70,7 +70,7 @@ const newsArticlesSlice = createSlice({
         return
       }
 
-      const filteredArticles = filterByCategoryOrSource(
+      const filteredArticles = filterArticles(
         state.initialArticles,
         action.payload
       )

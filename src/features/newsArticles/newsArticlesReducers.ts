@@ -1,36 +1,48 @@
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { FilterPayload } from './types/NewsArticle.type'
+import { filterByDate } from './utils'
 
-/**
- * Filters by category or source
- */
-function filterByCategoryOrSource(
+function filterArticles(
   articles: Array<AggregatedArticle>,
-  { key, value }: FilterPayload
+  filters: FilterPayload
 ): Array<AggregatedArticle> {
-  if (!key || !value) {
-    return []
+  // If no filters object exists, return all articles
+  if (!filters || typeof filters !== 'object') {
+    return articles
   }
 
+  // Check if we have either key or value properties
+  const hasKey = 'key' in filters && filters.key !== undefined
+  const hasValue = 'value' in filters && filters.value !== undefined
+
+  // Return all articles if neither key nor value exists
+  if (!hasKey || !hasValue) {
+    return articles
+  }
+
+  // Get the specific key and value
+  const { key, value } = filters
+
   return articles.filter((article) => {
-    if (key === 'date' && typeof value === 'object' && value) {
-      const articleDate = new Date(article.publishedAt).getTime()
-      const fromTime = value?.from
-        ? new Date(value?.from.trim()).getTime()
-        : -Infinity
-      const toTime = value?.to ? new Date(value?.to.trim()).getTime() : Infinity
-      return articleDate >= fromTime && articleDate <= toTime
+    // Handle date filtering
+    if (key === 'date' && value && typeof value === 'object') {
+      return filterByDate(article, key, value)
     }
 
+    // Handle category, source, and author filtering
     if (
-      (key === 'category' || key === 'source' || key === 'author') &&
+      key &&
+      ['category', 'source', 'author'].includes(key) &&
       typeof value === 'string'
     ) {
-      return article[key]?.toLowerCase() === value.toLowerCase()
+      const articleValue =
+        article[key as keyof AggregatedArticle]?.toLowerCase() || ''
+      return articleValue === value.toLowerCase()
     }
 
-    return false
+    // Handle unknown keys
+    return true
   })
 }
 
-export { filterByCategoryOrSource }
+export { filterArticles }
