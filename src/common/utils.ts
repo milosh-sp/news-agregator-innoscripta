@@ -82,11 +82,11 @@ const getDaysInMonth = (month: number, year: number) => {
 }
 
 /**
- * Given a day, month, and year, returns a valid Date object if they can form
- * a valid date. Otherwise, returns null.
+ * Given a day, month, and year, returns a valid Date object if they can form a
+ * valid date. Otherwise, returns null.
  *
- * If the given day is greater than the number of days in the given month,
- * the day is adjusted to the last day of the month.
+ * If the given day is greater than the number of days in the given month, the
+ * day is adjusted to the last day of the month.
  */
 function createValidDate({
   day,
@@ -109,6 +109,9 @@ function createValidDate({
   }
 }
 
+/**
+ * Returns an UI string used for localization, atm only `strings` is supported
+ */
 function getString(key: keyof typeof strings): string {
   try {
     const value = strings[key]

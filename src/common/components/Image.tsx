@@ -11,6 +11,9 @@ const iconMap = {
   date,
 }
 
+/**
+ * Generic image component with preset svg icons
+ */
 function Image({ svgIcon, ...rest }: ImageProps) {
   if (!svgIcon) return <img src={rest.src} alt={rest?.alt} {...rest} />
   return <img src={iconMap?.[svgIcon] ?? ''} alt={rest?.alt} {...rest} />

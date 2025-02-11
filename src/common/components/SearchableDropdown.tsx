@@ -49,6 +49,8 @@ function SearchableDropdown<T extends string>({
 
       {isOpen && (
         <>
+          {/* //FIXME: Can be broken down to another component, atm does not follow S
+          //from SOLID */}
           <article className={style['searchable-dropdown__options-container']}>
             {!hideSearch && (
               <Input
