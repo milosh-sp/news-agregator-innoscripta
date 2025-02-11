@@ -35,13 +35,30 @@ function useNewsArticles() {
   }
 
   return {
+    /**
+     * Article data with all fetched articles
+     */
     articles: data?.articles,
+    /**
+     * Current active filters in redux state
+     */
     activeFilters: data?.activeFilters,
+    /**
+     * Calls the news APIS with the specified query
+     */
     setQuery,
+    /**
+     * Filters articles in the redux store
+     */
     filterArticlesBy,
     status: data.status,
     isLoading: data.status === 'loading',
     error: data.error,
+    /**
+     * Contains all the article values as array for the current feed `category`
+     * has all the possible article categories `source` has all the possible
+     * article sources `author` has all the possible article authors
+     */
     articleMetaFilters: data?.articlesMetaFilters ?? {
       category: [],
       source: [],
