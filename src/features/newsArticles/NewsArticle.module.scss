@@ -85,6 +85,7 @@
       $color: colors.$gray-dark
     );
     text-shadow: variables.$shadow-subdue;
+    text-transform: capitalize;
   }
   &__footer {
     margin-top: 10px;

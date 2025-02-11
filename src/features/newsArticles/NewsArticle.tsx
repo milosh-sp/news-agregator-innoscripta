@@ -32,7 +32,11 @@ function NewsArticle({
               className={style['news-article__image']}
             />
           </div>
-          <p className={style['news-article__category']}>{category}</p>
+          {category && (
+            <IconAndElement icon={'category'}>
+              <p className={style['news-article__category']}>{category}</p>
+            </IconAndElement>
+          )}
         </header>
         <article className={style['news-article__content']}>
           {description && (
