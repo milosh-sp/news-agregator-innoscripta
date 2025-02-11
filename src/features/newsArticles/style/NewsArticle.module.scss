@@ -56,9 +56,6 @@
   &__title {
     margin: 0;
     max-width: 22.5rem;
-    height: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
     @include mixins.font-style(
       $font-size: variables.$font-xl,

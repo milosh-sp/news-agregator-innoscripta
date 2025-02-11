@@ -2,7 +2,9 @@
 
 /* @define news-article-search */
 .news-article-search {
+  max-width: 100%;
   width: 400px;
+  padding: 10px 20px;
 
   &__input {
     margin-bottom: 1.25rem;

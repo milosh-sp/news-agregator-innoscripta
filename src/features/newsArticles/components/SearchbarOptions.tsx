@@ -21,6 +21,10 @@ const options = [
   },
 ]
 
+/**
+ * Renders options for the searchbar that allow the user to save preferences and
+ * filter articles
+ */
 function SearchbarOptions() {
   const [renderOptionIndex, setRenderOptionIndex] = useState(-1)
 
@@ -38,6 +42,7 @@ function SearchbarOptions() {
             <Button
               onClick={handleClick(index)}
               variant={buttonType as ButtonVariant}
+              className={style['searchbar-options__button']}
             >
               {label}
             </Button>
