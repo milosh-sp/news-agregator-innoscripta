@@ -7,11 +7,14 @@ import { NewsArticleSearch } from '../features/newsArticles/NewsArticleSearch'
 import { getString } from '../common/utils'
 
 function FeedPage() {
-  const { articles, isLoading, error } = useNewsArticles()
+  const { articles, isLoading, error, status } = useNewsArticles()
 
   return (
     <PageLayout>
       <NewsArticleSearch />
+      {articles && articles.length === 0 && status === 'succeeded' && (
+        <div>{getString('NO_ARTICLES_FOUND')}</div>
+      )}
       {isLoading && <Spinner />}
       {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}
 

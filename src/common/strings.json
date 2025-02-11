@@ -7,5 +7,6 @@
   "OPTIONS_BUTTON_FILTER": "Filters",
   "OPTIONS_BUTTON_PREFS": "Prefs",
   "RESET_BUTTON": "Reset",
-  "SEARCH_PLACEHOLDER:": "Search over "
+  "SEARCH_PLACEHOLDER:": "Search over thousands of news articles...",
+  "NO_ARTICLES_FOUND": "No articles found for this word, reset filters or preferences"
 }

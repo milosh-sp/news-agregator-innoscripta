@@ -33,7 +33,7 @@ function useNewsArticles() {
     articles: data?.articles,
     setQuery,
     filterArticlesBy,
-
+    status: data.status,
     isLoading: data.status === 'loading',
     error: data.error,
     articleMetaFilters: data?.articlesMetaFilters ?? {

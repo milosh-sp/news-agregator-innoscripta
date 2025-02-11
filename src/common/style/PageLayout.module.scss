@@ -4,7 +4,7 @@
 
 * {
   // CSS debugger
-  outline: 1px solid red;
+  // outline: 1px solid red;
 }
 
 @mixin bg-img($url) {
@@ -28,7 +28,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: url('https://images.unsplash.com/photo-1517790253044-a9968449de15')
       no-repeat;
     background-size: cover;
@@ -39,7 +39,7 @@ body {
   &__container {
     width: 100%;
     padding: 20px;
-    height: 100vh;
+
     @include mixins.flex-layout($flex-direction: column);
   }
 }

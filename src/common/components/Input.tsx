@@ -1,14 +1,21 @@
 import { Ref, forwardRef } from 'react'
 import { Label } from './Label'
 import { InputProps } from '../types/Input.type'
+import style from '../style/Input.module.scss'
+import { ErrorText } from './ErrorText'
 
 function InputComponent(
   { label, error, id, ...props }: InputProps,
   ref: Ref<HTMLInputElement>
 ) {
   return (
-    <section>
-      <Label label={label} required={props.required} id={id} />
+    <section className={style['input']}>
+      <Label
+        label={label}
+        required={props.required}
+        id={id}
+        className={style['input__label']}
+      />
 
       <input
         {...props}
@@ -16,13 +23,10 @@ function InputComponent(
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
+        className={style['input__elem']}
       />
 
-      {error && (
-        <p id={`${id}-error`} role="alert">
-          {error}
-        </p>
-      )}
+      {error && <ErrorText errorText={error} />}
     </section>
   )
 }
