@@ -1,4 +1,5 @@
 @use '../../common/style/mixins';
+@use '../../common/style/colors';
 /* @define searchable-dropdown */
 .searchable-dropdown {
   position: relative;
@@ -16,7 +17,7 @@
     width: 100%;
     position: absolute;
     z-index: 999;
-    background-color: aliceblue;
+    background-color: colors.$glass-strong;
     max-height: 15.625rem;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -24,6 +25,6 @@
 
   &__option {
     cursor: pointer;
-    margin-bottom: 10px;
+    padding: 7px;
   }
 }

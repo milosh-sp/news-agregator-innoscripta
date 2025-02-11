@@ -3,11 +3,12 @@ import { AggregatedArticle } from '../../services/models/AggregatedArticles.mode
 import { ArticleQuery } from '../../services/types/Query.types'
 import { filterByCategoryOrSource } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
-import { extractMetaFilters, normalizeDataFromApi } from './utils'
 import { FilterPayload } from './types/NewsArticle.type'
-import { LocalStorage } from '../../common/utils'
-import { CONSTS } from '../../common/consts'
-import { Preference } from '../personalFeed/types/PersonalFeed.types'
+import {
+  extractMetaFilters,
+  getPersonalizedArticles,
+  normalizeDataFromApi,
+} from './utils'
 
 const initialState = {
   status: 'idle',
@@ -57,29 +58,12 @@ const newsArticlesSlice = createSlice({
         return
       }
 
-      state.articles = filterByCategoryOrSource(state.articles, action.payload)
-    },
-    personalizeFeed: (state) => {
-      let preferenceArticles = [] as typeof state.articles
+      const filteredArticles = filterByCategoryOrSource(
+        state.initialArticles,
+        action.payload
+      )
 
-      const preferences = LocalStorage.getItem(
-        CONSTS.personalFeedKey
-      ) as Preference
-
-      Object.entries(preferences).forEach(([key, value]) => {
-        value.forEach((v) => {
-          preferenceArticles = [
-            ...filterByCategoryOrSource(state.articles, {
-              key,
-              value: v,
-            }),
-          ]
-        })
-      })
-
-      if (preferenceArticles.length > 1) {
-        state.articles = [...preferenceArticles]
-      }
+      state.articles = filteredArticles
     },
   },
 
@@ -98,11 +82,24 @@ const newsArticlesSlice = createSlice({
             action.payload
           ) as unknown as Array<AggregatedArticle>
 
-          state.initialArticles = state.articles = normalizedData.sort(
+          const preferenceArticles = getPersonalizedArticles(normalizedData)
+
+          state.initialArticles = normalizedData.sort(
             (a, b) =>
               new Date(b.publishedAt).getTime() -
               new Date(a.publishedAt).getTime()
           )
+
+          state.articles = (() => {
+            if (preferenceArticles.length !== 0) {
+              return preferenceArticles.sort(
+                (a, b) =>
+                  new Date(b.publishedAt).getTime() -
+                  new Date(a.publishedAt).getTime()
+              )
+            }
+            return state.initialArticles
+          })()
 
           state.articlesMetaFilters = extractMetaFilters({
             elements: normalizedData,
@@ -126,6 +123,6 @@ const newsArticlesSlice = createSlice({
 })
 
 const newsArticlesReducer = newsArticlesSlice.reducer
-const { filterBy, personalizeFeed } = newsArticlesSlice.actions
+const { filterBy } = newsArticlesSlice.actions
 
-export { articleFetchData, filterBy, newsArticlesReducer, personalizeFeed }
+export { articleFetchData, filterBy, newsArticlesReducer }

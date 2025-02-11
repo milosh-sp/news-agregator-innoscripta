@@ -11,7 +11,7 @@ import { getString } from '../common/utils'
 
 //TODO: Add error boundaries
 function FeedPage() {
-  const { articles, isLoading, error, personalizeFeedData } = useNewsArticles()
+  const { articles, isLoading, error } = useNewsArticles()
 
   // useEffect(() => {
   //   const promise = setQuery({ searchWord: 'bitcoin' })
@@ -21,7 +21,6 @@ function FeedPage() {
 
   return (
     <>
-      <button onClick={personalizeFeedData}>personalize</button>
       <PageLayout>
         <ApiCount />
         <PersonalPreferences />

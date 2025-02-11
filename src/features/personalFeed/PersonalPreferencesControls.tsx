@@ -11,7 +11,7 @@ import style from './PersonalPreferencesControls.module.scss'
  */
 function PersonalPreferencesControls() {
   const { preference, setPersonalPreference } = usePersonalFeed()
-  const { articleMetaFilters } = useNewsArticles()
+  const { articleMetaFilters, filterArticlesBy } = useNewsArticles()
   return (
     <section className={style['personal-preferences-controls']}>
       <section className={style['personal-preferences-controls__filters']}>
@@ -21,13 +21,14 @@ function PersonalPreferencesControls() {
             label: a,
           }))}
           selectedValues={preference?.author}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
               prefKey: 'author',
               prefValue: value as string,
             })
-          }
+            filterArticlesBy({ value: value as string, key: 'author' })
+          }}
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
@@ -43,13 +44,14 @@ function PersonalPreferencesControls() {
             label: category,
           }))}
           selectedValues={preference?.category}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
               prefKey: 'category',
               prefValue: value as string,
             })
-          }
+            filterArticlesBy({ value: value as string, key: 'category' })
+          }}
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
@@ -65,13 +67,14 @@ function PersonalPreferencesControls() {
             label: source,
           }))}
           selectedValues={preference?.source}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
               prefKey: 'source',
               prefValue: value as string,
             })
-          }
+            filterArticlesBy({ value: value as string, key: 'source' })
+          }}
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
@@ -84,7 +87,10 @@ function PersonalPreferencesControls() {
       </section>
       <Button
         variant="secondary"
-        onClick={() => setPersonalPreference({ action: 'reset' })}
+        onClick={() => {
+          filterArticlesBy()
+          setPersonalPreference({ action: 'reset' })
+        }}
       >
         {getString('RESET_PREFS_BUTTON')}
       </Button>

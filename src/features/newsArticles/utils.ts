@@ -1,4 +1,8 @@
+import { CONSTS } from '../../common/consts'
+import { LocalStorage } from '../../common/utils'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
+import { Preference } from '../personalFeed/types/PersonalFeed.types'
+import { filterByCategoryOrSource } from './newsArticlesReducers'
 
 /**
  * Normalizes data to be array of objects from the `AggregatorService`
@@ -89,4 +93,34 @@ function timeAgo(date: Date): string {
   return `${years} year${years !== 1 ? 's' : ''} ago`
 }
 
-export { extractMetaFilters, normalizeDataFromApi, timeAgo }
+function getPersonalizedArticles(
+  articles: Array<AggregatedArticle>
+): Array<AggregatedArticle> {
+  let preferenceArticles = [] as typeof articles
+
+  const preferences = LocalStorage.getItem(CONSTS.personalFeedKey) as Preference
+
+  if (preferences) {
+    Object.entries(preferences).forEach(([key, value]) => {
+      value.forEach((v) => {
+        preferenceArticles = [
+          ...filterByCategoryOrSource(articles, {
+            key,
+            value: v,
+          }),
+        ]
+      })
+    })
+
+    return [...preferenceArticles]
+  }
+
+  return preferenceArticles
+}
+
+export {
+  extractMetaFilters,
+  normalizeDataFromApi,
+  timeAgo,
+  getPersonalizedArticles,
+}

@@ -8,7 +8,6 @@ function filterByCategoryOrSource(
   articles: Array<AggregatedArticle>,
   { key, value }: FilterPayload
 ): Array<AggregatedArticle> {
-  console.log(key, value)
   if (!key || !value) {
     return []
   }
