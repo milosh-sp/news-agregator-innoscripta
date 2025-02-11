@@ -92,7 +92,7 @@ function PersonalPreferencesControls() {
           setPersonalPreference({ action: 'reset' })
         }}
       >
-        {getString('RESET_PREFS_BUTTON')}
+        {getString('RESET_BUTTON')}
       </Button>
     </section>
   )

@@ -1,8 +1,10 @@
 {
   "SEARCH_INPUT_PLACEHOLDER": "Search",
   "GENERIC_ERROR": "Something went wrong",
-  "RESET_PREFS_BUTTON": "Reset prefs",
-  "ADD_CAT_BUTTON": "Add category",
-  "ADD_SOURCE_BUTTON": "Add source",
-  "ADD_AUTHOR_BUTTON": "Add author"
+  "ADD_CAT_BUTTON": "Category",
+  "ADD_SOURCE_BUTTON": "Source",
+  "ADD_AUTHOR_BUTTON": "Author",
+  "OPTIONS_BUTTON_FILTER": "Filters",
+  "OPTIONS_BUTTON_PREFS": "Prefs",
+  "RESET_BUTTON": "Reset"
 }

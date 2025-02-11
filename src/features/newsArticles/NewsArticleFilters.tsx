@@ -3,7 +3,11 @@ import { DateDropdown } from '../../common/components/DateDropdown'
 import { SearchableDropdown } from '../../common/components/SearchableDropdown'
 import { useNewsArticles } from './newsArticleHooks'
 import style from './NewsArticleFilters.module.scss'
+import { getString } from '../../common/utils'
 
+/**
+ * Renders a set of buttons used for filtering articles
+ */
 function NewsArticleFilters() {
   const { filterArticlesBy, articleMetaFilters } = useNewsArticles()
 
@@ -11,7 +15,7 @@ function NewsArticleFilters() {
     <main className={style['news-article-filters']}>
       <section className={style['news-article-filters__type-filters']}>
         <SearchableDropdown
-          placeholder="filter by category"
+          placeholder={getString('ADD_CAT_BUTTON')}
           options={articleMetaFilters.category.map((c) => ({
             value: c,
             label: c,
@@ -19,7 +23,7 @@ function NewsArticleFilters() {
           onChange={(value) => filterArticlesBy({ value, key: 'category' })}
         />
         <SearchableDropdown
-          placeholder="filter by source"
+          placeholder={getString('ADD_SOURCE_BUTTON')}
           options={articleMetaFilters.source.map((c) => ({
             value: c,
             label: c,
@@ -60,10 +64,10 @@ function NewsArticleFilters() {
       </section>
       <Button
         type="button"
-        variant="primary"
+        variant="secondary"
         onClick={() => filterArticlesBy()}
       >
-        RESET FILTERS
+        {getString('RESET_BUTTON')}
       </Button>
     </main>
   )

@@ -1,5 +1,6 @@
 import { DebouncedInput } from '../../common/components/DebouncedInput'
 import { useNewsArticles } from './newsArticleHooks'
+import { SearchbarOptions } from './SearchbarOptions'
 
 function NewsArticleSearch() {
   const { setQuery } = useNewsArticles()
@@ -18,6 +19,7 @@ function NewsArticleSearch() {
           })
         }}
       />
+      <SearchbarOptions />
     </section>
   )
 }
