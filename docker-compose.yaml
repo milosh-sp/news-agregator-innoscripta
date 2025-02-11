@@ -1,0 +1,9 @@
+services:
+  news-aggregator:
+    build: .
+    ports:
+      - '8080:8080'
+    environment:
+      - VITE_NEWS_ORG_API_KEY=${NEWS_ORG_API_KEY}
+      - VITE_GUARDIAN_KEY=${GUARDIAN_API_KEY}
+      - VITE_NYTIMES_KEY=${NEWS_ORG_API_KEY}
