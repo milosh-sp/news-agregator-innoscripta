@@ -11,5 +11,6 @@
   "NO_ARTICLES_FOUND": "No articles found for this word, reset filters or preferences",
   "SEARCH_ENTRY": "Search entry...",
   "DATE_FROM": "From",
-  "DATE_TO": "To"
+  "DATE_TO": "To",
+  "FALLBACK_FOR_ARTICLES": "Unknown"
 }
