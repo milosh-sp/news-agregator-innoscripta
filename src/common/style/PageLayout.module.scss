@@ -2,13 +2,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
+* {
+  // CSS debugger
+  outline: 1px solid red;
+}
+
+@mixin bg-img($url) {
+  background: url($url) no-repeat;
+  background-size: cover;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
+  @include bg-img(
+    'https://images.unsplash.com/photo-1517790253044-a9968449de15'
+  );
 }
 
 /* @define page-layout */
 .page-layout {
-  height: 100vh;
   position: relative;
   &::before {
     content: '';
@@ -25,7 +37,9 @@ body {
   }
 
   &__container {
-    @include mixins.flex-layout($flex-direction: column);
+    width: 100%;
     padding: 20px;
+    height: 100vh;
+    @include mixins.flex-layout($flex-direction: column);
   }
 }

@@ -1,4 +1,3 @@
-import { ApiCount } from '../common/components/ApiCount'
 import { ErrorText } from '../common/components/ErrorText'
 import { PageLayout } from '../common/components/PageLayout'
 import { Spinner } from '../common/components/Spinner'
@@ -11,16 +10,13 @@ function FeedPage() {
   const { articles, isLoading, error } = useNewsArticles()
 
   return (
-    <>
-      <PageLayout>
-        <ApiCount />
-        <NewsArticleSearch />
-        {isLoading && <Spinner />}
-        {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}
+    <PageLayout>
+      <NewsArticleSearch />
+      {isLoading && <Spinner />}
+      {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}
 
-        {!isLoading && !error && <NewsArticles articles={articles} />}
-      </PageLayout>
-    </>
+      {!isLoading && !error && <NewsArticles articles={articles} />}
+    </PageLayout>
   )
 }
 

@@ -6,5 +6,6 @@
   "ADD_AUTHOR_BUTTON": "Author",
   "OPTIONS_BUTTON_FILTER": "Filters",
   "OPTIONS_BUTTON_PREFS": "Prefs",
-  "RESET_BUTTON": "Reset"
+  "RESET_BUTTON": "Reset",
+  "SEARCH_PLACEHOLDER:": "Search over "
 }
