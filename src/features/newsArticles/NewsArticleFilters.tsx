@@ -37,6 +37,7 @@ function NewsArticleFilters() {
       </section>
       <section className={style['news-article-filters__date-filters']}>
         <DateDropdown
+          label={getString('DATE_FROM')}
           minYear={1900}
           maxYear={new Date().getFullYear()}
           onChange={(value) => {
@@ -52,6 +53,7 @@ function NewsArticleFilters() {
         />
 
         <DateDropdown
+          label={getString('DATE_TO')}
           minYear={1900}
           maxYear={new Date().getFullYear()}
           onChange={(value) => {

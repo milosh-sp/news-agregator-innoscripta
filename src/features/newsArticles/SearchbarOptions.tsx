@@ -31,7 +31,7 @@ function SearchbarOptions() {
         const showComponent = renderOptionIndex === index
 
         return (
-          <section key={id}>
+          <section key={id} className={style['searchbar-options__container']}>
             <Button onClick={handleClick(index)}>{label}</Button>
             {showComponent && (
               <article className={style['searchbar-options__option']}>

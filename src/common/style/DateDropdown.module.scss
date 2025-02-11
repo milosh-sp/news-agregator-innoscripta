@@ -1,9 +1,19 @@
 @use '../../common/style/mixins';
+@use '../../common/style/variables';
 
 /* @define date-dropdown */
 .date-dropdown {
   width: 100%;
-  @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+
+  &__label {
+    margin-bottom: 5px;
+    @include mixins.font-style(variables.$font-sm, variables.$font-bold);
+  }
+
+  &__container {
+    width: 100%;
+    @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+  }
 
   &__option {
     width: 100%;
