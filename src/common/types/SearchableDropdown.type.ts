@@ -1,4 +1,5 @@
 import { HTMLAttributes } from 'react'
+import { ButtonVariant } from './Button.type'
 
 interface DropdownOption<T> {
   value: T
@@ -15,6 +16,7 @@ interface DropdownProps<T>
   disabled?: boolean
   searchPlaceholder?: string
   hideSearch?: boolean
+  buttonVariant?: ButtonVariant
 }
 
 export type { DropdownOption, DropdownProps }

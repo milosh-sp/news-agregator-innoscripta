@@ -6,6 +6,8 @@ import { usePersonalFeed } from './personalFeedHooks'
 import style from './PersonalPreferencesControls.module.scss'
 import { Preferences } from './Prefferences'
 
+const buttonVariant = 'purple'
+
 /**
  * Controls to add personal preferences to the news feed with dropdown UI
  * elements. Each preference is saved on user's browser
@@ -32,6 +34,7 @@ function PersonalPreferencesControls() {
           }}
           placeholder={getString('ADD_AUTHOR_BUTTON')}
           searchPlaceholder={searchPlaceholder}
+          buttonVariant={buttonVariant}
         />
         <SearchableDropdown
           options={articleMetaFilters?.category.map((category) => ({
@@ -48,6 +51,7 @@ function PersonalPreferencesControls() {
           }}
           placeholder={getString('ADD_CAT_BUTTON')}
           searchPlaceholder={searchPlaceholder}
+          buttonVariant={buttonVariant}
         />
         <SearchableDropdown
           options={articleMetaFilters?.source.map((source) => ({
@@ -64,6 +68,7 @@ function PersonalPreferencesControls() {
           }}
           placeholder={getString('ADD_SOURCE_BUTTON')}
           searchPlaceholder={searchPlaceholder}
+          buttonVariant={buttonVariant}
         />
       </section>
       <Button

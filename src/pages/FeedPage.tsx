@@ -23,7 +23,7 @@ function FeedPage() {
     <PageLayout>
       <NewsArticleSearch />
       {articles && articles.length === 0 && status === 'succeeded' && (
-        <div>{getString('NO_ARTICLES_FOUND')}</div>
+        <p>{getString('NO_ARTICLES_FOUND')}</p>
       )}
       {isLoading && <Spinner />}
       {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}

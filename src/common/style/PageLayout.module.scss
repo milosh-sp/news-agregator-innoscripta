@@ -1,10 +1,10 @@
 @use './mixins';
-
+@use './variables';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 * {
   // CSS debugger
-  // outline: 1px solid red;
+  outline: 1px solid red;
 }
 
 @mixin bg-img($url) {
@@ -14,14 +14,16 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  @include bg-img(
-    'https://images.unsplash.com/photo-1517790253044-a9968449de15'
-  );
+  // @include bg-img(
+  //   'https://images.unsplash.com/photo-1517790253044-a9968449de15'
+  // );
 }
 
 /* @define page-layout */
 .page-layout {
   position: relative;
+  height: 100vh;
+  overflow: hidden;
   &::before {
     content: '';
     position: absolute;
@@ -38,8 +40,10 @@ body {
 
   &__container {
     width: 100%;
-    padding: 20px;
-
+    margin: 30px;
     @include mixins.flex-layout($flex-direction: column);
+    @media only screen and (max-width: variables.$mobile-breakpoint) {
+      margin: 5px;
+    }
   }
 }

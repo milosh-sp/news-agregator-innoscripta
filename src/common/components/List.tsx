@@ -1,5 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react'
 import { ListProps } from '../types/List.type'
+import style from '../style/List.module.scss'
 
 function ListComponent<T>(
   {
@@ -20,10 +21,7 @@ function ListComponent<T>(
       {...containerProps}
       ref={ref}
       role="list"
-      style={{
-        margin: 0,
-        padding: 0,
-      }}
+      className={` ${containerProps?.className ?? ''} ${style['list']}`}
     >
       {items.map((item, index) => (
         <li

@@ -1,0 +1,23 @@
+@use './colors';
+
+/* @define spinner */
+.spinner {
+  border: 8px solid colors.$glass-faint;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 1s linear infinite;
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
