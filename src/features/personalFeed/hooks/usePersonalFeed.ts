@@ -1,10 +1,10 @@
-import { useAppDispatch, useAppSelector } from '../../state/hooks'
+import { useAppSelector, useAppDispatch } from '../../../state/hooks'
 import {
   removePreference,
-  resetPresences,
   setPreference,
-} from './personalFeedSlice'
-import { PrefKeys } from './types/PersonalFeed.types'
+  resetPresences,
+} from '../personalFeedSlice'
+import { PrefKeys } from '../types/PersonalFeed.types'
 
 /**
  * A hook to interact with the personal feed slice, allowing the user to set,

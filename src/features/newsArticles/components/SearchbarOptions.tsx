@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getString } from '../../../common/utils'
-import { PersonalPreferencesControls } from '../../personalFeed/PersonalPreferencesControls'
+import { PersonalPreferencesControls } from '../../personalFeed/components/PersonalPreferencesControls'
 import { NewsArticleFilters } from './NewsArticleFilters'
 import { Button } from '../../../common/components/Button'
 import style from '../style/SearchbarOptions.module.scss'

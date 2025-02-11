@@ -1,8 +1,11 @@
-import { Label } from '../../common/components/Label'
-import { getString } from '../../common/utils'
-import { PreferencesProps } from './types/Preferences.type'
-import style from './Prefferences.module.scss'
+import { Label } from '../../../common/components/Label'
+import { getString } from '../../../common/utils'
+import { PreferencesProps } from '../types/Preferences.type'
+import style from '../style/Preferences.module.scss'
 
+/**
+ * Renders user's preferences that they picked for their personal feed
+ */
 function Preferences({ preference }: PreferencesProps) {
   if (preference) {
     return (
