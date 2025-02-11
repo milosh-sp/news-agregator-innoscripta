@@ -1,5 +1,6 @@
 // Borders
 $rounded: 5px;
+$rounded-pill: 15px;
 
 // Font sizes
 $font-sm: 14px;
@@ -15,3 +16,9 @@ $font-normal: 400;
 $font-medium: 500;
 $font-bold: 600;
 $font-black: 700;
+
+// Shadows
+$shadow-subdue: #00000059 0px 5px 15px;
+
+//Break points
+$mobile-breakpoint: 900px;

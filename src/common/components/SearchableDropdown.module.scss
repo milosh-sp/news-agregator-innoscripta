@@ -1,4 +1,6 @@
 @use '../../common/style/mixins';
+@use '../../common/style/colors';
+
 /* @define searchable-dropdown */
 .searchable-dropdown {
   position: relative;
@@ -7,8 +9,16 @@
   &__options-container {
     width: 100%;
   }
+
   &__button {
     width: 100%;
+  }
+
+  &__input {
+    z-index: 999;
+    position: absolute;
+    background-color: colors.$cream-dark;
+    bottom: -50px;
   }
 
   &__list {
@@ -16,14 +26,15 @@
     width: 100%;
     position: absolute;
     z-index: 999;
-    background-color: aliceblue;
+    background-color: colors.$glass-strong;
     max-height: 15.625rem;
     overflow-y: scroll;
     overflow-x: hidden;
+    top: 95px;
   }
 
   &__option {
     cursor: pointer;
-    margin-bottom: 10px;
+    padding: 7px;
   }
 }

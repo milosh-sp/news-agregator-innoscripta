@@ -1,15 +1,24 @@
 @use '../../common/style/mixins';
+@use '../../common/style/variables';
+@use '../../common/style/colors';
 /* @define token-item */
 .token-item {
   @include mixins.flex-layout($flex-direction: row, $gap: 0.625rem);
+  background-color: colors.$glass;
+  padding: 5px;
+  box-shadow: variables.$shadow-subdue;
+  border-radius: 5px;
+
   &__value {
     width: 9.375rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    @include mixins.font-style(variables.$font-md, variables.$font-normal);
     @include mixins.no-user-select;
   }
   &__delete {
     cursor: pointer;
+    color: red;
   }
 }

@@ -16,6 +16,7 @@ const endpoints = {
      * Contains the actual articles, used to extract them from the response
      */
     responseKey: 'articles',
+    timeout: 10_000,
   },
   guardian: {
     url: 'https://content.guardianapis.com/search',
@@ -24,6 +25,7 @@ const endpoints = {
      * Contains the actual articles, used to extract them from the response
      */
     responseKey: 'results',
+    timeout: 10_000,
   },
   nyTimes: {
     url: 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
@@ -32,6 +34,7 @@ const endpoints = {
      * Contains the actual articles, used to extract them from the response
      */
     responseKey: 'docs',
+    timeout: 10_000,
   },
 }
 

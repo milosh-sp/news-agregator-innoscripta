@@ -6,6 +6,8 @@ interface RequestConfig {
   baseURL?: string
   headers?: Record<string, string>
   params?: Record<string, string | number | boolean>
+  timeout?: number
+  signal?: AbortSignal
 }
 
 /**

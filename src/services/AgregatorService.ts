@@ -48,7 +48,8 @@ export class AggregatorService implements IAggregatorService {
     author,
     searchWord,
     date,
-  }: Omit<ArticleQuery, 'apiKey'>) {
+    signal,
+  }: Omit<ArticleQuery, 'apiKey'> & { signal?: AbortSignal }) {
     try {
       const endpointEntries = Object.entries(endpoints)
 
@@ -68,12 +69,13 @@ export class AggregatorService implements IAggregatorService {
             params: unifiedParams,
           },
           responseKey: value?.responseKey,
+          timeout: value?.timeout,
         }
       })
 
       const responses = (await Promise.allSettled(
         requests.map(({ url, config }) =>
-          this.getArticlesFromSource({ url, config })
+          this.getArticlesFromSource({ url, config: { ...config, signal } })
         )
       )) as Array<
         PromiseSettledResult<

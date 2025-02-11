@@ -3,7 +3,12 @@ import { AggregatedArticle } from '../../services/models/AggregatedArticles.mode
 import { ArticleQuery } from '../../services/types/Query.types'
 import { filterByCategoryOrSource } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
-import { extractMetaFilters, normalizeDataFromApi } from './utils'
+import { FilterPayload } from './types/NewsArticle.type'
+import {
+  extractMetaFilters,
+  getPersonalizedArticles,
+  normalizeDataFromApi,
+} from './utils'
 
 const initialState = {
   status: 'idle',
@@ -45,19 +50,20 @@ const newsArticlesSlice = createSlice({
     filterBy: (
       state,
       action: {
-        payload: {
-          key?: 'category' | 'source' | 'date'
-          value?: string | { from?: string; to?: string }
-        }
+        payload: FilterPayload
       }
     ) => {
       if (!action.payload.value || !action.payload.key) {
         state.articles = state.initialArticles
         return
       }
-      //TODO: Use user preferences to pre-filter here
 
-      state.articles = filterByCategoryOrSource(state.articles, action.payload)
+      const filteredArticles = filterByCategoryOrSource(
+        state.initialArticles,
+        action.payload
+      )
+
+      state.articles = filteredArticles
     },
   },
 
@@ -76,11 +82,24 @@ const newsArticlesSlice = createSlice({
             action.payload
           ) as unknown as Array<AggregatedArticle>
 
-          state.initialArticles = state.articles = normalizedData.sort(
+          const preferenceArticles = getPersonalizedArticles(normalizedData)
+
+          state.initialArticles = normalizedData.sort(
             (a, b) =>
               new Date(b.publishedAt).getTime() -
               new Date(a.publishedAt).getTime()
           )
+
+          state.articles = (() => {
+            if (preferenceArticles.length !== 0) {
+              return preferenceArticles.sort(
+                (a, b) =>
+                  new Date(b.publishedAt).getTime() -
+                  new Date(a.publishedAt).getTime()
+              )
+            }
+            return state.initialArticles
+          })()
 
           state.articlesMetaFilters = extractMetaFilters({
             elements: normalizedData,

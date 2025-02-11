@@ -1,17 +1,12 @@
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
+import { FilterPayload } from './types/NewsArticle.type'
 
 /**
  * Filters by category or source
  */
 function filterByCategoryOrSource(
   articles: Array<AggregatedArticle>,
-  {
-    key,
-    value,
-  }: {
-    key?: 'category' | 'source' | 'date'
-    value?: string | { from?: string; to?: string }
-  }
+  { key, value }: FilterPayload
 ): Array<AggregatedArticle> {
   if (!key || !value) {
     return []
@@ -27,7 +22,10 @@ function filterByCategoryOrSource(
       return articleDate >= fromTime && articleDate <= toTime
     }
 
-    if ((key === 'category' || key === 'source') && typeof value === 'string') {
+    if (
+      (key === 'category' || key === 'source' || key === 'author') &&
+      typeof value === 'string'
+    ) {
       return article[key]?.toLowerCase() === value.toLowerCase()
     }
 

@@ -2,17 +2,32 @@
 @use '../../common/style/variables';
 @use '../../common/style/colors';
 
+@mixin font-style-content($font-size: variables.$font-lg) {
+  @include mixins.font-style(
+    $font-size: $font-size,
+    $font-weight: variables.$font-medium,
+    $color: colors.$gray-dark
+  );
+  text-shadow: variables.$shadow-subdue;
+}
+
 /* @define news-article */
 .news-article {
   max-width: 540px;
   background-color: colors.$glass;
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
   margin-bottom: 0.9375rem;
-  cursor: pointer;
+  box-shadow: variables.$shadow-subdue;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    opacity: 0.7;
+    transition: all 0.2s ease-in-out;
+  }
 
   &__wrapper {
-    padding: 10px;
     border-radius: 5px;
     @include mixins.flex-layout(
       $flex-direction: column,
@@ -22,7 +37,6 @@
 
   &__img-title {
     width: 100%;
-
     @include mixins.flex-layout(
       $flex-direction: row,
       $justify-content: space-between,
@@ -53,23 +67,40 @@
     height: 65px;
     border-radius: 5px;
   }
+
   &__content {
     width: 100%;
-    margin-bottom: 10px;
-  }
-
-  &__category {
-    text-transform: capitalize;
-  }
-  &__date {
-    margin-bottom: 0.625rem;
+    @include font-style-content;
   }
 
   &__description {
-    margin: 0.3125rem 0;
+    margin-bottom: 0.9375rem;
   }
 
-  &__source {
-    margin-top: 0.3125rem;
+  &__category {
+    margin: 0;
+    @include mixins.font-style(
+      $font-size: variables.$font-xl,
+      $font-weight: variables.$font-medium,
+      $color: colors.$gray-dark
+    );
+    text-shadow: variables.$shadow-subdue;
+    text-transform: capitalize;
+  }
+  &__footer {
+    margin-top: 10px;
+    @include mixins.flex-layout(
+      $flex-direction: column,
+      $justify-content: flex-start,
+      $align-items: flex-start,
+      $gap: 5px
+    );
+  }
+
+  &__author,
+  &__source,
+  &__date {
+    margin: 0;
+    @include font-style-content(variables.$font-sm);
   }
 }

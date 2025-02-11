@@ -1,0 +1,44 @@
+@use './colors';
+@use './variables';
+@use './mixins';
+
+/* @define input */
+.input {
+  width: 100%;
+
+  &__elem {
+    padding: 7px 15px;
+    background-color: colors.$cream;
+    border: 1px solid colors.$gray;
+    box-shadow: variables.$shadow-subdue;
+    border-radius: variables.$rounded-pill;
+    transition:
+      border-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+
+    @include mixins.font-style(variables.$font-md, variables.$font-bold);
+
+    &:focus {
+      outline: none;
+      border-color: colors.$glass-faint;
+    }
+
+    &[aria-invalid='true'] {
+      border-color: #ff4d4f;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+      }
+    }
+
+    &:disabled {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+}

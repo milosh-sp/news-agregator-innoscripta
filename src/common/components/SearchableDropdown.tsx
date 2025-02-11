@@ -33,12 +33,12 @@ function SearchableDropdown<T extends string>({
     <section
       {...rest}
       ref={dropdownRef}
-      className={style['searchable-dropdown']}
+      className={`${style['searchable-dropdown']} ${rest?.className ?? ''}`}
     >
       <Button
         className={style['searchable-dropdown__button']}
         type="button"
-        disabled={disabled}
+        // disabled={disabled || !options || options?.length === 0}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         aria-haspopup="listbox"
         variant="primary"

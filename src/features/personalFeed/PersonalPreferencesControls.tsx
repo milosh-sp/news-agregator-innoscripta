@@ -1,5 +1,6 @@
 import { Button } from '../../common/components/Button'
-import { MultiselectDropdown } from '../../common/components/MultiselectDropdown'
+import { SearchableDropdown } from '../../common/components/SearchableDropdown'
+import { getString } from '../../common/utils'
 import { useNewsArticles } from '../newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './personalFeedHooks'
 import style from './PersonalPreferencesControls.module.scss'
@@ -9,86 +10,69 @@ import style from './PersonalPreferencesControls.module.scss'
  * elements. Each preference is saved on user's browser
  */
 function PersonalPreferencesControls() {
-  const { preference, setPersonalPreference } = usePersonalFeed()
-  const { articleMetaFilters } = useNewsArticles()
+  const { setPersonalPreference } = usePersonalFeed()
+  const { articleMetaFilters, filterArticlesBy } = useNewsArticles()
+  const searchPlaceholder = getString('SEARCH_ENTRY')
   return (
     <section className={style['personal-preferences-controls']}>
       <section className={style['personal-preferences-controls__filters']}>
-        <MultiselectDropdown
+        <SearchableDropdown
           options={articleMetaFilters.author.map((a) => ({
             value: a,
             label: a,
           }))}
-          selectedValues={preference.authors}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
-              prefKey: 'authors',
+              prefKey: 'author',
               prefValue: value as string,
             })
-          }
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'authors',
-              prefValue: value as string,
-            })
+            filterArticlesBy({ value: value as string, key: 'author' })
           }}
-          placeholder="Add author"
-          disabled={preference.authors.length === 0}
+          placeholder={getString('ADD_AUTHOR_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
-        <MultiselectDropdown
-          options={articleMetaFilters.category.map((category) => ({
+        <SearchableDropdown
+          options={articleMetaFilters?.category.map((category) => ({
             value: category,
             label: category,
           }))}
-          selectedValues={preference.categories}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
-              prefKey: 'categories',
+              prefKey: 'category',
               prefValue: value as string,
             })
-          }
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'categories',
-              prefValue: value as string,
-            })
+            filterArticlesBy({ value: value as string, key: 'category' })
           }}
-          placeholder="Add categories"
-          disabled={preference.categories.length === 0}
+          placeholder={getString('ADD_CAT_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
-        <MultiselectDropdown
-          options={articleMetaFilters.source.map((source) => ({
+        <SearchableDropdown
+          options={articleMetaFilters?.source.map((source) => ({
             value: source,
             label: source,
           }))}
-          selectedValues={preference.sources}
-          onChange={(value) =>
+          onChange={(value) => {
             setPersonalPreference({
               action: 'add',
-              prefKey: 'sources',
+              prefKey: 'source',
               prefValue: value as string,
             })
-          }
-          onValueRemoved={(value) => {
-            setPersonalPreference({
-              action: 'remove',
-              prefKey: 'sources',
-              prefValue: value as string,
-            })
+            filterArticlesBy({ value: value as string, key: 'source' })
           }}
-          placeholder="Add sources"
-          disabled={preference.sources.length === 0}
+          placeholder={getString('ADD_SOURCE_BUTTON')}
+          searchPlaceholder={searchPlaceholder}
         />
       </section>
       <Button
         variant="secondary"
-        onClick={() => setPersonalPreference({ action: 'reset' })}
+        onClick={() => {
+          filterArticlesBy()
+          setPersonalPreference({ action: 'reset' })
+        }}
       >
-        RESET prefs
+        {getString('RESET_BUTTON')}
       </Button>
     </section>
   )

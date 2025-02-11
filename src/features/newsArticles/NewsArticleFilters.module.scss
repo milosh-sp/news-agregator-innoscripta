@@ -1,18 +1,24 @@
 @use '../../common/style/mixins';
+@use '../../common/style/variables';
+@use '../../common/style/colors';
 
 /* @define  news-article-filters**/
 .news-article-filters {
   margin: 1.25rem 0;
-  width: 100%;
+  width: 300px;
+  padding: 10px;
+  background-color: colors.$glass-faint;
+  border-radius: 10px;
   @include mixins.flex-layout($flex-direction: column);
 
   &__type-filters {
     margin-bottom: 1.25rem;
-    @include mixins.flex-layout($gap: 1.25rem);
+    @include mixins.flex-layout($gap: 1.25rem, $flex-direction: column);
   }
 
   &__date-filters {
     margin-bottom: 1.25rem;
-    @include mixins.flex-layout($gap: 20px);
+    width: 100%;
+    @include mixins.flex-layout($gap: 20px, $flex-direction: column);
   }
 }

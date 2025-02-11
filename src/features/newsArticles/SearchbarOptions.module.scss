@@ -1,0 +1,23 @@
+@use '../../common//style/mixins';
+
+/* @define searchbar-options  */
+.searchbar-options {
+  @include mixins.flex-layout(
+    $flex-direction: row,
+    $justify-content: space-between
+  );
+
+  &__container {
+    position: relative;
+    @include mixins.flex-layout(
+      $flex-direction: column,
+      $justify-content: flex-start
+    );
+  }
+
+  &__option {
+    position: absolute;
+    top: 30px;
+    @include mixins.flex-layout($justify-content: flex-start);
+  }
+}

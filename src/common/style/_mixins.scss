@@ -12,6 +12,17 @@
   gap: $gap;
 }
 
+@mixin grid-layout(
+  $justify-content: center,
+  $grid-template-columns: auto auto,
+  $gap: 5px
+) {
+  display: grid;
+  justify-content: $justify-content;
+  grid-template-columns: $grid-template-columns;
+  gap: $gap;
+}
+
 @mixin no-user-select {
   -webkit-touch-callout: none !important;
   /* iOS Safari */

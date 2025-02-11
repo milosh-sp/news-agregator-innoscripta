@@ -6,15 +6,17 @@ import style from './NewsArticles.module.scss'
 
 function NewsArticles({ articles }: NewsArticlesProps) {
   return (
-    <List
-      className={style['news-articles']}
-      id="news-articles"
-      items={articles}
-      renderItem={(item) => {
-        const article = item as AggregatedArticle
-        return <NewsArticle {...article} />
-      }}
-    />
+    <main className={style['news-articles']}>
+      <List
+        className={style['news-articles__list']}
+        id="news-articles"
+        items={articles}
+        renderItem={(item) => {
+          const article = item as AggregatedArticle
+          return <NewsArticle {...article} />
+        }}
+      />
+    </main>
   )
 }
 

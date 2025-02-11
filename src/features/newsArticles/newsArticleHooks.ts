@@ -1,7 +1,8 @@
 import { ArticleQuery } from '../../services/types/Query.types'
-import { useAppSelector, useAppDispatch } from '../../state/hooks'
+import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { articleFetchData } from './newsArticleThunks'
 import { filterBy } from './newsArticlesSlice'
+import { FilterPayload } from './types/NewsArticle.type'
 
 /**
  * Used to interact with the newsArticles slice, abstracts some functionalities
@@ -12,17 +13,14 @@ function useNewsArticles() {
   const dispatch = useAppDispatch()
 
   function setQuery(query: Omit<ArticleQuery, 'apiKey'>) {
-    dispatch(articleFetchData(query))
+    return dispatch(articleFetchData(query))
   }
 
   /**
    * Allows filtering articles in the redux store, by passing a key to filter
    * and value. If nothing is provided it will reset the filter to initial state
    */
-  function filterArticlesBy(params?: {
-    key?: 'category' | 'source' | 'date'
-    value?: string | { from?: string; to?: string }
-  }) {
+  function filterArticlesBy(params?: FilterPayload) {
     if (params) {
       const { key, value } = params
       dispatch(filterBy({ key, value }))
@@ -35,6 +33,7 @@ function useNewsArticles() {
     articles: data?.articles,
     setQuery,
     filterArticlesBy,
+    status: data.status,
     isLoading: data.status === 'loading',
     error: data.error,
     articleMetaFilters: data?.articlesMetaFilters ?? {
