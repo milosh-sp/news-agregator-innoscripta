@@ -13,10 +13,10 @@ export default defineConfig({
   css: {
     modules: {
       generateScopedName:
-        'development' === 'development'
-          ? `[local]`
+        'production' === process.env.NODE_ENV
+          ? `[hash:base64:5]`
           : // CSS File names are only hashed in production/staging
-            `[hash:base64:5]`,
+            `[local]`,
     },
   },
 })
