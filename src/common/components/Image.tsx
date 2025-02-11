@@ -16,7 +16,14 @@ const iconMap = {
  */
 function Image({ svgIcon, ...rest }: ImageProps) {
   if (!svgIcon) return <img src={rest.src} alt={rest?.alt} {...rest} />
-  return <img src={iconMap?.[svgIcon] ?? ''} alt={rest?.alt} {...rest} />
+  return (
+    <img
+      src={iconMap?.[svgIcon] ?? ''}
+      alt={rest?.alt}
+      {...rest}
+      loading="lazy"
+    />
+  )
 }
 
 export { Image }
