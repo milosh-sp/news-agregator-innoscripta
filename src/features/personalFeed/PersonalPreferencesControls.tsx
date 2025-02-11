@@ -1,7 +1,7 @@
 import { Button } from '../../common/components/Button'
 import { SearchableDropdown } from '../../common/components/SearchableDropdown'
 import { getString } from '../../common/utils'
-import { useNewsArticles } from '../newsArticles/newsArticleHooks'
+import { useNewsArticles } from '../newsArticles/hooks/useNewsArticles'
 import { usePersonalFeed } from './personalFeedHooks'
 import style from './PersonalPreferencesControls.module.scss'
 import { Preferences } from './Prefferences'

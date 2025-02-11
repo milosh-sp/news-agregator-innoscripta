@@ -1,12 +1,12 @@
-@use '../../common/style/mixins';
-@use '../../common/style/variables';
-@use '../../common/style/colors';
+@use '../../../common/style/mixins';
+@use '../../../common/style/variables';
+@use '../../../common/style/colors';
 
 /* @define  news-article-filters**/
 .news-article-filters {
   margin: 1.25rem 0;
-  width: 300px;
-  padding: 10px;
+  width: 18.75rem;
+  padding: 0.625rem;
   background-color: colors.$glass-faint;
   border-radius: 10px;
   @include mixins.flex-layout($flex-direction: column);

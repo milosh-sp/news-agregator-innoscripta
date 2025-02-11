@@ -1,6 +1,6 @@
 import { endpoints } from './endpoints'
-import { IAggregatorService } from './interfaces/AggregatorService.interface'
-import { GetParams, HttpClient } from './interfaces/HttpInterface'
+import { IAggregatorService } from './types/AggregatorService.interface'
+import { GetParams, HttpClient } from './types/HttpClient.Interface'
 import {
   AggregatedArticles,
   UnifiedQuery,

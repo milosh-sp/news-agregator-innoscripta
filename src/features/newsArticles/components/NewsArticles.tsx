@@ -1,8 +1,8 @@
-import { List } from '../../common/components/List'
-import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
+import { List } from '../../../common/components/List'
+import { AggregatedArticle } from '../../../services/models/AggregatedArticles.model'
 import { NewsArticle } from './NewsArticle'
-import { NewsArticlesProps } from './types/NewsArticles.type'
-import style from './NewsArticles.module.scss'
+import { NewsArticlesProps } from '../types/NewsArticles.type'
+import style from '../style/NewsArticles.module.scss'
 
 function NewsArticles({ articles }: NewsArticlesProps) {
   return (

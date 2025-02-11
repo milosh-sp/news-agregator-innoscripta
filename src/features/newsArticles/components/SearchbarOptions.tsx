@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { getString } from '../../common/utils'
-import { PersonalPreferencesControls } from '../personalFeed/PersonalPreferencesControls'
+import { getString } from '../../../common/utils'
+import { PersonalPreferencesControls } from '../../personalFeed/PersonalPreferencesControls'
 import { NewsArticleFilters } from './NewsArticleFilters'
-import { Button } from '../../common/components/Button'
-import style from './SearchbarOptions.module.scss'
-import { ButtonVariant } from '../../common/types/Button.type'
+import { Button } from '../../../common/components/Button'
+import style from '../style/SearchbarOptions.module.scss'
+import { ButtonVariant } from '../../../common/types/Button.type'
 
 const options = [
   {

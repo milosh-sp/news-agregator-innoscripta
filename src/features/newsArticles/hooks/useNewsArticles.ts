@@ -1,8 +1,8 @@
-import { ArticleQuery } from '../../services/types/Query.types'
-import { useAppDispatch, useAppSelector } from '../../state/hooks'
-import { articleFetchData } from './newsArticleThunks'
-import { filterBy } from './newsArticlesSlice'
-import { FilterPayload } from './types/NewsArticle.type'
+import { ArticleQuery } from '../../../services/types/Query.types'
+import { useAppDispatch, useAppSelector } from '../../../state/hooks'
+import { articleFetchData } from '../newsArticleThunks'
+import { filterBy } from '../newsArticlesSlice'
+import { FilterPayload } from '../types/NewsArticle.type'
 
 /**
  * Used to interact with the newsArticles slice, abstracts some functionalities

@@ -1,8 +1,8 @@
-import { DebouncedInput } from '../../common/components/DebouncedInput'
-import { useNewsArticles } from './newsArticleHooks'
+import { DebouncedInput } from '../../../common/components/DebouncedInput'
+import { useNewsArticles } from '../hooks/useNewsArticles'
 import { SearchbarOptions } from './SearchbarOptions'
-import style from './NewsArticleSearch.module.scss'
-import { getString } from '../../common/utils'
+import style from '../style/NewsArticleSearch.module.scss'
+import { getString } from '../../../common/utils'
 
 function NewsArticleSearch() {
   const { setQuery } = useNewsArticles()
