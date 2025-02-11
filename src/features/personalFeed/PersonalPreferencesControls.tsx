@@ -4,13 +4,14 @@ import { getString } from '../../common/utils'
 import { useNewsArticles } from '../newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './personalFeedHooks'
 import style from './PersonalPreferencesControls.module.scss'
+import { Preferences } from './Prefferences'
 
 /**
  * Controls to add personal preferences to the news feed with dropdown UI
  * elements. Each preference is saved on user's browser
  */
 function PersonalPreferencesControls() {
-  const { setPersonalPreference } = usePersonalFeed()
+  const { setPersonalPreference, preference } = usePersonalFeed()
   const { articleMetaFilters, filterArticlesBy } = useNewsArticles()
   const searchPlaceholder = getString('SEARCH_ENTRY')
   return (
@@ -74,6 +75,8 @@ function PersonalPreferencesControls() {
       >
         {getString('RESET_BUTTON')}
       </Button>
+
+      <Preferences preference={preference} />
     </section>
   )
 }
