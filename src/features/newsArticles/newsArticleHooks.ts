@@ -31,6 +31,7 @@ function useNewsArticles() {
 
   return {
     articles: data?.articles,
+    activeFilters: data?.activeFilters,
     setQuery,
     filterArticlesBy,
     status: data.status,

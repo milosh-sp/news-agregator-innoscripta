@@ -15,6 +15,10 @@ const initialState = {
   articles: [],
   initialArticles: [],
   error: null,
+  activeFilters: {
+    category: '',
+    source: '',
+  },
   articlesMetaFilters: {
     category: [],
     source: [],
@@ -31,6 +35,10 @@ const initialState = {
   articles: Array<AggregatedArticle>
   initialArticles: Array<AggregatedArticle>
   error: unknown
+  activeFilters: {
+    category: string
+    source: string
+  }
   query: Omit<ArticleQuery, 'apiKey'>
   articlesMetaFilters: {
     category: Array<string>
@@ -55,6 +63,10 @@ const newsArticlesSlice = createSlice({
     ) => {
       if (!action.payload.value || !action.payload.key) {
         state.articles = state.initialArticles
+        state.activeFilters = {
+          category: '',
+          source: '',
+        }
         return
       }
 
@@ -62,6 +74,13 @@ const newsArticlesSlice = createSlice({
         state.initialArticles,
         action.payload
       )
+
+      if (typeof action.payload.value === 'string') {
+        state.activeFilters = {
+          ...state.activeFilters,
+          [action.payload.key]: action.payload.value,
+        }
+      }
 
       state.articles = filteredArticles
     },

@@ -38,5 +38,6 @@
   &__option {
     cursor: pointer;
     padding: 7px;
+    @include mixins.font-style(variables.$font-md, variables.$font-bold);
   }
 }
