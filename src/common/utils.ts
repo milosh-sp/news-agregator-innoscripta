@@ -1,4 +1,5 @@
 import { CONSTS } from './consts'
+import strings from '../common/strings.json'
 
 /**
  * Safer way to interact with LocalStorage, has error handling and warnings if
@@ -108,4 +109,23 @@ function createValidDate({
   }
 }
 
-export { LocalStorage, loadUserPreferences, createValidDate, getDaysInMonth }
+function getString(key: keyof typeof strings): string {
+  try {
+    const value = strings[key]
+    if (typeof value === 'string') {
+      return value
+    }
+    throw new Error(`Key "${key}" does not map to a string value.`)
+  } catch (error) {
+    console.error(error)
+    return ''
+  }
+}
+
+export {
+  LocalStorage,
+  loadUserPreferences,
+  createValidDate,
+  getDaysInMonth,
+  getString,
+}

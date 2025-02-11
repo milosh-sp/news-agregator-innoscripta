@@ -7,19 +7,28 @@ import { useNewsArticles } from '../features/newsArticles/newsArticleHooks'
 import { NewsArticles } from '../features/newsArticles/NewsArticles'
 import { NewsArticleSearch } from '../features/newsArticles/NewsArticleSearch'
 import { PersonalPreferences } from '../features/personalFeed/PersonalPreferences'
+import { getString } from '../common/utils'
 
+//TODO: Add error boundaries
 function FeedPage() {
-  const { articles, isLoading, error } = useNewsArticles()
+  const { articles, isLoading, error, personalizeFeedData } = useNewsArticles()
+
+  // useEffect(() => {
+  //   const promise = setQuery({ searchWord: 'bitcoin' })
+  //   console.log('test')
+  //   // return () => promise.abort()
+  // }, [])
 
   return (
     <>
+      <button onClick={personalizeFeedData}>personalize</button>
       <PageLayout>
         <ApiCount />
         <PersonalPreferences />
         <NewsArticleSearch />
         {articles?.length > 0 && <NewsArticleFilters />}
         {isLoading && <Spinner />}
-        {error ? <ErrorText /> : null}
+        {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}
 
         {!isLoading && !error && <NewsArticles articles={articles} />}
       </PageLayout>

@@ -52,10 +52,14 @@ function queryToNewsOrgParams({
         'API key is required, for NewsOrg API, params cannot be processed'
       )
     }
+    if (!searchWord) {
+      throw new TypeError(
+        'Search word is required, for NewsOrg API, params cannot be processed'
+      )
+    }
 
     const paramsMap = {
-      //FIXME: This might not be okay to do, study the API better
-      q: searchWord ?? '',
+      q: searchWord,
       section: category,
       from: date,
       'q=author': author,

@@ -1,5 +1,6 @@
 import { Button } from '../../common/components/Button'
 import { MultiselectDropdown } from '../../common/components/MultiselectDropdown'
+import { getString } from '../../common/utils'
 import { useNewsArticles } from '../newsArticles/newsArticleHooks'
 import { usePersonalFeed } from './personalFeedHooks'
 import style from './PersonalPreferencesControls.module.scss'
@@ -19,76 +20,73 @@ function PersonalPreferencesControls() {
             value: a,
             label: a,
           }))}
-          selectedValues={preference.authors}
+          selectedValues={preference?.author}
           onChange={(value) =>
             setPersonalPreference({
               action: 'add',
-              prefKey: 'authors',
+              prefKey: 'author',
               prefValue: value as string,
             })
           }
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
-              prefKey: 'authors',
+              prefKey: 'author',
               prefValue: value as string,
             })
           }}
-          placeholder="Add author"
-          disabled={preference.authors.length === 0}
+          placeholder={getString('ADD_AUTHOR_BUTTON')}
         />
         <MultiselectDropdown
-          options={articleMetaFilters.category.map((category) => ({
+          options={articleMetaFilters?.category.map((category) => ({
             value: category,
             label: category,
           }))}
-          selectedValues={preference.categories}
+          selectedValues={preference?.category}
           onChange={(value) =>
             setPersonalPreference({
               action: 'add',
-              prefKey: 'categories',
+              prefKey: 'category',
               prefValue: value as string,
             })
           }
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
-              prefKey: 'categories',
+              prefKey: 'category',
               prefValue: value as string,
             })
           }}
-          placeholder="Add categories"
-          disabled={preference.categories.length === 0}
+          placeholder={getString('ADD_CAT_BUTTON')}
         />
         <MultiselectDropdown
-          options={articleMetaFilters.source.map((source) => ({
+          options={articleMetaFilters?.source.map((source) => ({
             value: source,
             label: source,
           }))}
-          selectedValues={preference.sources}
+          selectedValues={preference?.source}
           onChange={(value) =>
             setPersonalPreference({
               action: 'add',
-              prefKey: 'sources',
+              prefKey: 'source',
               prefValue: value as string,
             })
           }
           onValueRemoved={(value) => {
             setPersonalPreference({
               action: 'remove',
-              prefKey: 'sources',
+              prefKey: 'source',
               prefValue: value as string,
             })
           }}
-          placeholder="Add sources"
-          disabled={preference.sources.length === 0}
+          placeholder={getString('ADD_SOURCE_BUTTON')}
         />
       </section>
       <Button
         variant="secondary"
         onClick={() => setPersonalPreference({ action: 'reset' })}
       >
-        RESET prefs
+        {getString('RESET_PREFS_BUTTON')}
       </Button>
     </section>
   )

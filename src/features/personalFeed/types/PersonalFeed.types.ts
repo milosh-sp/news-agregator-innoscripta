@@ -1,5 +1,5 @@
 type Preference = {
-  [key in 'categories' | 'authors' | 'sources']: Array<string>
+  [key in 'category' | 'author' | 'source']: Array<string>
 }
 
 type PrefKeys = keyof Preference

@@ -11,9 +11,9 @@ type Payload = {
 }
 
 const initialPreferences: Preference = {
-  categories: [],
-  authors: [],
-  sources: [],
+  category: [],
+  author: [],
+  source: [],
 }
 
 const initialState = {
@@ -71,6 +71,7 @@ const personalFeedSlice = createSlice({
     resetPresences: (state) => {
       // set to empty initial references
       state.preference = initialPreferences
+
       LocalStorage.removeItem(CONSTS.personalFeedKey)
     },
   },

@@ -1,7 +1,7 @@
 import { ArticleQuery } from '../../services/types/Query.types'
-import { useAppSelector, useAppDispatch } from '../../state/hooks'
+import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { articleFetchData } from './newsArticleThunks'
-import { filterBy } from './newsArticlesSlice'
+import { filterBy, personalizeFeed } from './newsArticlesSlice'
 
 /**
  * Used to interact with the newsArticles slice, abstracts some functionalities
@@ -12,7 +12,11 @@ function useNewsArticles() {
   const dispatch = useAppDispatch()
 
   function setQuery(query: Omit<ArticleQuery, 'apiKey'>) {
-    dispatch(articleFetchData(query))
+    return dispatch(articleFetchData(query))
+  }
+
+  function personalizeFeedData() {
+    dispatch(personalizeFeed())
   }
 
   /**
@@ -35,6 +39,7 @@ function useNewsArticles() {
     articles: data?.articles,
     setQuery,
     filterArticlesBy,
+    personalizeFeedData,
     isLoading: data.status === 'loading',
     error: data.error,
     articleMetaFilters: data?.articlesMetaFilters ?? {

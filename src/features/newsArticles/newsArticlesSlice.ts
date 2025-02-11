@@ -4,6 +4,10 @@ import { ArticleQuery } from '../../services/types/Query.types'
 import { filterByCategoryOrSource } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
 import { extractMetaFilters, normalizeDataFromApi } from './utils'
+import { FilterPayload } from './types/NewsArticle.type'
+import { LocalStorage } from '../../common/utils'
+import { CONSTS } from '../../common/consts'
+import { Preference } from '../personalFeed/types/PersonalFeed.types'
 
 const initialState = {
   status: 'idle',
@@ -45,19 +49,37 @@ const newsArticlesSlice = createSlice({
     filterBy: (
       state,
       action: {
-        payload: {
-          key?: 'category' | 'source' | 'date'
-          value?: string | { from?: string; to?: string }
-        }
+        payload: FilterPayload
       }
     ) => {
       if (!action.payload.value || !action.payload.key) {
         state.articles = state.initialArticles
         return
       }
-      //TODO: Use user preferences to pre-filter here
 
       state.articles = filterByCategoryOrSource(state.articles, action.payload)
+    },
+    personalizeFeed: (state) => {
+      let preferenceArticles = [] as typeof state.articles
+
+      const preferences = LocalStorage.getItem(
+        CONSTS.personalFeedKey
+      ) as Preference
+
+      Object.entries(preferences).forEach(([key, value]) => {
+        value.forEach((v) => {
+          preferenceArticles = [
+            ...filterByCategoryOrSource(state.articles, {
+              key,
+              value: v,
+            }),
+          ]
+        })
+      })
+
+      if (preferenceArticles.length > 1) {
+        state.articles = [...preferenceArticles]
+      }
     },
   },
 
@@ -104,6 +126,6 @@ const newsArticlesSlice = createSlice({
 })
 
 const newsArticlesReducer = newsArticlesSlice.reducer
-const { filterBy } = newsArticlesSlice.actions
+const { filterBy, personalizeFeed } = newsArticlesSlice.actions
 
-export { articleFetchData, filterBy, newsArticlesReducer }
+export { articleFetchData, filterBy, newsArticlesReducer, personalizeFeed }
