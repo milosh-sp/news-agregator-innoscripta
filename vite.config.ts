@@ -9,6 +9,10 @@ export default defineConfig({
     port: 8080,
     host: '0.0.0.0',
   },
+  preview: {
+    port: 8080,
+    host: '0.0.0.0',
+  },
 
   css: {
     modules: {
