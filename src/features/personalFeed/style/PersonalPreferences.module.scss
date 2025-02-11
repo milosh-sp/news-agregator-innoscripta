@@ -1,4 +1,4 @@
-@use './mixins';
+@use '../../common/style/mixins';
 /* @define personal-preferences **/
 .personal-preferences {
   @include mixins.flex-layout($flex-direction: row);

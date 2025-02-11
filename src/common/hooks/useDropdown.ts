@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { DropdownOption } from '../types/SearchableDropdown.type'
 
+/**
+ * Isolates the dropdown logic and state
+ */
 export function useDropdown<T extends string>(options: DropdownOption<T>[]) {
   const [isOpen, setIsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  //TODO: Check this will cause performance issues
+  // React 19, no need to wrap this into useMemo
   const filteredOptions = options?.filter((option) =>
     option?.label?.toLowerCase().includes(searchQuery.toLowerCase())
   )

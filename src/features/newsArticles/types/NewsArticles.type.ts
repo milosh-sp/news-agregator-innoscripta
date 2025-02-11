@@ -12,10 +12,32 @@ interface NewsArticleProps extends CardBaseProps {
   source?: string
 }
 
+type ExtendedContent = {
+  fallbackContent?: string
+}
+
+type NewsArticleHeaderProps = Pick<
+  NewsArticleProps,
+  'title' | 'imageUrl' | 'category'
+> &
+  ExtendedContent
+
+type NewsArticleFooterProps = Pick<
+  NewsArticleProps,
+  'source' | 'publishedAt' | 'author'
+> &
+  ExtendedContent
+
 type NewsArticles = Array<NewsArticleProps>
 
 type NewsArticlesProps = {
   articles: Array<AggregatedArticle>
 }
 
-export type { NewsArticleProps, NewsArticles, NewsArticlesProps }
+export type {
+  NewsArticleProps,
+  NewsArticles,
+  NewsArticlesProps,
+  NewsArticleHeaderProps,
+  NewsArticleFooterProps,
+}

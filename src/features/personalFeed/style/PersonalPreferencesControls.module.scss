@@ -1,15 +1,16 @@
-@use '../../common/style/mixins';
-@use '../../common/style/variables';
-@use '../../common/style/colors';
+@use '../../../common/style/mixins';
+@use '../../../common/style/variables';
+@use '../../../common/style/colors';
 
 /* @define personal-preferences-controls */
 .personal-preferences-controls {
   margin: 1.25rem 0;
-  width: 200px;
-  padding: 10px;
+  width: 12.5rem;
+  padding: 0.625rem;
   background-color: colors.$glass-faint;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   @include mixins.flex-layout($flex-direction: column, $gap: 1.25rem);
+
   &__filters {
     width: 100%;
     @include mixins.flex-layout($flex-direction: column, $gap: 0.625rem);

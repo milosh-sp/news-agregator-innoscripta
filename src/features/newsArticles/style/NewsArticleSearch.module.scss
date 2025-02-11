@@ -1,8 +1,10 @@
-@use '../../common/style/mixins';
+@use '../../../common/style/mixins';
 
 /* @define news-article-search */
 .news-article-search {
-  max-width: 31.25rem;
+  max-width: 100%;
+  width: 400px;
+  padding: 10px 20px;
 
   &__input {
     margin-bottom: 1.25rem;

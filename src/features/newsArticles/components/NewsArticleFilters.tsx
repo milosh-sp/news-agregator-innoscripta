@@ -1,9 +1,9 @@
-import { Button } from '../../common/components/Button'
-import { DateDropdown } from '../../common/components/DateDropdown'
-import { SearchableDropdown } from '../../common/components/SearchableDropdown'
-import { useNewsArticles } from './newsArticleHooks'
-import style from './NewsArticleFilters.module.scss'
-import { getString } from '../../common/utils'
+import { Button } from '../../../common/components/Button'
+import { DateDropdown } from '../../../common/components/DateDropdown'
+import { SearchableDropdown } from '../../../common/components/SearchableDropdown'
+import { useNewsArticles } from '../hooks/useNewsArticles'
+import style from '../style/NewsArticleFilters.module.scss'
+import { getString } from '../../../common/utils'
 
 /**
  * Renders a set of buttons used for filtering articles

@@ -1,6 +1,6 @@
 import { AggregatedArticles } from '../models/AggregatedArticles.model'
-import { ArticleQuery } from '../types/Query.types'
-import { GetParams } from './HttpInterface'
+import { ArticleQuery } from './Query.types'
+import { GetParams } from './HttpClient.Interface'
 
 /**
  * Provides a unified interface for fetching articles from multiple sources

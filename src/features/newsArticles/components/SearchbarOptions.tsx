@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { getString } from '../../common/utils'
-import { PersonalPreferencesControls } from '../personalFeed/PersonalPreferencesControls'
+import { getString } from '../../../common/utils'
+import { PersonalPreferencesControls } from '../../personalFeed/components/PersonalPreferencesControls'
 import { NewsArticleFilters } from './NewsArticleFilters'
-import { Button } from '../../common/components/Button'
-import style from './SearchbarOptions.module.scss'
-import { ButtonVariant } from '../../common/types/Button.type'
+import { Button } from '../../../common/components/Button'
+import style from '../style/SearchbarOptions.module.scss'
+import { ButtonVariant } from '../../../common/types/Button.type'
 
 const options = [
   {
@@ -21,6 +21,10 @@ const options = [
   },
 ]
 
+/**
+ * Renders options for the searchbar that allow the user to save preferences and
+ * filter articles
+ */
 function SearchbarOptions() {
   const [renderOptionIndex, setRenderOptionIndex] = useState(-1)
 
@@ -38,6 +42,7 @@ function SearchbarOptions() {
             <Button
               onClick={handleClick(index)}
               variant={buttonType as ButtonVariant}
+              className={style['searchbar-options__button']}
             >
               {label}
             </Button>

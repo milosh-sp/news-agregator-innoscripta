@@ -1,5 +1,5 @@
 import { AggregatorService } from './AgregatorService'
-import { AxiosHttpClient } from './axios-client'
+import { AxiosHttpClient } from './axiosClient'
 
 // Main HTTP client
 const httpClient = new AxiosHttpClient()

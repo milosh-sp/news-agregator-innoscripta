@@ -1,13 +1,13 @@
-@use '../../common/style/mixins';
-@use '../../common/style/variables';
+@use '../../../common/style/mixins';
+@use '../../../common/style/variables';
 
 /* @define news-articles */
 .news-articles {
-  margin: 20px;
+  margin: 1.25rem;
 
   &__list {
-    height: 80vh;
-    padding: 20px !important;
+    height: 85vh;
+    padding: 1.25rem !important;
     overflow-y: scroll;
     overflow-x: hidden;
 

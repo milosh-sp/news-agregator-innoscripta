@@ -1,10 +1,10 @@
-import { Button } from '../../common/components/Button'
-import { SearchableDropdown } from '../../common/components/SearchableDropdown'
-import { getString } from '../../common/utils'
-import { useNewsArticles } from '../newsArticles/newsArticleHooks'
-import { usePersonalFeed } from './personalFeedHooks'
-import style from './PersonalPreferencesControls.module.scss'
-import { Preferences } from './Prefferences'
+import { Button } from '../../../common/components/Button'
+import { SearchableDropdown } from '../../../common/components/SearchableDropdown'
+import { getString } from '../../../common/utils'
+import { useNewsArticles } from '../../newsArticles/hooks/useNewsArticles'
+import { usePersonalFeed } from '../hooks/usePersonalFeed'
+import style from './../style/PersonalPreferencesControls.module.scss'
+import { Preferences } from './Preferences'
 
 const buttonVariant = 'purple'
 

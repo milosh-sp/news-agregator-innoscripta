@@ -5,6 +5,15 @@
 * {
   // CSS debugger
   // outline: 1px solid red;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-start: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
 }
 
 @mixin bg-img($url) {
@@ -25,18 +34,7 @@ body {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
-  }
-
   &__container {
-    width: 100%;
     margin: 30px;
     @include mixins.flex-layout($flex-direction: column);
     @media only screen and (max-width: variables.$mobile-breakpoint) {

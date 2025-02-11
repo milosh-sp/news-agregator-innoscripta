@@ -3,7 +3,7 @@ import { useDropdown } from '../hooks/useDropdown'
 import { DropdownOption, DropdownProps } from '../types/SearchableDropdown.type'
 import { List } from './List'
 import { Button } from './Button'
-import style from './SearchableDropdown.module.scss'
+import style from '../style/SearchableDropdown.module.scss'
 
 /**
  * Generic dropdown component with search functionality, searchable
@@ -49,6 +49,8 @@ function SearchableDropdown<T extends string>({
 
       {isOpen && (
         <>
+          {/* //FIXME: Can be broken down to another component, atm does not follow S
+          //from SOLID */}
           <article className={style['searchable-dropdown__options-container']}>
             {!hideSearch && (
               <Input

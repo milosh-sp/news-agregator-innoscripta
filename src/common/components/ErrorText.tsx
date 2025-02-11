@@ -1,6 +1,8 @@
 import style from '../style/ErrorText.module.scss'
 import { ErrorTextProps } from '../types/ErrorText.type'
 
+//TODO: This can be a generic text component with
+//different variants
 /**
  * Renders error text component
  */
