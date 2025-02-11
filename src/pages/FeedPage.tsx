@@ -5,9 +5,19 @@ import { useNewsArticles } from '../features/newsArticles/newsArticleHooks'
 import { NewsArticles } from '../features/newsArticles/NewsArticles'
 import { NewsArticleSearch } from '../features/newsArticles/NewsArticleSearch'
 import { getString } from '../common/utils'
+import { useEffect } from 'react'
+import { CONSTS } from '../common/consts'
 
 function FeedPage() {
-  const { articles, isLoading, error, status } = useNewsArticles()
+  const { articles, isLoading, error, status, setQuery } = useNewsArticles()
+
+  useEffect(() => {
+    setQuery({
+      searchWord: CONSTS.initialFeedQuery,
+    })
+    //FIXME: In react dev more this will be called twice, need to cancel the
+    //request not the promise returned from `setQuery`
+  }, [])
 
   return (
     <PageLayout>

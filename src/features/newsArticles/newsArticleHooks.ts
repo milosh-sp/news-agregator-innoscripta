@@ -13,7 +13,12 @@ function useNewsArticles() {
   const dispatch = useAppDispatch()
 
   function setQuery(query: Omit<ArticleQuery, 'apiKey'>) {
-    return dispatch(articleFetchData(query))
+    return dispatch(
+      articleFetchData({
+        ...query,
+        searchWord: query?.searchWord?.trim(),
+      })
+    )
   }
 
   /**

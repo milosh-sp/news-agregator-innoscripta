@@ -99,6 +99,7 @@ function queryToGuardianParams({
       q: searchWord,
       'order-by': 'relevance',
       from: date,
+      'page-size': 200,
     }
 
     return filterAndAssign(params, Object.entries(paramsMap))
@@ -112,8 +113,6 @@ function queryToGuardianParams({
  * https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get
  */
 function queryToNyTimesParams({
-  author,
-  category,
   date,
   searchWord,
   apiKey,
@@ -127,16 +126,10 @@ function queryToNyTimesParams({
       )
     }
 
-    //FIXME: Not a good way to do this, but okay for now
-    const fq =
-      [author && `author:"${author}"`, category && `category:"${category}"`]
-        .filter(Boolean)
-        .join(' OR ') || undefined
-
     const paramsMap = {
       q: searchWord,
       begin_date: date,
-      fq: fq,
+      page: 100,
     }
 
     return filterAndAssign(params, Object.entries(paramsMap))

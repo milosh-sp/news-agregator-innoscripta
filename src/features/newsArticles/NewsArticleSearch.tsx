@@ -2,6 +2,7 @@ import { DebouncedInput } from '../../common/components/DebouncedInput'
 import { useNewsArticles } from './newsArticleHooks'
 import { SearchbarOptions } from './SearchbarOptions'
 import style from './NewsArticleSearch.module.scss'
+import { getString } from '../../common/utils'
 
 function NewsArticleSearch() {
   const { setQuery } = useNewsArticles()
@@ -10,6 +11,7 @@ function NewsArticleSearch() {
     <main className={style['news-article-search']}>
       <section className={style['news-article-search__input']}>
         <DebouncedInput
+          placeholder={getString('SEARCH_ENTRY')}
           debounceDelay={2_000}
           spellCheck
           onChange={({ target: { value } }) => {
