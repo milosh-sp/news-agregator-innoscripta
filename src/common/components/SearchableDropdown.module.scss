@@ -1,5 +1,6 @@
 @use '../../common/style/mixins';
 @use '../../common/style/colors';
+@use '../../common/style/variables';
 
 /* @define searchable-dropdown */
 .searchable-dropdown {
@@ -23,6 +24,7 @@
 
   &__list {
     padding: 0 10px;
+    border-radius: variables.$rounded;
     width: 100%;
     position: absolute;
     z-index: 999;
@@ -36,5 +38,10 @@
   &__option {
     cursor: pointer;
     padding: 7px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include mixins.font-style(variables.$font-md, variables.$font-bold);
   }
 }

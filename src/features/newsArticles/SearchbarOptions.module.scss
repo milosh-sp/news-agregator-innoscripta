@@ -1,4 +1,5 @@
 @use '../../common//style/mixins';
+@use '../../common/style/variables';
 
 /* @define searchbar-options  */
 .searchbar-options {
@@ -18,6 +19,10 @@
   &__option {
     position: absolute;
     top: 30px;
+    z-index: 9999;
     @include mixins.flex-layout($justify-content: flex-start);
+    @media only screen and (max-width: variables.$mobile-breakpoint) {
+      width: 100%;
+    }
   }
 }

@@ -9,7 +9,8 @@ import { getString } from '../../common/utils'
  * Renders a set of buttons used for filtering articles
  */
 function NewsArticleFilters() {
-  const { filterArticlesBy, articleMetaFilters } = useNewsArticles()
+  const { filterArticlesBy, articleMetaFilters, activeFilters } =
+    useNewsArticles()
 
   const searchPlaceholder = getString('SEARCH_ENTRY')
 
@@ -17,7 +18,9 @@ function NewsArticleFilters() {
     <main className={style['news-article-filters']}>
       <section className={style['news-article-filters__type-filters']}>
         <SearchableDropdown
-          placeholder={getString('ADD_CAT_BUTTON')}
+          placeholder={
+            activeFilters?.['category'] || getString('ADD_CAT_BUTTON')
+          }
           options={articleMetaFilters.category.map((c) => ({
             value: c,
             label: c,
@@ -26,7 +29,9 @@ function NewsArticleFilters() {
           searchPlaceholder={searchPlaceholder}
         />
         <SearchableDropdown
-          placeholder={getString('ADD_SOURCE_BUTTON')}
+          placeholder={
+            activeFilters?.['source'] || getString('ADD_SOURCE_BUTTON')
+          }
           options={articleMetaFilters.source.map((c) => ({
             value: c,
             label: c,

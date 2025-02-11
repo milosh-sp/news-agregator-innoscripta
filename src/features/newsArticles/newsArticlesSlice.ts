@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { ArticleQuery } from '../../services/types/Query.types'
-import { filterByCategoryOrSource } from './newsArticlesReducers'
+import { filterArticles } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
 import { FilterPayload } from './types/NewsArticle.type'
 import {
@@ -15,6 +15,10 @@ const initialState = {
   articles: [],
   initialArticles: [],
   error: null,
+  activeFilters: {
+    category: '',
+    source: '',
+  },
   articlesMetaFilters: {
     category: [],
     source: [],
@@ -31,6 +35,10 @@ const initialState = {
   articles: Array<AggregatedArticle>
   initialArticles: Array<AggregatedArticle>
   error: unknown
+  activeFilters: {
+    category: string
+    source: string
+  }
   query: Omit<ArticleQuery, 'apiKey'>
   articlesMetaFilters: {
     category: Array<string>
@@ -55,13 +63,24 @@ const newsArticlesSlice = createSlice({
     ) => {
       if (!action.payload.value || !action.payload.key) {
         state.articles = state.initialArticles
+        state.activeFilters = {
+          category: '',
+          source: '',
+        }
         return
       }
 
-      const filteredArticles = filterByCategoryOrSource(
+      const filteredArticles = filterArticles(
         state.initialArticles,
         action.payload
       )
+
+      if (typeof action.payload.value === 'string') {
+        state.activeFilters = {
+          ...state.activeFilters,
+          [action.payload.key]: action.payload.value,
+        }
+      }
 
       state.articles = filteredArticles
     },

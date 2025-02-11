@@ -17,6 +17,7 @@ function SearchableDropdown<T extends string>({
   disabled,
   searchPlaceholder,
   hideSearch,
+  buttonVariant,
   ...rest
 }: DropdownProps<T>) {
   const {
@@ -38,10 +39,10 @@ function SearchableDropdown<T extends string>({
       <Button
         className={style['searchable-dropdown__button']}
         type="button"
-        // disabled={disabled || !options || options?.length === 0}
+        disabled={disabled || !options || options?.length === 0}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         aria-haspopup="listbox"
-        variant="primary"
+        variant={buttonVariant ?? 'primary'}
       >
         {options.find((option) => option.value === value)?.label ?? placeholder}
       </Button>

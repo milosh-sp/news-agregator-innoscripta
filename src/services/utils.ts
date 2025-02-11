@@ -97,7 +97,9 @@ function queryToGuardianParams({
       section: category,
       reference: author ? `author/${author}` : undefined,
       q: searchWord,
+      'order-by': 'relevance',
       from: date,
+      'page-size': 200,
     }
 
     return filterAndAssign(params, Object.entries(paramsMap))
@@ -111,8 +113,6 @@ function queryToGuardianParams({
  * https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get
  */
 function queryToNyTimesParams({
-  author,
-  category,
   date,
   searchWord,
   apiKey,
@@ -126,16 +126,10 @@ function queryToNyTimesParams({
       )
     }
 
-    //FIXME: Not a good way to do this, but okay for now
-    const fq =
-      [author && `author:"${author}"`, category && `category:"${category}"`]
-        .filter(Boolean)
-        .join(' OR ') || undefined
-
     const paramsMap = {
       q: searchWord,
       begin_date: date,
-      fq: fq,
+      page: 100,
     }
 
     return filterAndAssign(params, Object.entries(paramsMap))
@@ -292,14 +286,16 @@ function processArticlesAndAggregate(
   const propertyMap = {
     id: ['id', '_id', 'source.id'],
     title: ['title', 'webTitle', 'headline.main'],
-    description: ['abstract', 'lead_paragraph'],
+    description: ['abstract', 'snippet', 'lead_paragraph'],
     url: ['webUrl', 'web_url', 'url'],
-    imageUrl: ['urlToImage'],
+    //TODO: Multimedia url won't work, because NYT
+    // does not send the full url they only send the PATH
+    imageUrl: ['urlToImage', 'multimedia.url'],
     publishedAt: ['publishedAt', 'webPublicationDate', 'pub_date'],
-    category: ['sectionId', 'section_name'],
+    category: ['sectionId', 'section_name', 'sectionName'],
     author: ['author', 'byline.original'],
     content: ['content'],
-    source: ['source.name', 'source'],
+    source: ['source.id', 'source.name', 'source'],
   }
 
   const unified = unifyObjects(arrayOfArticles, propertyMap)

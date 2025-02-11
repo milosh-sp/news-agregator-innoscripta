@@ -2,7 +2,7 @@ import { CONSTS } from '../../common/consts'
 import { LocalStorage } from '../../common/utils'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { Preference } from '../personalFeed/types/PersonalFeed.types'
-import { filterByCategoryOrSource } from './newsArticlesReducers'
+import { filterArticles } from './newsArticlesReducers'
 
 /**
  * Normalizes data to be array of objects from the `AggregatorService`
@@ -104,7 +104,7 @@ function getPersonalizedArticles(
     Object.entries(preferences).forEach(([key, value]) => {
       value.forEach((v) => {
         preferenceArticles = [
-          ...filterByCategoryOrSource(articles, {
+          ...filterArticles(articles, {
             key,
             value: v,
           }),
@@ -118,9 +118,76 @@ function getPersonalizedArticles(
   return preferenceArticles
 }
 
+interface DateRange {
+  from?: string
+  to?: string
+}
+
+interface DateFilterResult {
+  isValid: boolean
+  articleTimestamp: number
+  rangeStart: number
+  rangeEnd: number
+}
+
+/**
+ * Validates and extracts timestamps from date range filter
+ */
+function validateDateRange(range: DateRange): DateFilterResult {
+  const rangeStart = range.from
+    ? Date.parse(range.from.trim())
+    : Number.NEGATIVE_INFINITY
+
+  const rangeEnd = range.to
+    ? Date.parse(range.to.trim())
+    : Number.POSITIVE_INFINITY
+
+  return {
+    isValid: !isNaN(rangeStart) && !isNaN(rangeEnd),
+    articleTimestamp: rangeStart,
+    rangeStart,
+    rangeEnd,
+  }
+}
+
+/**
+ * Filters articles based on date range criteria
+ */
+function filterByDate(
+  article: AggregatedArticle,
+  key: string,
+  value: unknown
+): boolean {
+  // Early return if key isn't 'date' or value isn't valid object
+  if (key !== 'date' || typeof value !== 'object' || value === null) {
+    return true
+  }
+
+  const dateRange = value as DateRange
+
+  // Validate date range
+  const { isValid, rangeStart, rangeEnd } = validateDateRange(dateRange)
+
+  // Skip if date range is invalid
+  if (!isValid) {
+    return true
+  }
+
+  // Convert article date to timestamp
+  const articleTimestamp = Date.parse(article.publishedAt)
+
+  // Return true if article date falls within range
+  return (
+    !isNaN(articleTimestamp) &&
+    articleTimestamp >= rangeStart &&
+    articleTimestamp <= rangeEnd
+  )
+}
+
 export {
   extractMetaFilters,
   normalizeDataFromApi,
   timeAgo,
   getPersonalizedArticles,
+  filterByDate,
 }
