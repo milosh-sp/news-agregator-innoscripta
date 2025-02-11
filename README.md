@@ -9,12 +9,12 @@ Required Node 20 >=
 
 1. Make sure you have [docker](https://docs.docker.com/) installed on your
    machine
-2. The app needs API keys from each api provide:
+2. The app needs API keys from each api provider:
    [NewsAPI](https://newsapi.org/docs)
    [TheGuardian](https://open-platform.theguardian.com/documentation/)
    [NyTimes](https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get)
 
-3. Before running the docker containte, it is needed to have the API keys in an
+3. Before running the docker container, it is needed to have the API keys in an
    `.env` file. Make sure all `.env` keys are prefixed with `VITE_`, otherwise
    Vite and Docker will ignore them
 
@@ -22,13 +22,13 @@ Required Node 20 >=
 docker compose up --build
 ```
 
-This will automatically download Node and all the needed dependencies, then the
+This will automatically download Node and all the needed project dependencies, then the
 app will be built for production and a `localhost` server will start running on
 port `8080`
 
 After the setup simply go to `http://localhost:8080` to access the app.
 
-## Running the project locally
+## Running the project locally in dev mode
 
 You can run the project following this steps:
 
@@ -42,12 +42,14 @@ refresh very fast because Vite is amazing.
 ## Stack
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-4B3263?style=for-the-badge&logo=docker&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
 ## Dev scripts
 
