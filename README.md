@@ -7,31 +7,24 @@ Required Node 20 >=
 
 ## Running a production build with Docker
 
-1. Make sure you have [docker](https://docs.docker.com/) installed on your machine
-2. The app needs API keys
-   from each api provide:
+1. Make sure you have [docker](https://docs.docker.com/) installed on your
+   machine
+2. The app needs API keys from each api provide:
    [NewsAPI](https://newsapi.org/docs)
    [TheGuardian](https://open-platform.theguardian.com/documentation/)
    [NyTimes](https://developer.nytimes.com/docs/articlesearch-product/1/routes/articlesearch.json/get)
 
-3. Run
-   If you have keys in `.env`.
-   Make sure all `.env` keys are prefixed with `VITE_`, otherwise Vite will
-   ignore them
+3. Before running the docker containte, it is needed to have the API keys in an
+   `.env` file. Make sure all `.env` keys are prefixed with `VITE_`, otherwise
+   Vite and Docker will ignore them
 
 ```shell
 docker compose up --build
 ```
 
-or run
-
-```shell
-NY_TIMES_API_KEY={{key}} GUARDIAN_API_KEY={{key}} NEWS_ORG_API_KEY={{}} docker compose up --build
-```
-
-This will automatically download Node and all the needed dependencies,
-then the app will be built for production and a `localhost` server will start
-running on port `8080`
+This will automatically download Node and all the needed dependencies, then the
+app will be built for production and a `localhost` server will start running on
+port `8080`
 
 After the setup simply go to `http://localhost:8080` to access the app.
 
@@ -58,9 +51,8 @@ refresh very fast because Vite is amazing.
 
 ## Branches
 
-Each PR is checked for code quality using Github actions.
-Stable code is pushed to `production`
-Main staging branch is `main`
+Each PR is checked for code quality using Github actions. Stable code is pushed
+to `production` Main staging branch is `main`
 
 ## Project structure
 
