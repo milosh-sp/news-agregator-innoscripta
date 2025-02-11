@@ -33,18 +33,21 @@ function NewsArticle({
           </div>
           <p className={style['news-article__category']}>{category}</p>
         </header>
-        <div className={style['news-article__content']}>
+        <article className={style['news-article__content']}>
           {description && (
             <p className={style['news-article__description']}>{description}</p>
           )}
-          <p className={style['news-article__source']}>{source}</p>
-          <time dateTime={publishedAt} className={style['news-article__date']}>
-            {publishedAt && timeAgo(new Date(publishedAt))}
-          </time>
-        </div>
-        <footer className={style['news-article__footer']}>
-          <span className={style['news-article__author']}>{author}</span>
-        </footer>
+          <footer className={style['news-article__footer']}>
+            <p className={style['news-article__source']}>{source}</p>
+            <time
+              dateTime={publishedAt}
+              className={style['news-article__date']}
+            >
+              {publishedAt && timeAgo(new Date(publishedAt))}
+            </time>
+            <p className={style['news-article__author']}>{author}</p>
+          </footer>
+        </article>
       </div>
     </Card>
   )

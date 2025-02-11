@@ -1,9 +1,17 @@
+@use '../../common/style/mixins';
+@use '../../common/style/variables';
+
 /* @define news-articles */
 .news-articles {
-  height: 80vh;
-  overflow-y: scroll;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  overflow-x: hidden;
+  margin-top: 1.25rem;
+  &__list {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    @include mixins.grid-layout($gap: 20px);
+    @media only screen and (max-width: variables.$mobile-breakpoint) {
+      @include mixins.grid-layout($gap: 10px, $grid-template-columns: 1fr);
+    }
+  }
 }
