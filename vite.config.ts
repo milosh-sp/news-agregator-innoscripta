@@ -9,4 +9,14 @@ export default defineConfig({
     port: 8080,
     host: '0.0.0.0',
   },
+
+  css: {
+    modules: {
+      generateScopedName:
+        'development' === 'development'
+          ? `[local]`
+          : // CSS File names are only hashed in production/staging
+            `[hash:base64:5]`,
+    },
+  },
 })

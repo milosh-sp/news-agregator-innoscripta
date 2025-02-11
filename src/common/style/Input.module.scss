@@ -5,8 +5,8 @@
 /* @define input */
 .input {
   width: 100%;
-
   &__elem {
+    width: 100%;
     padding: 7px 15px;
     background-color: colors.$cream;
     border: 1px solid colors.$gray;

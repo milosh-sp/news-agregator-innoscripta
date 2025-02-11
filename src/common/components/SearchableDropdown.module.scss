@@ -38,6 +38,10 @@
   &__option {
     cursor: pointer;
     padding: 7px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @include mixins.font-style(variables.$font-md, variables.$font-bold);
   }
 }
