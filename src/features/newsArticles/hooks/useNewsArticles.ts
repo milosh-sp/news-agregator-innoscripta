@@ -1,8 +1,8 @@
 import { ArticleQuery } from '../../../services/types/Query.types'
 import { useAppDispatch, useAppSelector } from '../../../state/hooks'
 import { articleFetchData } from '../newsArticleThunks'
-import { filterBy } from '../newsArticlesSlice'
-import { FilterPayload } from '../types/NewsArticle.type'
+import { filterBy, applyPersonalized } from '../newsArticlesSlice'
+import { FilterPayload, Personalize } from '../types/NewsArticle.type'
 
 /**
  * Used to interact with the newsArticles slice, abstracts some functionalities
@@ -21,10 +21,6 @@ function useNewsArticles() {
     )
   }
 
-  /**
-   * Allows filtering articles in the redux store, by passing a key to filter
-   * and value. If nothing is provided it will reset the filter to initial state
-   */
   function filterArticlesBy(params?: FilterPayload) {
     if (params) {
       const { key, value } = params
@@ -32,6 +28,10 @@ function useNewsArticles() {
       return
     }
     dispatch(filterBy({}))
+  }
+
+  function personalizeFeed(params?: Personalize) {
+    dispatch(applyPersonalized(params as void))
   }
 
   return {
@@ -48,9 +48,14 @@ function useNewsArticles() {
      */
     setQuery,
     /**
-     * Filters articles in the redux store
+     * Allows filtering articles in the redux store, by passing a key to filter
+     * and value. If nothing is provided it will reset the filter to initial state
      */
     filterArticlesBy,
+    /**
+     * Applies the personalized feed to the redux store
+     */
+    personalizeFeed,
     status: data.status,
     isLoading: data.status === 'loading',
     error: data.error,

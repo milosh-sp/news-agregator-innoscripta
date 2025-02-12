@@ -4,7 +4,7 @@ import {
   setPreference,
   resetPresences,
 } from '../personalFeedSlice'
-import { PrefKeys } from '../types/PersonalFeed.types'
+import { Preference, PrefKeys } from '../types/PersonalFeed.types'
 
 /**
  * A hook to interact with the personal feed slice, allowing the user to set,
@@ -39,8 +39,15 @@ export function usePersonalFeed() {
     dispatch(resetPresences())
   }
 
+  const prefsActive = (preference: Preference) =>
+    Object.values(preference).some((prefArray) => prefArray.length > 0)
+
   return {
     preference: data.preference,
     setPersonalPreference,
+    /**
+     * Checks if the user has saved any kind of feed preference
+     */
+    isActivePrefs: prefsActive(data.preference),
   }
 }

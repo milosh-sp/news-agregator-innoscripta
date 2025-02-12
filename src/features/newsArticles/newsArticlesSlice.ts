@@ -3,7 +3,7 @@ import { AggregatedArticle } from '../../services/models/AggregatedArticles.mode
 import { ArticleQuery } from '../../services/types/Query.types'
 import { filterArticles } from './newsArticlesReducers'
 import { articleFetchData } from './newsArticleThunks'
-import { FilterPayload } from './types/NewsArticle.type'
+import { FilterPayload, Personalize } from './types/NewsArticle.type'
 import {
   extractMetaFilters,
   getPersonalizedArticles,
@@ -55,6 +55,19 @@ const newsArticlesSlice = createSlice({
   name: 'newsArticles',
   initialState,
   reducers: {
+    applyPersonalized: (
+      state,
+      action: {
+        payload?: Personalize
+      }
+    ) => {
+      const personalizedData = getPersonalizedArticles(state.initialArticles)
+
+      state.articles =
+        action?.payload?.key === 'reset'
+          ? state.initialArticles
+          : personalizedData
+    },
     filterBy: (
       state,
       action: {
@@ -62,7 +75,7 @@ const newsArticlesSlice = createSlice({
       }
     ) => {
       if (!action.payload.value || !action.payload.key) {
-        state.articles = state.initialArticles
+        state.articles = getPersonalizedArticles(state.initialArticles)
         state.activeFilters = {
           category: '',
           source: '',
@@ -71,7 +84,7 @@ const newsArticlesSlice = createSlice({
       }
 
       const filteredArticles = filterArticles(
-        state.initialArticles,
+        getPersonalizedArticles(state.initialArticles),
         action.payload
       )
 
@@ -142,6 +155,6 @@ const newsArticlesSlice = createSlice({
 })
 
 const newsArticlesReducer = newsArticlesSlice.reducer
-const { filterBy } = newsArticlesSlice.actions
+const { filterBy, applyPersonalized } = newsArticlesSlice.actions
 
-export { articleFetchData, filterBy, newsArticlesReducer }
+export { articleFetchData, filterBy, applyPersonalized, newsArticlesReducer }

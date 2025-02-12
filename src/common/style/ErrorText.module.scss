@@ -1,4 +1,7 @@
+@use '../../common/style/variables';
+
 /* @define error-text */
 .error-text {
   color: red;
+  text-shadow: variables.$shadow-subdue;
 }

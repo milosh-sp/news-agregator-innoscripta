@@ -5,6 +5,7 @@ import { NewsArticleFilters } from './NewsArticleFilters'
 import { Button } from '../../../common/components/Button'
 import style from '../style/SearchbarOptions.module.scss'
 import { ButtonVariant } from '../../../common/types/Button.type'
+import { usePersonalFeed } from '../../personalFeed/hooks/usePersonalFeed'
 
 const options = [
   {
@@ -26,6 +27,7 @@ const options = [
  * filter articles
  */
 function SearchbarOptions() {
+  const { isActivePrefs } = usePersonalFeed()
   const [renderOptionIndex, setRenderOptionIndex] = useState(-1)
 
   const handleClick = (index: number) => () => {
@@ -36,6 +38,10 @@ function SearchbarOptions() {
     <section className={style['searchbar-options']}>
       {options.map(({ label, component, id, buttonType }, index) => {
         const showComponent = renderOptionIndex === index
+        const btnLabel =
+          id === 'btn_prfs'
+            ? `${label}${isActivePrefs ? getString('HAS_PREFS') : ''}`
+            : label
 
         return (
           <section key={id} className={style['searchbar-options__container']}>
@@ -44,7 +50,7 @@ function SearchbarOptions() {
               variant={buttonType as ButtonVariant}
               className={style['searchbar-options__button']}
             >
-              {label}
+              {btnLabel}
             </Button>
             {showComponent && (
               <article className={style['searchbar-options__option']}>

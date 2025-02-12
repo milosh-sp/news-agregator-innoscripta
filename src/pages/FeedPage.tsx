@@ -7,6 +7,7 @@ import { NewsArticleSearch } from '../features/newsArticles/components/NewsArtic
 import { getString } from '../common/utils'
 import { useEffect } from 'react'
 import { CONSTS } from '../common/consts'
+import { Button } from '../common/components/Button'
 
 /**
  * Renders the main feed page, on render the whole feed is fetched
@@ -14,27 +15,47 @@ import { CONSTS } from '../common/consts'
 function FeedPage() {
   const { articles, isLoading, error, status, setQuery } = useNewsArticles()
 
-  // useEffect(() => {
-  //   //FIXME: In react dev more this will be called twice, need to cancel the
-  //   //request not the promise returned from `setQuery`
-  //   setQuery({
-  //     searchWord: CONSTS.initialFeedQuery,
-  //   })
+  useEffect(() => {
+    //FIXME: In react dev more this will be called twice, need to cancel the
+    //request not the promise returned from `setQuery`
+    setQuery({
+      searchWord: CONSTS.initialFeedQuery,
+    })
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const tryAgain = (
+    <Button
+      variant={'secondary'}
+      //FIXME: Not debounced
+      onClick={() => setQuery({ searchWord: CONSTS.initialFeedQuery })}
+    >
+      {getString('REFRESH_FEED')}
+    </Button>
+  )
 
   return (
     <PageLayout>
       <NewsArticleSearch />
       {isLoading && <Spinner />}
-      {error ? <ErrorText errorText={getString('GENERIC_ERROR')} /> : null}
+      {error ? (
+        <>
+          <ErrorText errorText={getString('GENERIC_ERROR')} />
+          {tryAgain}
+        </>
+      ) : null}
 
       {!isLoading && !error && <NewsArticles articles={articles} />}
       {!error &&
         articles &&
         articles.length === 0 &&
-        status === 'succeeded' && <p>{getString('NO_ARTICLES_FOUND')}</p>}
+        status === 'succeeded' && (
+          <>
+            <ErrorText errorText={getString('NO_ARTICLES_FOUND')} />
+            {tryAgain}
+          </>
+        )}
     </PageLayout>
   )
 }

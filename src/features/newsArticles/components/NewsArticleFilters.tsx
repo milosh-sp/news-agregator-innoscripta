@@ -21,7 +21,7 @@ function NewsArticleFilters() {
           placeholder={
             activeFilters?.['category'] || getString('ADD_CAT_BUTTON')
           }
-          options={articleMetaFilters.category.map((c) => ({
+          options={articleMetaFilters?.category?.map((c) => ({
             value: c,
             label: c,
           }))}
@@ -32,7 +32,7 @@ function NewsArticleFilters() {
           placeholder={
             activeFilters?.['source'] || getString('ADD_SOURCE_BUTTON')
           }
-          options={articleMetaFilters.source.map((c) => ({
+          options={articleMetaFilters?.source?.map((c) => ({
             value: c,
             label: c,
           }))}

@@ -1,6 +1,11 @@
 type FilterPayload = {
   key?: 'category' | 'source' | 'date' | 'author' | string
   value?: string | { from?: string; to?: string }
+  skipActiveFilters?: boolean
+}
+
+type Personalize = {
+  key?: 'reset'
 }
 
 interface DateRange {
@@ -15,4 +20,4 @@ interface DateFilterResult {
   rangeEnd: number
 }
 
-export type { FilterPayload, DateRange, DateFilterResult }
+export type { FilterPayload, DateRange, DateFilterResult, Personalize }
