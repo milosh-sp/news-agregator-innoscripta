@@ -3,6 +3,7 @@ import { LocalStorage } from '../../common/utils'
 import { AggregatedArticle } from '../../services/models/AggregatedArticles.model'
 import { Preference } from '../personalFeed/types/PersonalFeed.types'
 import { filterArticles } from './newsArticlesReducers'
+import { DateRange, DateFilterResult } from './types/NewsArticle.type'
 
 /**
  * Normalizes data to be array of objects from the `AggregatorService`
@@ -104,6 +105,7 @@ function getPersonalizedArticles(
     Object.entries(preferences).forEach(([key, value]) => {
       value.forEach((v) => {
         preferenceArticles = [
+          ...preferenceArticles,
           ...filterArticles(articles, {
             key,
             value: v,
@@ -115,19 +117,7 @@ function getPersonalizedArticles(
     return [...preferenceArticles]
   }
 
-  return preferenceArticles
-}
-
-interface DateRange {
-  from?: string
-  to?: string
-}
-
-interface DateFilterResult {
-  isValid: boolean
-  articleTimestamp: number
-  rangeStart: number
-  rangeEnd: number
+  return articles
 }
 
 /**

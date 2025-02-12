@@ -14,8 +14,9 @@ const buttonVariant = 'purple'
  */
 function PersonalPreferencesControls() {
   const { setPersonalPreference, preference } = usePersonalFeed()
-  const { articleMetaFilters, filterArticlesBy } = useNewsArticles()
+  const { articleMetaFilters, personalizeFeed } = useNewsArticles()
   const searchPlaceholder = getString('SEARCH_ENTRY')
+
   return (
     <section className={style['personal-preferences-controls']}>
       <section className={style['personal-preferences-controls__filters']}>
@@ -30,7 +31,6 @@ function PersonalPreferencesControls() {
               prefKey: 'author',
               prefValue: value as string,
             })
-            filterArticlesBy({ value: value as string, key: 'author' })
           }}
           placeholder={getString('ADD_AUTHOR_BUTTON')}
           searchPlaceholder={searchPlaceholder}
@@ -47,7 +47,6 @@ function PersonalPreferencesControls() {
               prefKey: 'category',
               prefValue: value as string,
             })
-            filterArticlesBy({ value: value as string, key: 'category' })
           }}
           placeholder={getString('ADD_CAT_BUTTON')}
           searchPlaceholder={searchPlaceholder}
@@ -64,7 +63,6 @@ function PersonalPreferencesControls() {
               prefKey: 'source',
               prefValue: value as string,
             })
-            filterArticlesBy({ value: value as string, key: 'source' })
           }}
           placeholder={getString('ADD_SOURCE_BUTTON')}
           searchPlaceholder={searchPlaceholder}
@@ -74,11 +72,20 @@ function PersonalPreferencesControls() {
       <Button
         variant="secondary"
         onClick={() => {
-          filterArticlesBy()
           setPersonalPreference({ action: 'reset' })
+          personalizeFeed({ key: 'reset' })
         }}
       >
         {getString('RESET_BUTTON')}
+      </Button>
+
+      <Button
+        variant="primary"
+        onClick={() => {
+          personalizeFeed()
+        }}
+      >
+        {getString('PERSONALIZE_FEED')}
       </Button>
 
       <Preferences preference={preference} />

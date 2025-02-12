@@ -5,12 +5,15 @@
   "ADD_SOURCE_BUTTON": "Source",
   "ADD_AUTHOR_BUTTON": "Author",
   "OPTIONS_BUTTON_FILTER": "Filters",
-  "OPTIONS_BUTTON_PREFS": "Prefs",
+  "OPTIONS_BUTTON_PREFS": "Custom",
   "RESET_BUTTON": "Reset",
   "NO_ARTICLES_FOUND": "No articles found for this word, reset filters or preferences",
   "SEARCH_ENTRY": "Search entry...",
   "DATE_FROM": "From",
   "DATE_TO": "To",
   "FALLBACK_FOR_ARTICLES": "Unknown",
-  "MAX_PICKS": "Max 5"
+  "MAX_PICKS": "Max 5",
+  "PERSONALIZE_FEED": "Save choices",
+  "HAS_PREFS": ": Active",
+  "REFRESH_FEED": "Refresh feed"
 }

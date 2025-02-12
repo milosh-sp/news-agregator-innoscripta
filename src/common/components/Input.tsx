@@ -1,13 +1,12 @@
-import { Ref, forwardRef } from 'react'
 import { Label } from './Label'
 import { InputProps } from '../types/Input.type'
 import style from '../style/Input.module.scss'
 import { ErrorText } from './ErrorText'
 
-function InputComponent(
-  { label, error, id, ...props }: InputProps,
-  ref: Ref<HTMLInputElement>
-) {
+/**
+ * Generic input component with extended error message and label
+ */
+function Input({ label, error, id, ...props }: InputProps) {
   return (
     <section className={style['input']}>
       {label && (
@@ -21,7 +20,6 @@ function InputComponent(
 
       <input
         {...props}
-        ref={ref}
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
@@ -36,4 +34,4 @@ function InputComponent(
 /**
  * Input component with extended functionalities like error message rendering
  */
-export const Input = forwardRef(InputComponent)
+export { Input }
