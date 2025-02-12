@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { DropdownOption } from '../types/SearchableDropdown.type'
 
 /**
@@ -11,8 +11,12 @@ export function useDropdown<T extends string>(options: DropdownOption<T>[]) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // React 19, no need to wrap this into useMemo
-  const filteredOptions = options?.filter((option) =>
-    option?.label?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredOptions = useMemo(
+    () =>
+      options?.filter((option) =>
+        option?.label?.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [options, searchQuery]
   )
 
   useEffect(() => {

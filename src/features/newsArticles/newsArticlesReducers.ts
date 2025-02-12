@@ -23,7 +23,9 @@ function filterArticles(
   // Get the specific key and value
   const { key, value } = filters
 
-  return articles.filter((article) => {
+  const filtered = [] as Array<AggregatedArticle>
+
+  articles.forEach((article) => {
     // Handle date filtering
     if (key === 'date' && value && typeof value === 'object') {
       return filterByDate(article, key, value)
@@ -37,12 +39,16 @@ function filterArticles(
     ) {
       const articleValue =
         article[key as keyof AggregatedArticle]?.toLowerCase() || ''
-      return articleValue === value.toLowerCase()
+      if (value.toLowerCase() === articleValue) {
+        filtered.push(article)
+      }
     }
 
     // Handle unknown keys
     return true
   })
+
+  return filtered
 }
 
 export { filterArticles }

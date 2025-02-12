@@ -3,4 +3,16 @@ type FilterPayload = {
   value?: string | { from?: string; to?: string }
 }
 
-export type { FilterPayload }
+interface DateRange {
+  from?: string
+  to?: string
+}
+
+interface DateFilterResult {
+  isValid: boolean
+  articleTimestamp: number
+  rangeStart: number
+  rangeEnd: number
+}
+
+export type { FilterPayload, DateRange, DateFilterResult }

@@ -14,15 +14,15 @@ import { CONSTS } from '../common/consts'
 function FeedPage() {
   const { articles, isLoading, error, status, setQuery } = useNewsArticles()
 
-  useEffect(() => {
-    //FIXME: In react dev more this will be called twice, need to cancel the
-    //request not the promise returned from `setQuery`
-    setQuery({
-      searchWord: CONSTS.initialFeedQuery,
-    })
+  // useEffect(() => {
+  //   //FIXME: In react dev more this will be called twice, need to cancel the
+  //   //request not the promise returned from `setQuery`
+  //   setQuery({
+  //     searchWord: CONSTS.initialFeedQuery,
+  //   })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return (
     <PageLayout>

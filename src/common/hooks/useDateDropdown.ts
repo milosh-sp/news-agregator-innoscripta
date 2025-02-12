@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { DropdownOption } from '../types/SearchableDropdown.type'
 import { DateDropdownProps } from '../types/DateDropdown.type'
 import { createValidDate, getDaysInMonth } from '../utils'
@@ -43,33 +43,36 @@ export function useDateDropdown({
     onChange?.(date)
   }
 
-  const monthOptions: Array<DropdownOption<string>> = Array.from(
-    { length: 12 },
-    (_, i) => ({
-      value: String(i + 1),
-      //TODO: Check if should be locale
-      label: new Date(2000, i, 1).toLocaleString('default', {
-        month: 'long',
-      }),
-    })
+  const monthOptions = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        value: String(i + 1),
+        //TODO: Check if should be locale
+        label: new Date(2000, i, 1).toLocaleString('default', {
+          month: 'long',
+        }),
+      })),
+    []
   )
 
-  const yearOptions: Array<DropdownOption<string>> = Array.from(
-    { length: maxYear - minYear + 1 },
-    (_, i) => ({
-      value: String(minYear + i),
-      label: String(minYear + i),
-    })
+  const yearOptions = useMemo(
+    () =>
+      Array.from({ length: maxYear - minYear + 1 }, (_, i) => ({
+        value: String(minYear + i),
+        label: String(minYear + i),
+      })),
+    [minYear, maxYear]
   )
 
   const daysInMonth = month && year ? getDaysInMonth(month, year) : 31
 
-  const dayOptions: Array<DropdownOption<string>> = Array.from(
-    { length: daysInMonth },
-    (_, i) => ({
-      value: String(i + 1),
-      label: String(i + 1),
-    })
+  const dayOptions: Array<DropdownOption<string>> = useMemo(
+    () =>
+      Array.from({ length: daysInMonth }, (_, i) => ({
+        value: String(i + 1),
+        label: String(i + 1),
+      })),
+    [daysInMonth]
   )
 
   return {
